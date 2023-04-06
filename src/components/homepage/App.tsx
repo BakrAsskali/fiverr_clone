@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import "/home/bakaria19/Documents/Web/fiverr_clone/src/components/style/App.css";
+import "/home/bakaria19/Documents/Web/fiverr_clone/src/components/style/NavbarElements.css";
 
 type Image = {
   id: number;
@@ -36,6 +37,29 @@ function App() {
 
   return (
     <>
+      <nav>
+        <a href="/">
+          <h1>Logo</h1>
+        </a>
+        <br />
+        <div className="nav-menu">
+          <a href="/explore" style={{ fontWeight: "bold" }}>
+            Explore
+          </a>
+          <a href="/signin" style={{ fontWeight: "bold" }}>
+            Sign in
+          </a>
+        </div>
+        <div className="nav-btn">
+          <a
+            className="nav-btn-link"
+            href="/join"
+            style={{ fontWeight: "bold" }}
+          >
+            Join
+          </a>
+        </div>
+      </nav>
       <div className="video">
         <img className="img" src={currentImage.url} alt="" />
         <div className="overlay">
@@ -93,6 +117,84 @@ function App() {
           </td>
         </table>
       </div>
+      <div>
+        <h2>Discover more categories</h2>
+        <ul className="categories">
+          <div className="category">
+            <a href="">Web design</a>
+          </div>
+          <div className="category">
+            <a href="">Video editing</a>
+          </div>
+          <div className="category">
+            <a href="">Voice acting</a>
+          </div>
+          <div className="category">
+            <a href="">Logo design</a>
+          </div>
+          <div className="category">
+            <a href="">Mobile app development</a>
+          </div>
+          <div className="category">
+            <a href="">3D modeling</a>
+          </div>
+          <div className="category">
+            <a href="">Animation</a>
+          </div>
+          <div className="category">
+            <a href="">Music & audio</a>
+          </div>
+          <div className="category">
+            <a href="">Writing</a>
+          </div>
+          <div className="category">
+            <a href="">Photography</a>
+          </div>
+        </ul>
+      </div>
+      <div className="Ad">
+        <h2>Find the talent needed to get your business growing.</h2>
+      </div>
+      <div className="legend">
+        <table>
+          <th>Categories</th>
+          <td>
+            <a href="">Web design</a>
+          </td>
+          <td>
+            <a href="">Video editing</a>
+          </td>
+          <td>
+            <a href="">Voice acting</a>
+          </td>
+          <td>
+            <a href="">Logo design</a>
+          </td>
+          <td>
+            <a href="">Mobile app development</a>
+          </td>
+          <td>
+            <a href="">3D modeling</a>
+          </td>
+          <td>
+            <a href="">Animation</a>
+          </td>
+          <td>
+            <a href="">Music & audio</a>
+          </td>
+          <td>
+            <a href="">Writing</a>
+          </td>
+          <td>
+            <a href="">Photography</a>
+          </td>
+          <th>Support</th>
+          <td>
+            <a href="">Help & Support</a>
+          </td>
+        </table>
+      </div>
+      <footer>© cloned Fiverr Ltd. 2023</footer>
     </>
   );
 }

@@ -77,3 +77,35 @@ li .img {
 .description table {
   display: block;
 }
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  list-style-type: none;
+  font-size: 20px;
+}
+
+.categories li {
+  margin-right: 30px;
+}
+
+.categories a {
+  color: #28a745;
+  text-decoration: none;
+}
+
+.categories a:hover {
+  color: #218838;
+}
+
+.legend {
+  /* make it so the table is vertical */
+  display: table-cell;
+  grid-template-columns: repeat(5, 1fr);
+  list-style-type: none;
+  font-size: 20px;
+}
+
+.legend li {
+  margin-right: 30px;
+}
