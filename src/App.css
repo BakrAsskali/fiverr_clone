@@ -1,0 +1,79 @@
+.video {
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay {
+  font-size: 40px;
+  color: white;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: fit-content;
+  margin: auto;
+  text-shadow: 0 0 40px black;
+}
+
+.img {
+  object-fit: cover;
+  width: 80%;
+  height: 80vh;
+  filter: contrast(1.35) brightness(0.65);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.img.fade-out {
+  opacity: 0;
+}
+
+.img.fade-in {
+  opacity: 1;
+}
+
+ul {
+  list-style-type: none;
+  display: inline-flex;
+  font-size: 20px;
+}
+
+li {
+  margin-right: 10px;
+}
+
+.capsule {
+  background-color: #28a745;
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.capsule a {
+  color: white;
+  text-decoration: none;
+}
+
+.capsule:hover {
+  background-color: #218838;
+}
+
+li .img {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.description table {
+  display: block;
+}
