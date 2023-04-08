@@ -68,8 +68,8 @@ function App() {
           <div className="search">
             <input type="text" placeholder="Search.." />
           </div>
-          <ul>
-            <li>popular</li>
+          <ul className="cats">
+            <li id="popular">popular</li>
             <li className="capsule">
               <a href="">Web design</a>
             </li>
@@ -155,46 +155,82 @@ function App() {
       <div className="Ad">
         <h2>Find the talent needed to get your business growing.</h2>
       </div>
-      <div className="legend">
-        <table>
-          <th>Categories</th>
-          <td>
-            <a href="">Web design</a>
-          </td>
-          <td>
-            <a href="">Video editing</a>
-          </td>
-          <td>
-            <a href="">Voice acting</a>
-          </td>
-          <td>
-            <a href="">Logo design</a>
-          </td>
-          <td>
-            <a href="">Mobile app development</a>
-          </td>
-          <td>
-            <a href="">3D modeling</a>
-          </td>
-          <td>
-            <a href="">Animation</a>
-          </td>
-          <td>
-            <a href="">Music & audio</a>
-          </td>
-          <td>
-            <a href="">Writing</a>
-          </td>
-          <td>
-            <a href="">Photography</a>
-          </td>
-          <th>Support</th>
-          <td>
-            <a href="">Help & Support</a>
-          </td>
+      <div className="container">
+        <table className="legend">
+          <thead>
+            <tr>
+              <th>Categories</th>
+              <th colSpan={10}>Support</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <a href="">Web design</a>
+              </td>
+              <td>
+                <a href="">Help & Support</a>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="">Video editing</a>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <a href="">Voice acting</a>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <a href="">Logo design</a>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <a href="">Mobile app development</a>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <a href="">3D modeling</a>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <a href="">Animation</a>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <a href="">Music & audio</a>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <a href="">Writing</a>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <a href="">Photography</a>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
         </table>
       </div>
-      <footer>© cloned Fiverr Ltd. 2023</footer>
+
+      <footer className="footer">© cloned Fiverr Ltd. 2023</footer>
     </>
   );
 }
