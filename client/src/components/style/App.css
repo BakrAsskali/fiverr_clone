@@ -17,6 +17,7 @@
   transform: translate(-50%, -50%);
   text-align: center;
   color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .overlay p {
@@ -115,7 +116,7 @@ li {
 }
 
 li #popular {
-  font-size: 18px;
+  font-size: 30px;
   margin-right: 10px;
 }
 

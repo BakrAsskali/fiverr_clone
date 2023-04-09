@@ -94,3 +94,65 @@ nav .nav-btn a {
     display: none;
   }
 }
+
+.login_popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 300px;
+  background-color: lightgray;
+  border-radius: 8px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  z-index: 999;
+}
+
+.close_btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background: url('/path/to/close_button.svg');
+  background-size: contain;
+  cursor: pointer;
+  color: #000;
+  z-index: 9999;
+}
+
+.login_popup h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #010606;
+}
+
+.input_field {
+  margin-bottom: 20px;
+}
+
+.input_field input {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-bottom: 2px solid #eee;
+  font-size: 16px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.signup_link {
+  margin-top: 20px;
+}
+
+.signup_link a {
+  color: #333;
+  text-decoration: underline;
+  font-size: 14px;
+}

@@ -1,13 +1,49 @@
 import { useEffect, useState } from "react";
-import "/home/bakaria19/Documents/Web/fiverr_clone/src/components/style/App.css";
-import "/home/bakaria19/Documents/Web/fiverr_clone/src/components/style/NavbarElements.css";
+import "/home/bakaria19/Documents/Web/fiverr_clone/client/src/components/style/App.css";
+import "/home/bakaria19/Documents/Web/fiverr_clone/client/src/components/style/NavbarElements.css";
 
 type Image = {
   id: number;
   url: string;
 };
 
+interface PopupProps {
+  onClose: () => void;
+}
+
+function PopupComponent(props: PopupProps) {
+  const { onClose } = props;
+  const [isActive, setIsActive] = useState(false);
+
+  return (
+    <div className="login_popup">
+      <div className="close_btn" onClick={onClose}></div>
+      <h1>Sign in</h1>
+      <div className="input_field">
+        <input type="email" className="validate" placeholder="Email" />
+      </div>
+      <div className="input_field">
+        <input type="password" className="validate" placeholder="Password" />
+      </div>
+      <button className="second_button">Sign in</button>
+      <div className="signup_link">
+        <a href="/signup">Don't have an account? Sign up</a>
+      </div>
+    </div>
+  );
+}
+
 function App() {
+  const [backendData, setBackendData] = useState([{}]);
+
+  useEffect(() => {
+    fetch("/fiverr")
+      .then((res) => res.json())
+      .then((data) => {
+        setBackendData(data);
+      });
+  }, []);
+
   const [images] = useState<Image[]>([
     {
       id: 1,
@@ -35,6 +71,14 @@ function App() {
     return () => clearInterval(interval);
   }, [images]);
 
+  const [isActive, setIsActive] = useState(false);
+  const togglePopup = () => {
+    console.log("togglePopup called");
+    setIsActive(!isActive);
+  };
+
+  console.log("isActive:", isActive);
+
   return (
     <>
       <nav>
@@ -46,9 +90,7 @@ function App() {
           <a href="/explore" style={{ fontWeight: "bold" }}>
             Explore
           </a>
-          <a href="/signin" style={{ fontWeight: "bold" }}>
-            Sign in
-          </a>
+          <button onClick={togglePopup}>Sign in</button>
         </div>
         <div className="nav-btn">
           <a
@@ -60,6 +102,7 @@ function App() {
           </a>
         </div>
       </nav>
+      {isActive && <PopupComponent onClose={togglePopup} />}
       <div className="video">
         <img className="img" src={currentImage.url} alt="" />
         <div className="overlay">
