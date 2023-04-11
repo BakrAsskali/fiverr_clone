@@ -101,7 +101,7 @@ nav .nav-btn a {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 200px;
-  height: 300px;
+  height: 500px;
   background-color: lightgray;
   border-radius: 8px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
@@ -110,7 +110,7 @@ nav .nav-btn a {
   justify-content: center;
   align-items: center;
   padding: 40px;
-  z-index: 999;
+  z-index: 1;
 }
 
 .close_btn {
@@ -155,4 +155,12 @@ nav .nav-btn a {
   color: #333;
   text-decoration: underline;
   font-size: 14px;
+}
+
+.login_popup p {
+  color: #000;
+}
+
+#my-signin2 {
+  z-index: 2;
 }
