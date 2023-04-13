@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
-import Navbar from "/home/bakaria19/Documents/Web/fiverr_clone/client/src/Navigation/Navbar.tsx";
+import React, { useEffect, useState } from "react";
 import "/home/bakaria19/Documents/Web/fiverr_clone/client/src/components/style/App.css";
-
 type Image = {
   id: number;
   url: string;
 };
 
-function App() {
+function Homepage() {
   const [backendData, setBackendData] = useState([{}]);
 
   useEffect(() => {
@@ -47,7 +45,6 @@ function App() {
 
   return (
     <>
-      <Navbar />
       <div className="video">
         <img className="img" src={currentImage.url} alt="" />
         <div className="overlay">
@@ -223,4 +220,4 @@ function App() {
   );
 }
 
-export default App;
+export default Homepage;
