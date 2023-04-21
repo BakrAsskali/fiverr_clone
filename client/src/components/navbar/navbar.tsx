@@ -1,6 +1,6 @@
 import { GoogleLogin } from "@react-oauth/google";
 import { useState } from "react";
-import "/home/bakaria19/Documents/Web/fiverr/src/assets/styles/NavbarElements.css";
+import "/home/bakaria19/Documents/Web/fiverr_clone/client/src/assets/styles/NavbarElements.css";
 import React from "react";
 
 interface PopupProps {
