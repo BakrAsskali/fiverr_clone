@@ -34,6 +34,10 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  display: grid;
+  grid-auto-flow: row;
+  align-items: center;
+  justify-items: center;
 }
 
 button {

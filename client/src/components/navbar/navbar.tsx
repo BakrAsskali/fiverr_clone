@@ -1,6 +1,7 @@
 import { GoogleLogin } from "@react-oauth/google";
-import React, { useEffect, useState } from "react";
-import "./NavbarElements.css";
+import { useState } from "react";
+import "/home/bakaria19/Documents/Web/fiverr/src/assets/styles/NavbarElements.css";
+import React from "react";
 
 interface PopupProps {
   onClose: () => void;
@@ -8,7 +9,6 @@ interface PopupProps {
 
 function PopupComponent(props: PopupProps) {
   const { onClose } = props;
-  const [isActive, setIsActive] = useState(false);
   const responseMessage = (response: any) => {
     console.log(response);
   };
@@ -40,13 +40,19 @@ function PopupComponent(props: PopupProps) {
     </div>
   );
 }
+export interface NavbarProps {
+  className?: string;
+}
 
-const Navbar = () => {
+/**
+ * This component was created using Codux's Default new component template.
+ * To create custom component templates, see https://help.codux.com/kb/en/article/configuration-for-navbars-and-templates
+ */
+export const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
   const togglePopup = () => {
     setIsActive(!isActive);
   };
-
   return (
     <nav>
       <a href="/">
@@ -60,7 +66,11 @@ const Navbar = () => {
         <button onClick={togglePopup}>Sign in</button>
       </div>
       <div className="nav-btn">
-        <a className="nav-btn-link" href="/join" style={{ fontWeight: "bold" }}>
+        <a
+          className="nav-btn-link"
+          href="/signup"
+          style={{ fontWeight: "bold" }}
+        >
           Join
         </a>
       </div>
@@ -68,5 +78,3 @@ const Navbar = () => {
     </nav>
   );
 };
-
-export default Navbar;

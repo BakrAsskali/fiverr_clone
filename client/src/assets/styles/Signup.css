@@ -1,0 +1,24 @@
+.noaccount {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.account_type {
+  display: flex;
+  align-self: start;
+  position: static;
+  align-items: center;
+  justify-items: center;
+  grid-auto-flow: column;
+  flex-direction: row;
+  margin: 0px 0px 0px 110px;
+}
+.signup {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  grid-auto-flow: row;
+  margin: 0% 0px 0px 550px;
+  flex-direction: column;
+}
