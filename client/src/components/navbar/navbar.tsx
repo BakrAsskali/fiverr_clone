@@ -1,6 +1,6 @@
 import { GoogleLogin } from "@react-oauth/google";
 import React, { useState } from "react";
-import "/home/bakaria19/Documents/Web/fiverr_clone/client/src/assets/styles/NavbarElements.css";
+import "../../assets/styles/NavbarElements.css";
 
 interface PopupProps {
   onClose: () => void;

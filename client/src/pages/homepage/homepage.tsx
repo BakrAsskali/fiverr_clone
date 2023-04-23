@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "/home/bakaria19/Documents/Web/fiverr_clone/client/src/assets/styles/App.css";
+import "../../assets/styles/App.css";
 
 export interface HomepageProps {
   className?: string;

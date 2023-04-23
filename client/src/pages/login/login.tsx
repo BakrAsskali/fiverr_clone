@@ -1,5 +1,5 @@
 import { GoogleLogin } from "@react-oauth/google";
-import "/home/bakaria19/Documents/Web/fiverr_clone/client/src/assets/styles/Login.css";
+import "../../assets/styles/Login.css";
 import React from "react";
 
 export interface LoginProps {

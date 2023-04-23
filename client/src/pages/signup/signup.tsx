@@ -1,5 +1,5 @@
 import Classnames from "classnames";
-import "/home/bakaria19/Documents/Web/fiverr_clone/client/src/assets/styles/Signup.css";
+import "../../assets/styles/Signup.css";
 
 export interface SignupProps {
   className?: string;
