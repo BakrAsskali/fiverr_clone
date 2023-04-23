@@ -1,0 +1,76 @@
+.gigCard {
+    width: 324px;
+    height: 370px;
+    border: 1px solid lightgray;
+    margin-bottom: 25px;
+  }
+  
+  .gigCard img {
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+  }
+  
+  .gigCard .info {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .gigCard .info .user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .gigCard .info .user img {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+  }
+  
+  .gigCard .info p {
+    color: #111;
+  }
+  
+  .gigCard .info .star {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .gigCard .info .star img {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .gigCard .info .star span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffc108;
+  }
+  
+  .gigCard .details {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .gigCard .details img {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  
+  .gigCard .details .price span {
+    color: #999;
+    font-size: 12px;
+  }
+  
+  .gigCard .details .price h2 {
+    color: #555;
+    font-size: 18px;
+  }
+  
