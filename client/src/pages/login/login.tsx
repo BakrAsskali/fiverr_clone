@@ -18,7 +18,7 @@ export const Login = () => {
     console.log(error);
   };
   return (
-    <>
+    <div className="Login">
       <h1>Sign in</h1>
       <div className="input_field">
         <input type="email" className="validate" placeholder="Email" />
@@ -35,8 +35,11 @@ export const Login = () => {
         </div>
       </div>
       <div className="signup_link">
-        <p>Don't have an account?</p> <a href="/signup">Sign up</a>
+        <p>Don't have an account?</p>{" "}
+        <a href="/signup" className="link">
+          Sign up
+        </a>
       </div>
-    </>
+    </div>
   );
 };

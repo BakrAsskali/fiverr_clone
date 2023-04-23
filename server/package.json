@@ -4,21 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server",
-    "dev": "nodemon server"
+    "start": "node app.js",
+    "app": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
+    "body-parser": "^1.20.2",
+    "config": "^3.3.9",
     "express": "^4.18.2",
-    "mongodb": "^5.2.0",
-    "mongoose": "^7.0.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
+    "mongodb": "^5.3.0",
+    "mongoose": "^7.0.4"
   }
 }

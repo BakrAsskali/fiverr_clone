@@ -1,2 +1,12 @@
-.root {
+.Login {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    grid-auto-flow: row;
+    margin: 0% 0px 0px 775px;
+    flex-direction: column;
+}
+
+.link {
+    margin-left: 50px
 }

@@ -1,5 +1,5 @@
-import "/home/bakaria19/Documents/Web/fiverr_clone/client/src/assets/styles/Signup.css";
 import Classnames from "classnames";
+import "/home/bakaria19/Documents/Web/fiverr_clone/client/src/assets/styles/Signup.css";
 
 export interface SignupProps {
   className?: string;
@@ -23,7 +23,9 @@ export const Signup = ({ className }: SignupProps) => {
         >
           <h2>Client</h2>
           <p>I'm a client, hiring for a project</p>
-          <button>Sign up as a client</button>
+          <button>
+            <a href="/client">Sign up as a client</a>
+          </button>
         </div>
         <div
           className="freelancer"
@@ -36,7 +38,9 @@ export const Signup = ({ className }: SignupProps) => {
         >
           <h2>Freelancer</h2>
           <p>I'm a freelancer looking for work</p>
-          <button>Sign up as a freelancer</button>
+          <button>
+            <a href="/freelancer">Sign up as a freelancer</a>
+          </button>
         </div>
       </div>
       <div className="noaccount">
