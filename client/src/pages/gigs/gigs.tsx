@@ -97,5 +97,3 @@ export const Gigs: React.FC = () => {
     </div>
   );
 };
-
-export default Gigs;
