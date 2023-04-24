@@ -1,10 +1,16 @@
 .Login {
-    display: flex;
-    align-items: center;
+    margin: 0% 0px 0px 650px;
+    color: black;
     justify-items: center;
-    grid-auto-flow: row;
-    margin: 0% 0px 0px 775px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
+    grid-auto-flow: row;
+    background-color: lightyellow;
+    height: 800px;
+    width: 500px;
+    box-shadow: 0 10px 25px rgba(92, 99, 105, .2);
 }
 
 .link {

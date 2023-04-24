@@ -59,7 +59,7 @@ export const Navbar = () => {
       </a>
       <br />
       <div className="nav-menu">
-        <a href="/explore" style={{ fontWeight: "bold" }}>
+        <a href="/Gigs" style={{ fontWeight: "bold" }}>
           Explore
         </a>
         <button onClick={togglePopup}>Sign in</button>

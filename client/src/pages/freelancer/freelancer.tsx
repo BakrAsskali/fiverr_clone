@@ -1,9 +1,9 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { GoogleLogin } from "@react-oauth/google";
 import classNames from "classnames";
-import "../../assets/styles/client.css";
+import "../../assets/styles/freelancer.css";
 
-export interface ClientProps {
+export interface Freelancerprops {
   className?: string;
 }
 
@@ -11,7 +11,7 @@ export interface ClientProps {
  * This component was created using Codux's Default new component template.
  * To create custom component templates, see https://help.codux.com/kb/en/article/configuration-for-clients-and-templates
  */
-export const Client = ({ className }: ClientProps) => {
+export const Freelancer = ({ className }: Freelancerprops) => {
   const responseMessage = (response: any) => {
     console.log(response);
   };
@@ -20,8 +20,8 @@ export const Client = ({ className }: ClientProps) => {
   };
   return (
     <>
-      <div className="client_register">
-        <p className="title">Sign up to hire a talent</p>
+      <div className="freelancer_register">
+        <p className="title">Sign up to find work you love</p>
         <div className="container">
           <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
         </div>

@@ -19,11 +19,22 @@ export const Signup = ({ className }: SignupProps) => {
       <div className={Classnames("container", "account_type")}>
         <div
           className="client"
-          style={{ flex: 1, display: "grid", margin: "50px" }}
+          style={{
+            flex: 1,
+            display: "grid",
+            overflow: "visible",
+            margin: "50px",
+            backgroundColor: "#EDDE8C",
+            height: "70%",
+          }}
         >
           <h2>Client</h2>
           <p>I'm a client, hiring for a project</p>
-          <button>
+          <button
+            style={{
+              backgroundColor: "darkgray",
+            }}
+          >
             <a href="/client">Sign up as a client</a>
           </button>
         </div>
@@ -31,14 +42,20 @@ export const Signup = ({ className }: SignupProps) => {
           className="freelancer"
           style={{
             flex: 1,
-            display: "inline-block",
+            display: "grid",
             overflow: "visible",
             margin: "50px",
+            backgroundColor: "#EDDE8C",
+            height: "70%",
           }}
         >
           <h2>Freelancer</h2>
           <p>I'm a freelancer looking for work</p>
-          <button>
+          <button
+            style={{
+              backgroundColor: "darkgray",
+            }}
+          >
             <a href="/freelancer">Sign up as a freelancer</a>
           </button>
         </div>
