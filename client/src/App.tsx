@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Navbar } from "./components/navbar/navbar";
 import { Client } from "./pages/client/client";
@@ -9,7 +8,7 @@ import { Homepage } from "./pages/homepage/homepage";
 import { Login } from "./pages/login/login";
 import { Signup } from "./pages/signup/signup";
 
-function App() {
+export const App = () => {
   return (
     <>
       <Navbar />
@@ -26,6 +25,4 @@ function App() {
       </BrowserRouter>
     </>
   );
-}
-
-export default App;
+};

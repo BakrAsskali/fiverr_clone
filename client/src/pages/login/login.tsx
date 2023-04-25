@@ -1,6 +1,5 @@
 import { GoogleLogin } from "@react-oauth/google";
 import "../../assets/styles/Login.css";
-import React from "react";
 
 export interface LoginProps {
   className?: string;

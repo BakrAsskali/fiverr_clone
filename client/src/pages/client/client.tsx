@@ -1,6 +1,5 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { GoogleLogin } from "@react-oauth/google";
-import classNames from "classnames";
 import "../../assets/styles/client.css";
 
 export interface ClientProps {

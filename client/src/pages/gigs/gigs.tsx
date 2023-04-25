@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../../assets/styles/Gigs.css";
-// import { gigs } from "../../data";
 import GigCard from "../../components/gigCard/GigCard";
 
 type Gig = {
