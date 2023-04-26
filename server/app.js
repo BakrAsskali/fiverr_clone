@@ -1,32 +1,43 @@
-import { ApolloServer } from "apollo-server-express";
-import { AppoloServer as AppoloServerLambda } from "apollo-server-lambda";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
 import express from "express";
-import { GraphQLSchema } from "graphql";
-import { applyMiddleware } from "graphql-middleware";
-import { MakeExecutableSchema } from "graphql-tools";
-import connectDB from "./config/db";
-import { resolvers } from "./resolvers";
-import { typeDefs } from "./schema";
-
-const schema = MakeExecutableSchema;
-({
-  typeDefs,
-  resolvers,
-});
-
-schema.applyMiddleware(schema);
-
-const server = new ApolloServer({ schema });
+import mongoose from "mongoose";
+import authenticationRoute from "./routes/authentication.route.js";
+import conversationRoute from "./routes/conversation.route.js";
+import messageRoute from "./routes/message.route.js";
+import userRoute from "./routes/user.route.js";
 
 const app = express();
-server.applyMiddleware({ app });
+dotenv.config();
+mongoose.set("strictQuery", true);
 
-connectDB();
+const connect = async () => {
+  try {
+    await mongoose.connect(process.env.ATLAS_URI);
+    console.log("MongoDB is Connected...");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-app.get("/", (req, res) => res.send("Hello world!"));
+app.use(express.json());
+app.use(cookieParser());
 
-const port = process.env.PORT || 4000;
+app.use("/api/authentication", authenticationRoute);
+app.use("/api/users", userRoute);
+app.use("/api/conversations", conversationRoute);
+app.use("/api/messages", messageRoute);
 
-app.listen(port, () =>
-  console.log(`Server running on port ${port} ${server.graphqlPath}`)
-);
+app.use((err,req,res,next)=>{
+  const statusCode = err.statusCode || 500;
+  const errorMessage = err.message || "Something went wrong";
+
+  return res.status(statusCode).send(errorMessage);
+});
+
+const port = process.env.PORT || 8800;
+
+app.listen(port, () => {
+  connect();
+  console.log(`Server running on port ${port}`);
+});

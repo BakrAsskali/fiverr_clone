@@ -27,7 +27,7 @@ export const Client = ({ className }: ClientProps) => {
         <p>
           -------------------------------------------------------------------------------------------or-------------------------------------------------------------------------------------------
         </p>
-        <div className="form-container">
+        <form className="form-container">
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
@@ -98,7 +98,7 @@ export const Client = ({ className }: ClientProps) => {
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </>
   );

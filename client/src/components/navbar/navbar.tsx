@@ -1,6 +1,6 @@
 import { GoogleLogin } from "@react-oauth/google";
-import "../../assets/styles/NavbarElements.css";
 import { useState } from "react";
+import "../../assets/styles/NavbarElements.css";
 
 interface PopupProps {
   onClose: () => void;
@@ -16,7 +16,7 @@ function PopupComponent(props: PopupProps) {
   };
 
   return (
-    <div className="login_popup">
+    <form className="login_popup">
       <div className="close_btn" onClick={onClose}></div>
       <h1>Sign in</h1>
       <div className="input_field">
@@ -36,7 +36,7 @@ function PopupComponent(props: PopupProps) {
       <div className="signup_link">
         <p>Don't have an account?</p> <a href="/signup">Sign up</a>
       </div>
-    </div>
+    </form>
   );
 }
 export interface NavbarProps {

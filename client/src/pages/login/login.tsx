@@ -1,5 +1,7 @@
 import { GoogleLogin } from "@react-oauth/google";
 import "../../assets/styles/Login.css";
+import React, { useState } from "react";
+import { graphql } from "graphql";
 
 export interface LoginProps {
   className?: string;
@@ -10,6 +12,14 @@ export interface LoginProps {
  * To create custom component templates, see https://help.codux.com/kb/en/article/configuration-for-logins-and-templates
  */
 export const Login = () => {
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+  };
+
   const responseMessage = (response: any) => {
     console.log(response);
   };
@@ -17,13 +27,23 @@ export const Login = () => {
     console.log(error);
   };
   return (
-    <div className="Login">
+    <form className="Login" onSubmit={handleSubmit}>
       <h1>Sign in</h1>
       <div className="input_field">
-        <input type="email" className="validate" placeholder="Email" />
+        <input
+          type="username"
+          className="validate"
+          placeholder="Username"
+          onChange={(e) => setUser(e.target.value)}
+        />
       </div>
       <div className="input_field">
-        <input type="password" className="validate" placeholder="Password" />
+        <input
+          type="password"
+          className="validate"
+          placeholder="Password"
+          onChange={(e) => setUser(e.target.value)}
+        />
       </div>
       <button className="second_button">Sign in</button>
       <br />
@@ -39,6 +59,6 @@ export const Login = () => {
           Sign up
         </a>
       </div>
-    </div>
+    </form>
   );
 };
