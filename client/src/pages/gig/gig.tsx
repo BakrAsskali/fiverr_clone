@@ -1,5 +1,4 @@
 // Single product page design
-import { Slider } from "infinite-react-carousel";
 import React from "react";
 import "../../assets/styles/Gig.css";
 
@@ -26,7 +25,7 @@ export const Gig: React.FC = () => {
               <span>5</span>
             </div>
           </div>
-          <Slider slidesToShow={1} arrowScroll={1} className="slider">
+          <div>
             <img
               src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
               alt=""
@@ -39,7 +38,7 @@ export const Gig: React.FC = () => {
               src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
               alt=""
             />
-          </Slider>
+          </div>
           <h2>About This Gig</h2>
           <p>
             I use an AI program to create images based on text prompts. This

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../../assets/styles/App.css";
+import Footer from "../../components/footer/Footer";
 
 export interface HomepageProps {
   className?: string;
@@ -141,82 +142,7 @@ export const Homepage = ({}: HomepageProps) => {
       <div className="Ad">
         <h2>Find the talent needed to get your business growing.</h2>
       </div>
-      <div className="container">
-        <table className="legend">
-          <thead>
-            <tr>
-              <th>Categories</th>
-              <th colSpan={10}>Support</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <a href="">Web design</a>
-              </td>
-              <td>
-                <a href="">Help & Support</a>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="">Video editing</a>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <a href="">Voice acting</a>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <a href="">Logo design</a>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <a href="">Mobile app development</a>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <a href="">3D modeling</a>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <a href="">Animation</a>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <a href="">Music & audio</a>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <a href="">Writing</a>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <a href="">Photography</a>
-              </td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <footer className="footer">© cloned Fiverr Ltd. 2023</footer>
+      <Footer />
     </>
   );
 };

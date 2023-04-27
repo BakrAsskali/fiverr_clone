@@ -1,7 +1,6 @@
 import { GoogleLogin } from "@react-oauth/google";
-import "../../assets/styles/Login.css";
 import React, { useState } from "react";
-import { graphql } from "graphql";
+import "../../assets/styles/Login.css";
 
 export interface LoginProps {
   className?: string;
@@ -23,8 +22,8 @@ export const Login = () => {
   const responseMessage = (response: any) => {
     console.log(response);
   };
-  const errorMessage = (error: any) => {
-    console.log(error);
+  const errorMessage = () => {
+    console.log("error");
   };
   return (
     <form className="Login" onSubmit={handleSubmit}>

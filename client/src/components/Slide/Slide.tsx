@@ -1,6 +1,5 @@
-// Infinite Slider Tutorial
+// Infinite div Tutorial
 import React from "react";
-import Slider from "infinite-react-carousel";
 import "../../assets/styles/Slide.css";
 
 type SlideProps = {
@@ -12,11 +11,7 @@ type SlideProps = {
 const Slide = ({ children, slidesToShow, arrowScroll }: SlideProps) => {
   return (
     <div className="slide">
-      <div className="container">
-        <Slider slidesToShow={slidesToShow} arrowScroll={arrowScroll}>
-          {children}
-        </Slider>
-      </div>
+      <div className="container"></div>
     </div>
   );
 };

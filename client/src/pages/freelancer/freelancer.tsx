@@ -14,8 +14,8 @@ export const Freelancer = ({ className }: Freelancerprops) => {
   const responseMessage = (response: any) => {
     console.log(response);
   };
-  const errorMessage = (error: any) => {
-    console.log(error);
+  const errorMessage = () => {
+    console.log("error");
   };
   return (
     <>
