@@ -1,10 +1,11 @@
 const graphql = require("graphql");
-const Gig = require("../models/gig");
+const Gig = require("../models/gigModel");
 const User = require("../models/user");
 const Review = require("../models/review");
 const Order = require("../models/order");
 const Conversation = require("../models/conversation");
 const Message = require("../models/message");
+const bcrypt = require("bcryptjs");
 
 const {
   GraphQLObjectType,
@@ -14,7 +15,7 @@ const {
   GraphQLString,
   GraphQLID,
   GraphQLSchema,
-  GraphQLDate,
+  GraphQLNonNull
 } = graphql;
 
 const GigType = new GraphQLObjectType({
@@ -32,12 +33,12 @@ const GigType = new GraphQLObjectType({
     freelancer: {
       type: UserType,
       resolve(parent, args) {
-        // return User.findById(User, { id: parent.freelancerId });
+        return User.findById(parent.freelancerId);
       },
     },
     status: { type: GraphQLString },
-    createdAt: { type: GraphQLDate },
-    updatedAt: { type: GraphQLDate },
+    createdAt: { type: GraphQLString },
+    updatedAt: { type: GraphQLString },
   }),
 });
 
@@ -64,11 +65,11 @@ const UserType = new GraphQLObjectType({
     gigs: {
       type: new GraphQLList(GigType),
       resolve(parent, args) {
-        // return Gig.find({ freelancerId: parent.id });
+        return Gig.find({ freelancerId: parent.id });
       },
     },
-    createdAt: { type: GraphQLDate },
-    updatedAt: { type: GraphQLDate },
+    createdAt: { type: GraphQLString },
+    updatedAt: { type: GraphQLString },
   }),
 });
 
@@ -81,17 +82,17 @@ const ReviewType = new GraphQLObjectType({
     gig: {
       type: GigType,
       resolve(parent, args) {
-        // return Gig.findById(Gig, { id: parent.gigId });
+        return Gig.findById(gig, { id: parent.gigId });
       },
     },
     client: {
       type: UserType,
       resolve(parent, args) {
-        // return User.findById(user, { id: parent.clientId });
+        return User.findById(user, { id: parent.clientId });
       },
     },
-    createdAt: { type: GraphQLDate },
-    updatedAt: { type: GraphQLDate },
+    createdAt: { type: GraphQLString },
+    updatedAt: { type: GraphQLString },
   }),
 });
 
@@ -102,24 +103,24 @@ const OrderType = new GraphQLObjectType({
     gig: {
       type: GigType,
       resolve(parent, args) {
-        // return Gig.findById(gig, { id: parent.gigId });
+        return Gig.findById(gig, { id: parent.gigId });
       },
     },
     freelancer: {
       type: UserType,
       resolve(parent, args) {
-        // return User.findById(user, { id: parent.freelancerId });
+        return User.findById(user, { id: parent.freelancerId });
       },
     },
     client: {
       type: UserType,
       resolve(parent, args) {
-        // return User.findById(user, { id: parent.clientId });
+        return User.findById(user, { id: parent.clientId });
       },
     },
     status: { type: GraphQLString },
-    createdAt: { type: GraphQLDate },
-    updatedAt: { type: GraphQLDate },
+    createdAt: { type: GraphQLString },
+    updatedAt: { type: GraphQLString },
   }),
 });
 
@@ -131,38 +132,38 @@ const MessageType = new GraphQLObjectType({
     sender: {
       type: UserType,
       resolve(parent, args) {
-        // return User.findById(user, { id: parent.senderId });
+        return User.findById(user, { id: parent.senderId });
       },
     },
     receiver: {
       type: UserType,
       resolve(parent, args) {
-        // return User.findById(user, { id: parent.receiverId });
+        return User.findById(user, { id: parent.receiverId });
       },
     },
-    createdAt: { type: GraphQLDate },
-    updatedAt: { type: GraphQLDate },
+    createdAt: { type: GraphQLString },
+    updatedAt: { type: GraphQLString },
   }),
 });
 
-const conversationType = new GraphQLObjectType({
+const ConversationType = new GraphQLObjectType({
   name: "Conversation",
   fields: () => ({
     id: { type: GraphQLID },
     sender: {
       type: UserType,
       resolve(parent, args) {
-        // return User.findById(user, { id: parent.senderId });
+        return User.findById(user, { id: parent.senderId });
       },
     },
     receiver: {
       type: UserType,
       resolve(parent, args) {
-        // return User.findById(user, { id: parent.receiverId });
+        return User.findById(user, { id: parent.receiverId });
       },
     },
-    createdAt: { type: GraphQLDate },
-    updatedAt: { type: GraphQLDate },
+    createdAt: { type: GraphQLString },
+    updatedAt: { type: GraphQLString },
   }),
 });
 
@@ -235,7 +236,7 @@ const RootQuery = new GraphQLObjectType({
       },
     },
     conversation: {
-      type: new GraphQLList(conversationType),
+      type: new GraphQLList(ConversationType),
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return Conversation.findById(args.id);
@@ -250,35 +251,35 @@ const Mutation = new GraphQLObjectType({
     addUser: {
       type: UserType,
       args: {
-        firstName: { type: GraphQLString },
-        lastName: { type: GraphQLString },
-        email: { type: GraphQLString },
-        phoneNumber: { type: GraphQLString },
-        password: { type: GraphQLString },
-        type: { type: GraphQLString },
+        firstName: { type: new GraphQLNonNull(GraphQLString) },
+        lastName: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        phoneNumber: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
+        type: { type: new GraphQLNonNull(GraphQLString) },
         profilePicture: { type: GraphQLString },
         bio: { type: GraphQLString },
         skills: { type: new GraphQLList(GraphQLString) },
         education: { type: new GraphQLList(GraphQLString) },
         experience: { type: new GraphQLList(GraphQLString) },
         languages: { type: new GraphQLList(GraphQLString) },
-        hourlyRate: { type: GraphQLFloat },
+        hourlyRate: { type: new GraphQLNonNull(GraphQLFloat) },
         rating: { type: GraphQLFloat },
         reviews: { type: new GraphQLList(GraphQLString) },
         gigs: { type: new GraphQLList(GraphQLString) },
         orders: { type: new GraphQLList(GraphQLString) },
         conversations: { type: new GraphQLList(GraphQLString) },
         messages: { type: new GraphQLList(GraphQLString) },
-        createdAt: { type: GraphQLDate },
-        updatedAt: { type: GraphQLDate },
+        createdAt: { type: GraphQLString },
+        updatedAt: { type: GraphQLString },
       },
-      resolve(parent, args) {
+      async resolve(parent, args) {
         let user = new User({
           firstName: args.firstName,
           lastName: args.lastName,
-          email: args.email,
+          email: lowercaseEmail,
           phoneNumber: args.phoneNumber,
-          password: args.password,
+          password: hashedPassword,
           type: args.type,
           profilePicture: args.profilePicture,
           bio: args.bio,
@@ -296,8 +297,128 @@ const Mutation = new GraphQLObjectType({
           createdAt: new Date(),
           updatedAt: new Date(),
         });
+        user.email = user.email.toLowerCase();
+        user.password = bcrypt.hash(user.password, 10);
         return user.save();
       },
+    },
+    addGig: {
+      type: GigType,
+      args: {
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        description: { type: new GraphQLNonNull(GraphQLString) },
+        price: { type: new GraphQLNonNull(GraphQLFloat) },
+        image: { type: new GraphQLNonNull(GraphQLString) },
+        category: { type: new GraphQLNonNull(GraphQLString) },
+        deliveryTime: { type: new GraphQLNonNull(GraphQLString) },
+        rating: { type: GraphQLFloat },
+        reviews: { type: new GraphQLList(GraphQLString) },
+        freelancerId: { type: new GraphQLNonNull(GraphQLID) },
+        status: { type: GraphQLString },
+        createdAt: { type: GraphQLString },
+        updatedAt: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        let gig = new Gig({
+          title: args.title,
+          description: args.description,
+          price: args.price,
+          image: args.image,
+          category: args.category,
+          deliveryTime: args.deliveryTime,
+          rating: args.rating,
+          reviews: args.reviews,
+          freelancerId: args.freelancerId,
+          status: args.status,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        });
+        return gig.save();
+      },
+    },
+  },
+  addReview: {
+    type: ReviewType,
+    args: {
+      rating: { type: new GraphQLNonNull(GraphQLFloat) },
+      comment: { type: new GraphQLNonNull(GraphQLString) },
+      gigId: { type: new GraphQLNonNull(GraphQLID) },
+      userId: { type: new GraphQLNonNull(GraphQLID) },
+      createdAt: { type: GraphQLString },
+      updatedAt: { type: GraphQLString },
+    },
+    resolve(parent, args) {
+      let review = new Review({
+        rating: args.rating,
+        comment: args.comment,
+        gigId: args.gigId,
+        userId: args.userId,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+      return review.save();
+    },
+  },
+  addOrder: {
+    type: OrderType,
+    args: {
+      gigId: { type: new GraphQLNonNull(GraphQLID) },
+      buyerId: { type: new GraphQLNonNull(GraphQLID) },
+      sellerId: { type: new GraphQLNonNull(GraphQLID) },
+      status: { type: GraphQLString },
+      createdAt: { type: GraphQLString },
+      updatedAt: { type: GraphQLString },
+    },
+    resolve(parent, args) {
+      let order = new Order({
+        gigId: args.gigId,
+        buyerId: args.buyerId,
+        sellerId: args.sellerId,
+        status: args.status,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+      return order.save();
+    },
+  },
+  addMessage: {
+    type: MessageType,
+    args: {
+      conversationId: { type: new GraphQLNonNull(GraphQLID) },
+      senderId: { type: new GraphQLNonNull(GraphQLID) },
+      receiverId: { type: new GraphQLNonNull(GraphQLID) },
+      message: { type: new GraphQLNonNull(GraphQLString) },
+      createdAt: { type: GraphQLString },
+      updatedAt: { type: GraphQLString },
+    },
+    resolve(parent, args) {
+      let message = new Message({
+        conversationId: args.conversationId,
+        senderId: args.senderId,
+        receiverId: args.receiverId,
+        message: args.message,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+      return message.save();
+    },
+  },
+  addConversation: {
+    type: ConversationType,
+    args: {
+      senderId: { type: new GraphQLNonNull(GraphQLID) },
+      receiverId: { type: new GraphQLNonNull(GraphQLID) },
+      createdAt: { type: GraphQLString },
+      updatedAt: { type: GraphQLString },
+    },
+    resolve(parent, args) {
+      let conversation = new Conversation({
+        senderId: args.senderId,
+        receiverId: args.receiverId,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+      return conversation.save();
     },
   },
 });
