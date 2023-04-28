@@ -1,12 +1,13 @@
 .freelancer_register {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    grid-auto-flow: row;
-    margin: 0% 0px 0px 490px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    width: 50%;
+    height: 80%;
     background-color: lightyellow;
-    height: 800px;
+    display: flex;
+    flex-direction: column;
     box-shadow: 0 10px 25px rgba(92, 99, 105, .2);
 }
 

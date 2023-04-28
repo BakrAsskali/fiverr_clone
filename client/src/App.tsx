@@ -7,10 +7,16 @@ import { Gigs } from "./pages/gigs/gigs";
 import { Homepage } from "./pages/homepage/homepage";
 import { Login } from "./pages/login/login";
 import { Signup } from "./pages/signup/signup";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: "http://localhost:8800/graphql",
+  cache: new InMemoryCache(),
+});
 
 export const App = () => {
   return (
-    <>
+    <ApolloProvider client={client}>
       <Navbar />
       <BrowserRouter>
         <Routes>
@@ -23,6 +29,6 @@ export const App = () => {
           <Route path="/gigs/:id" element={<Gig />}></Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </ApolloProvider>
   );
 };

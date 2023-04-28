@@ -39,10 +39,6 @@ const GigSchema = new Schema(
       type: [String],
       required: false,
     },
-    userId: {
-      type: String,
-      required: true,
-    },
     shortTitle: {
       type: String,
       required: true,
@@ -66,6 +62,18 @@ const GigSchema = new Schema(
     sales: {
       type: Number,
       default: 0,
+    },
+    status: {
+      type: String,
+      default: "pending",
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    updatedAt: {
+      type: String,
+      default: Date.now,
     },
   },
   {

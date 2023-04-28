@@ -1,18 +1,31 @@
 .Login {
-    margin: 0% 0px 0px 650px;
-    color: black;
-    justify-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    grid-auto-flow: row;
+    width: 30%;
+    height: 60%;
+    color: black;
     background-color: lightyellow;
-    height: 800px;
-    width: 500px;
     box-shadow: 0 10px 25px rgba(92, 99, 105, .2);
 }
 
-.link {
-    margin-left: 50px
+second_button {
+    width: 30%;
+    margin: 0 auto;
+}
+
+.google_signin {
+    width: 30%;
+    margin: 0 auto;
+}
+
+.google_signin p {
+    text-align: center;
+}
+
+.signup_link {
+    text-align: center;
 }

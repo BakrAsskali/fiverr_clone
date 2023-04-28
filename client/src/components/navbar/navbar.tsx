@@ -1,6 +1,7 @@
 import { GoogleLogin } from "@react-oauth/google";
 import { useState } from "react";
 import "../../assets/styles/NavbarElements.css";
+import { AUTH_TOKEN } from "../../constants";
 
 interface PopupProps {
   onClose: () => void;
@@ -49,6 +50,7 @@ export interface NavbarProps {
  */
 export const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
+  const authToken = localStorage.getItem(AUTH_TOKEN);
   const togglePopup = () => {
     setIsActive(!isActive);
   };

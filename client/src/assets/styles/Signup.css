@@ -1,35 +1,32 @@
 .noaccount {
-  display: grid;
-  align-items: center;
-  justify-items: center;
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
 
 .account_type {
-  display: flex;
-  align-self: center;
-  justify-self: center;
-  align-items: center;
-  justify-items: center;
-  grid-auto-flow: column;
-  flex-direction: row;
-  margin: 0px 0px 0px 0px;
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    align-items: center;
+    justify-items: center;
+    grid-auto-flow: column;
+    flex-direction: row;
+    height: 50%;
 }
 
 .signup {
-  color: black;
-  justify-items: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  grid-auto-flow: row;
-  margin: 0% 0px 0px 550px;
-  background-color: lightyellow;
-  height: 800px;
-  box-shadow: 0 10px 25px rgba(92, 99, 105, .2);
+    color: black;
+    background-color: lightyellow;
+    box-shadow: 0 10px 25px rgba(92, 99, 105, .2);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    height: 60%;
 }
 
 h2 {
-  align-self: center;
-  justify-self: center;
+    align-self: center;
+    justify-self: center;
 }
