@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+import mongoose, { Schema } from "mongoose";
 
-const GigSchema = new Schema(
+export const gigSchema = new Schema(
   {
     userId: {
       type: String,
@@ -81,4 +80,4 @@ const GigSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("Gig", GigSchema);
+export default mongoose.model("Gig", gigSchema);

@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
 
-const orderSchema = new Schema({
+export const orderSchema = new Schema({
   gigId: {
     type: String,
     required: true,
@@ -33,4 +32,4 @@ const orderSchema = new Schema({
   },
 }, { timestamps: true });
 
-module.exports = mongoose.model("Order", orderSchema);
+export default mongoose.model('Order', orderSchema);

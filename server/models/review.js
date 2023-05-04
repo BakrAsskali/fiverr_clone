@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import e from 'express';
+import mongoose, { Schema } from 'mongoose';
 
-const reviewSchema = new Schema({
+export const reviewSchema = new Schema({
   gigId: {
     type: String,
     required: true,
@@ -33,4 +33,4 @@ const reviewSchema = new Schema({
   },
 }, { timestamps: true });
 
-module.exports = mongoose.model("Review", reviewSchema);
+export default mongoose.model('Review', reviewSchema);

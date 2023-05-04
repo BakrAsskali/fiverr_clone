@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
 
-const conversationSchema = new Schema({
+export const conversationSchema = new Schema({
   members: {
     type: Array,
     required: true,
@@ -18,4 +17,4 @@ const conversationSchema = new Schema({
   },
 }, { timestamps: true });
 
-module.exports = mongoose.model("Conversation", conversationSchema);
+export default mongoose.model('Conversation', conversationSchema);

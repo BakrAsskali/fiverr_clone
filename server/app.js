@@ -1,26 +1,31 @@
-const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
-const schema = require("./schema/schema");
-const mongoose = require("mongoose");
-require("dotenv").config();
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import dotenv from "dotenv/config";
+import mongoose from "mongoose";
+import { resolvers } from "./resolvers/index.js";
+import { typeDefs } from "./schema/index.js";
 
-const app = express();
+const PORT = process.env.PORT || 8800;
 
-mongoose.connect(process.env.ATLAS_URI);
-mongoose.connection.once("open", () => {
-  console.log("Connected to database");
+mongoose.connect(process.env.ATLAS_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log("MongoDB connected");
+}).catch(err => {
+  console.log(err);
 });
 
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema,
-    graphiql: true,
-  })
-);
-
-const port = process.env.PORT || 8800;
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
 });
+
+const { url } = await startStandaloneServer(server, {
+  Context: async ({ req }) => ({
+    token: req.headers.token,
+  }),
+  listen: { port: PORT }
+});
+
+console.log(`🚀 Server listening at: ${url}`);
