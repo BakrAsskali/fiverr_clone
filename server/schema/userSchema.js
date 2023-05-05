@@ -19,6 +19,7 @@ export const userSchema = `#graphql
         gigs: [String]
         createdAt: String
         updatedAt: String
+        userJwtToken: UserJwtToken
   }
 
     input UserInput {
@@ -43,6 +44,10 @@ export const userSchema = `#graphql
         updatedAt: String
     }
 
+    type UserJwtToken {
+        token: String!
+    }
+
     type Query {
         getUsers: [User]
         getUser(id: ID!): User
@@ -52,5 +57,6 @@ export const userSchema = `#graphql
         createUser(input: UserInput): User
         updateUser(id: ID!, input: UserInput): User
         deleteUser(id: ID!): User
+        login(email: String!, password: String!): User
     }
 `

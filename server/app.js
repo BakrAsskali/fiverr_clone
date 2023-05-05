@@ -2,6 +2,7 @@ import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import dotenv from "dotenv/config";
 import mongoose from "mongoose";
+import context from "./context/index.js";
 import { resolvers } from "./resolvers/index.js";
 import { typeDefs } from "./schema/index.js";
 
@@ -22,9 +23,7 @@ const server = new ApolloServer({
 });
 
 const { url } = await startStandaloneServer(server, {
-  Context: async ({ req }) => ({
-    token: req.headers.token,
-  }),
+  context,
   listen: { port: PORT }
 });
 
