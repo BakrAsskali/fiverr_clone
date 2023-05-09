@@ -66,6 +66,8 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <hr />
+      </div>
+      <footer>
         <div className="bottom">
           <div className="left">
             <h2>fiverr</h2>
@@ -90,7 +92,7 @@ const Footer: React.FC = () => {
             <img src="/img/accessibility.png" alt="" />
           </div>
         </div>
-      </div>
+      </footer>
     </div>
   );
 };
