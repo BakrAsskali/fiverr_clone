@@ -1,0 +1,41 @@
+.add {
+    display: flex;
+    justify-content: center;
+}
+.add .container {
+    width: 1400px;
+    padding: 50px 0px;
+}
+.add .container h1 {
+    color: gray;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+.add .container .sections {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+}
+.add .container .sections .left, .add .container .sections .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+}
+.add .container .sections .left label, .add .container .sections .right label {
+    color: gray;
+    font-size: 18px;
+}
+.add .container .sections .left input, .add .container .sections .right input, .add .container .sections .left select, .add .container .sections .right select, .add .container .sections .left textarea, .add .container .sections .right textarea {
+    padding: 20px;
+}
+.add .container .sections .left button, .add .container .sections .right button {
+    border: none;
+    padding: 20px;
+    background-color: #1dbf73;
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    cursor: pointer;
+}
