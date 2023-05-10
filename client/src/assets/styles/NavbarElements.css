@@ -1,16 +1,28 @@
 nav {
-  background: #000;
+  /* background: #000; */
+  background-color: #013914;
+  color: white;
   top: 0;
   height: 80px;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 0;
   width: 100vw;
-  z-index: 10;
+  z-index: 999;
   position: fixed;
   align-content: start;
   max-width: 1200;
   margin-left: 0px;
+}
+
+.logo{
+  font-size: 34px;
+  font-weight: bold
+}
+
+.logo .dot{
+  font-weight: bold;
+  color: #1dbf73;
 }
 
 nav a {
@@ -31,20 +43,27 @@ nav .br {
   display: none;
   color: #fff;
 }
-
+ul{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  
+}
 nav .nav-menu {
   display: flex;
   align-items: center;
-  margin-right: -700px;
-  justify-items: end;
+  margin-left: 1000px;
+  justify-items: flex-end;
   grid-auto-flow: column;
   flex-direction: row;
 }
 
 nav .nav-menu a:hover {
-  transition: all 0.2s ease-in-out;
-  background: #fff;
-  color: #010606;
+  /* transition: all 0.2s ease-in-out; */
+  background-color: #1dbf73;
+  border-color: #1dbf73;
 }
 
 nav .nav-btn {
@@ -55,11 +74,12 @@ nav .nav-btn {
 
 nav .nav-btn a {
   border-radius: 4px;
-  background: #256ce1;
   padding: 10px 22px;
   color: #fff;
-  outline: none;
-  border: none;
+  outline-style: solid;
+  outline-width: 1px;
+  border-style: solid;
+  border-width: 1px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
@@ -139,7 +159,6 @@ nav .nav-btn a {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #010606;
 }
 
 .input_field {

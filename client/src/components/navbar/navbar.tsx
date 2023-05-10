@@ -56,25 +56,36 @@ export const Navbar = () => {
   };
   return (
     <nav>
-      <a href="/">
-        <h1>Logo</h1>
-      </a>
+      <div className="logo">
+        <a href="/">
+          <span className="text">fiverr</span>
+          <span className="dot">.</span>
+        </a>
+      </div>
+      
       <br />
       <div className="nav-menu">
-        <a href="/Gigs" style={{ fontWeight: "bold" }}>
-          Explore
-        </a>
-        <button onClick={togglePopup}>Sign in</button>
+        <ul>
+          <li>
+            <a href="/Gigs" style={{ fontWeight: "bold" }}>
+              Explore
+            </a>
+          </li>
+          <li>
+            <button onClick={togglePopup}>Sign in</button>
+          </li>
+          <div className="nav-btn">
+            <li>
+              <a className="nav-btn-link" href="/signup"style={{ fontWeight: "bold" }}>
+                Join
+              </a>
+            </li>
+          </div>
+        </ul>
+        
+        
       </div>
-      <div className="nav-btn">
-        <a
-          className="nav-btn-link"
-          href="/signup"
-          style={{ fontWeight: "bold" }}
-        >
-          Join
-        </a>
-      </div>
+      
       {isActive && <PopupComponent onClose={togglePopup} />}
     </nav>
   );

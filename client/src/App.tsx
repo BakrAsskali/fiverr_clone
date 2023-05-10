@@ -9,6 +9,7 @@ import { Login } from "./pages/login/login";
 import { Signup } from "./pages/signup/signup";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { Message } from "./pages/message/Message";
+import { Add } from "./pages/add/Add";
 
 const client = new ApolloClient({
   uri: "http://localhost:8800/graphql",
@@ -29,6 +30,8 @@ export const App = () => {
           <Route path="/gigs" element={<Gigs />}></Route>
           <Route path="/gigs/:id" element={<Gig />}></Route>
           <Route path="/messages/:id" element={<Message />}></Route>
+          <Route path="/gigs/:id" element={<Gig />}></Route>
+          <Route path="/add/:id" element={<Add />}></Route>
 
           
         </Routes>
