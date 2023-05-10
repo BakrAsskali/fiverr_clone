@@ -35,9 +35,9 @@ nav a {
   cursor: pointer;
 }
 
-nav a.active {
+/* nav a.active {
   color: #15cdfc;
-}
+} */
 
 nav .br {
   display: none;
@@ -49,7 +49,10 @@ ul{
   justify-content: center;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
-  
+  font-size: 10px;
+  justify-items: flex-end;
+  grid-auto-flow: column;
+  flex-direction: row;
 }
 nav .nav-menu {
   display: flex;

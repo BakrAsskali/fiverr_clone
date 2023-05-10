@@ -148,6 +148,9 @@ export const Navbar = () => {
             </a>
           </li>
           <li>
+            <a href="/signup">Become a Seller</a>
+          </li>
+          <li>
             <button onClick={togglePopup}>Sign in</button>
           </li>
           <div className="nav-btn">
@@ -157,6 +160,7 @@ export const Navbar = () => {
               </a>
             </li>
           </div>
+          
         </ul>
         
         
