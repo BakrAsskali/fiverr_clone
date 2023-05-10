@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../../assets/styles/Message.css";
 
-const Message: React.FC = () => {
+export const Message: React.FC = () => {
   return (
     <div className="message">
       <div className="container">
@@ -51,4 +51,3 @@ const Message: React.FC = () => {
   );
 };
 
-export default Message;

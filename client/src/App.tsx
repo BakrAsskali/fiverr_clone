@@ -8,6 +8,7 @@ import { Homepage } from "./pages/homepage/homepage";
 import { Login } from "./pages/login/login";
 import { Signup } from "./pages/signup/signup";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { Message } from "./pages/message/Message";
 
 const client = new ApolloClient({
   uri: "http://localhost:8800/graphql",
@@ -27,6 +28,9 @@ export const App = () => {
           <Route path="/freelancer" element={<Freelancer />}></Route>
           <Route path="/gigs" element={<Gigs />}></Route>
           <Route path="/gigs/:id" element={<Gig />}></Route>
+          <Route path="/messages/:id" element={<Message />}></Route>
+
+          
         </Routes>
       </BrowserRouter>
     </ApolloProvider>

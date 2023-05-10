@@ -1,7 +1,7 @@
 import React from "react";
 import "../../assets/styles/Add.css";
 
-const Add: React.FC = () => {
+export const Add: React.FC = () => {
   return (
     <div className="add">
       <div className="container">
@@ -47,5 +47,3 @@ const Add: React.FC = () => {
     </div>
   );
 };
-
-export default Add;
