@@ -17,9 +17,10 @@ export const Message: React.FC = () => {
             />
             <p>
               The company itself is a very successful company. Right them Do you
-              see the flexibility of the services with pleasure? I followed those
-              duties if we can, with regular effort, other flexibility will occur
-              that no one pleases laborious except for the mind! Error, it is held!
+              see the flexibility of the services with pleasure? I followed
+              those duties if we can, with regular effort, other flexibility
+              will occur that no one pleases laborious except for the mind!
+              Error, it is held!
             </p>
           </div>
           <div className="item owner">
@@ -29,9 +30,10 @@ export const Message: React.FC = () => {
             />
             <p>
               The company itself is a very successful company. Right them Do you
-              see the flexibility of the services with pleasure? I followed those
-              duties if we can, with regular effort, other flexibility will occur
-              that no one pleases laborious except for the mind! Error, it is held!
+              see the flexibility of the services with pleasure? I followed
+              those duties if we can, with regular effort, other flexibility
+              will occur that no one pleases laborious except for the mind!
+              Error, it is held!
             </p>
           </div>
         </div>
@@ -50,4 +52,3 @@ export const Message: React.FC = () => {
     </div>
   );
 };
-

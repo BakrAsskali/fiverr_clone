@@ -11,6 +11,10 @@
     flex-direction: column;
 }
 
+.form-control {
+    color: black;
+}
+
 .container {
     justify-content: center;
 }

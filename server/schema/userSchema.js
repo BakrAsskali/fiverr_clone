@@ -58,5 +58,6 @@ export const userSchema = `#graphql
         updateUser(id: ID!, input: UserInput): User
         deleteUser(id: ID!): User
         login(email: String!, password: String!): User
+        logout: Boolean
     }
 `

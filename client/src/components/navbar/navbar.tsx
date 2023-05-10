@@ -1,6 +1,37 @@
+import { gql, useMutation } from "@apollo/client";
 import { GoogleLogin } from "@react-oauth/google";
-import { useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
+import { useCookies } from "react-cookie";
 import "../../assets/styles/NavbarElements.css";
+
+const LOGIN_MUTATION = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      id
+      firstName
+      lastName
+      username
+      email
+      phoneNumber
+      type
+      profilePicture
+      bio
+      skills
+      education
+      experience
+      languages
+      hourlyRate
+      rating
+      reviews
+      gigs
+      createdAt
+      updatedAt
+      userJwtToken {
+        token
+      }
+    }
+  }
+`;
 
 interface PopupProps {
   onClose: () => void;
@@ -15,15 +46,62 @@ function PopupComponent(props: PopupProps) {
     console.log("error");
   };
 
+  const [cookies, setCookie, removeCookie] = useCookies(["userJwtToken"]);
+
+  function onLoginSuccess(response: any) {
+    console.log(response);
+    setCookie("userJwtToken", response.accessToken, { path: "/" });
+    console.log(cookies);
+  }
+
+  const loginHandler = (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const enteredEmail = emailRef.current?.value || "";
+    const enteredPassword = passwordRef.current?.value || "";
+    if (enteredEmail.trim().length === 0 || !enteredEmail.includes("@")) {
+      return;
+    }
+    if (enteredPassword.trim().length === 0) {
+      return;
+    }
+    login();
+    onClose();
+  };
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const [login, { data, error }] = useMutation(LOGIN_MUTATION, {
+    variables: {
+      email: emailRef.current?.value,
+      password: passwordRef.current?.value,
+    },
+
+    onCompleted: (data) => {
+      console.log(data);
+      onLoginSuccess(data.login.userJwtToken);
+    },
+  });
+  if (error) console.log(error);
+  if (data) console.log(data);
+
   return (
-    <form className="login_popup">
+    <form onSubmit={loginHandler} className="login_popup">
       <div className="close_btn" onClick={onClose}></div>
       <h1>Sign in</h1>
       <div className="input_field">
-        <input type="email" className="validate" placeholder="Email" />
+        <input
+          ref={emailRef}
+          type="email"
+          className="validate"
+          placeholder="Email"
+        />
       </div>
       <div className="input_field">
-        <input type="password" className="validate" placeholder="Password" />
+        <input
+          ref={passwordRef}
+          type="password"
+          className="validate"
+          placeholder="Password"
+        />
       </div>
       <button className="second_button">Sign in</button>
       <br />
