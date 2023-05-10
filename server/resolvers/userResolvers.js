@@ -92,6 +92,10 @@ export const userResolvers = {
                 };
             }
             throw new Error('Invalid credentials!');
+        },
+
+        logout: async (_parent, _args, _context, _info) => {
+            return true;
         }
     }
 }

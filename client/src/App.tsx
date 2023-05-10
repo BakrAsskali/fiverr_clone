@@ -1,3 +1,12 @@
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  createHttpLink,
+  from,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { CookiesProvider } from "react-cookie";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Navbar } from "./components/navbar/navbar";
 import { Client } from "./pages/client/client";
@@ -6,13 +15,10 @@ import { Gig } from "./pages/gig/gig";
 import { Gigs } from "./pages/gigs/gigs";
 import { Homepage } from "./pages/homepage/homepage";
 import { Login } from "./pages/login/login";
-import { Signup } from "./pages/signup/signup";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { Message } from "./pages/message/Message";
-import { Add } from "./pages/add/Add";
 
-const client = new ApolloClient({
-  uri: "http://localhost:8800/graphql",
+const client: any = new ApolloClient({
+  link: from([authLink, httpLink]),
   cache: new InMemoryCache(),
 });
 
@@ -30,8 +36,6 @@ export const App = () => {
           <Route path="/gigs" element={<Gigs />}></Route>
           <Route path="/gigs/:id" element={<Gig />}></Route>
           <Route path="/messages/:id" element={<Message />}></Route>
-          <Route path="/gigs/:id" element={<Gig />}></Route>
-          <Route path="/add/:id" element={<Add />}></Route>
 
           
         </Routes>
