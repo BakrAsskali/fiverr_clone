@@ -1,4 +1,12 @@
 import { gql, useMutation } from "@apollo/client";
+import {
+  Button,
+  Card,
+  FormControl,
+  FormLabel,
+  Input,
+  Text,
+} from "@chakra-ui/react";
 import { GoogleLogin } from "@react-oauth/google";
 import { useRef } from "react";
 import { useCookies } from "react-cookie";
@@ -103,40 +111,43 @@ export const Login = () => {
   }
 
   return (
-    <form className="Login" onSubmit={handleSubmit}>
-      <h1>Sign in</h1>
-      <div className="input_field">
-        <input
-          ref={usernameRef}
-          type="username"
-          className="validate"
-          placeholder="Username"
-        />
-      </div>
-      <div className="input_field">
-        <input
-          ref={passwordRef}
-          type="password"
-          className="validate"
-          placeholder="Password"
-        />
-      </div>
-      <button className="second_button">Sign in</button>
-      <br />
-      <div className="google_signin">
-        <p>-----------------or----------------</p>
-      </div>
-      <div className="google_signin">
-        <div id="my-signin2">
-          <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
-        </div>
-      </div>
-      <div className="signup_link">
-        <p>Don't have an account?</p>{" "}
-        <a href="/signup" className="link">
-          Sign up
+    <Card
+      p="20"
+      style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%,50%)",
+      }}
+    >
+      <h1>Login</h1>
+      <FormControl>
+        <FormLabel>Username</FormLabel>
+        <Input placeholder="Username" ref={usernameRef} />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Password</FormLabel>
+        <Input placeholder="Password" type="password" ref={passwordRef} />
+      </FormControl>
+      <button onClick={handleSubmit}>Login</button>
+      <Text textAlign="center">----------------Or---------------</Text>
+      <FormControl
+        style={{
+          alignContent: "center",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
+        <GoogleLogin
+          onSuccess={responseMessage}
+          onError={errorMessage}
+        ></GoogleLogin>
+        <Text>Don't have and account?</Text>
+        <a href="/signup">
+          <Button>Signup</Button>
         </a>
-      </div>
-    </form>
+      </FormControl>
+    </Card>
   );
 };
