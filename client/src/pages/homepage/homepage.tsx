@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../../assets/styles/App.css";
-import Footer from "../../components/footer/Footer";
+import { Footer } from "../../components/footer/Footer";
 
 export interface HomepageProps {
   className?: string;
