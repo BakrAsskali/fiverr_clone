@@ -6,6 +6,7 @@ import {
   from,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { ChakraProvider } from "@chakra-ui/react";
 import { CookiesProvider } from "react-cookie";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Navbar } from "./components/navbar/navbar";
@@ -16,6 +17,21 @@ import { Gigs } from "./pages/gigs/gigs";
 import { Homepage } from "./pages/homepage/homepage";
 import { Login } from "./pages/login/login";
 import { Message } from "./pages/message/Message";
+import { Signup } from "./pages/signup/signup";
+
+const httpLink = createHttpLink({
+  uri: "http://localhost:8800",
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("userJwtToken");
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
 
 const client: any = new ApolloClient({
   link: from([authLink, httpLink]),
@@ -24,22 +40,25 @@ const client: any = new ApolloClient({
 
 export const App = () => {
   return (
-    <ApolloProvider client={client}>
-      <Navbar />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Homepage />}></Route>
-          <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/client" element={<Client />}></Route>
-          <Route path="/freelancer" element={<Freelancer />}></Route>
-          <Route path="/gigs" element={<Gigs />}></Route>
-          <Route path="/gigs/:id" element={<Gig />}></Route>
-          <Route path="/messages/:id" element={<Message />}></Route>
-
-          
-        </Routes>
-      </BrowserRouter>
-    </ApolloProvider>
+    <ChakraProvider>
+      <ApolloProvider client={client}>
+        <CookiesProvider>
+          <Navbar />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Homepage />}></Route>
+              <Route path="/signup" element={<Signup />}></Route>
+              <Route path="/login" element={<Login />}></Route>
+              <Route path="/client" element={<Client />}></Route>
+              <Route path="/freelancer" element={<Freelancer />}></Route>
+              <Route path="/gigs" element={<Gigs />}></Route>
+              <Route path="/gigs/:id" element={<Gig />}></Route>
+              <Route path="/messages" element={<Message />}></Route>
+              <Route path="/message" element={<Message />}></Route>
+            </Routes>
+          </BrowserRouter>
+        </CookiesProvider>
+      </ApolloProvider>
+    </ChakraProvider>
   );
 };

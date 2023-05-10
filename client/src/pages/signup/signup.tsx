@@ -1,4 +1,15 @@
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Heading,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
 import Classnames from "classnames";
+import { useHref } from "react-router-dom";
 import "../../assets/styles/Signup.css";
 
 export interface SignupProps {
@@ -11,59 +22,67 @@ export interface SignupProps {
  */
 export const Signup = ({ className }: SignupProps) => {
   return (
-    <div className="signup">
-      <h1>
-        Join as a client or
-        <br /> as a freelancer
-      </h1>
-      <div className={Classnames("container", "account_type")}>
-        <div
-          className="client"
-          style={{
-            flex: 1,
-            display: "grid",
-            overflow: "visible",
-            margin: "50px",
-            backgroundColor: "#EDDE8C",
-            height: "70%",
-          }}
-        >
-          <h2>Client</h2>
-          <p>I'm a client, hiring for a project</p>
-          <button
-            style={{
-              backgroundColor: "darkgray",
-            }}
-          >
-            <a href="/client">Sign up as a client</a>
-          </button>
-        </div>
-        <div
-          className="freelancer"
-          style={{
-            flex: 1,
-            display: "grid",
-            overflow: "visible",
-            margin: "50px",
-            backgroundColor: "#EDDE8C",
-            height: "70%",
-          }}
-        >
-          <h2>Freelancer</h2>
-          <p>I'm a freelancer looking for work</p>
-          <button
-            style={{
-              backgroundColor: "darkgray",
-            }}
-          >
-            <a href="/freelancer">Sign up as a freelancer</a>
-          </button>
-        </div>
-      </div>
-      <div className="noaccount">
-        <p>Already have an account?</p>
-        <a href="/login">Log in</a>
-      </div>
-    </div>
+    <Card
+      p="10"
+      style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%,50%)",
+      }}
+    >
+      <h1>Signup</h1>
+      <SimpleGrid
+        spacing={4}
+        templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+      >
+        <Card>
+          <CardHeader>
+            <Heading size="md"> Signup as a client</Heading>
+          </CardHeader>
+          <CardBody>
+            <Text>
+              I'm a client looking to hire a freelancer to complete a project.
+            </Text>
+          </CardBody>
+          <CardFooter>
+            <a href="/client">
+              <Button>Signup as a client</Button>
+            </a>
+          </CardFooter>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Heading size="md">Signup as a freelancer</Heading>
+          </CardHeader>
+          <CardBody>
+            <Text>
+              I'm a freelancer looking to find work and complete projects.
+            </Text>
+          </CardBody>
+          <CardFooter>
+            <a href="/freelancer">
+              <Button>Signup as a freelancer</Button>
+            </a>
+          </CardFooter>
+        </Card>
+      </SimpleGrid>
+      <h6
+        style={{
+          textAlign: "center",
+          color: "blue",
+        }}
+      >
+        Already have an account?
+      </h6>
+      <a
+        href="/login"
+        style={{
+          textAlign: "center",
+        }}
+      >
+        <Button>Login</Button>
+      </a>
+    </Card>
   );
 };

@@ -16,11 +16,16 @@
     "@mui/material": "^5.12.2",
     "@react-oauth/google": "^0.10.0",
     "classnames": "^2.3.2",
+<<<<<<< HEAD
     "framer-motion": "^10.12.10",
+=======
+    "framer-motion": "^10.12.9",
+>>>>>>> d90ffff8b46d4a89665e3baf43c49cad66b989be
     "graphql": "^16.6.0",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
     "react-router-dom": "^6.10.0",
     "vite-plugin-svgr": "^2.4.0"
   },

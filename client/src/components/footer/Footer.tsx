@@ -1,100 +1,92 @@
-import React from "react";
-import "../../assets/styles/Footer.css";
+import {
+  Button,
+  ButtonGroup,
+  Container,
+  Divider,
+  IconButton,
+  Input,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
-const Footer: React.FC = () => {
-  return (
-    <div className="footer">
-      <div className="container">
-        <div className="top">
-          <div className="item">
-            <h2>Categories</h2>
-            <span>Graphics & Design</span>
-            <span>Digital Marketing</span>
-            <span>Writing & Translation</span>
-            <span>Video & Animation</span>
-            <span>Music & Audio</span>
-            <span>Programming & Tech</span>
-            <span>Data</span>
-            <span>Business</span>
-            <span>Lifestyle</span>
-            <span>Photography</span>
-            <span>Sitemap</span>
-          </div>
-          <div className="item">
-            <h2>About</h2>
-            <span>Press & News</span>
-            <span>Partnerships</span>
-            <span>Privacy Policy</span>
-            <span>Terms of Service</span>
-            <span>Intellectual Property Claims</span>
-            <span>Investor Relations</span>
-            <span>Contact Sales</span>
-          </div>
-          <div className="item">
-            <h2>Support</h2>
-            <span>Help & Support</span>
-            <span>Trust & Safety</span>
-            <span>Selling on Liverr</span>
-            <span>Buying on Liverr</span>
-          </div>
-          <div className="item">
-            <h2>Community</h2>
-            <span>Customer Success Stories</span>
-            <span>Community hub</span>
-            <span>Forum</span>
-            <span>Events</span>
-            <span>Blog</span>
-            <span>Influencers</span>
-            <span>Affiliates</span>
-            <span>Podcast</span>
-            <span>Invite a Friend</span>
-            <span>Become a Seller</span>
-            <span>Community Standards</span>
-          </div>
-          <div className="item">
-            <h2>More From Fiverr</h2>
-            <span>Liverr Business</span>
-            <span>Liverr Pro</span>
-            <span>Liverr Logo Maker</span>
-            <span>Liverr Guides</span>
-            <span>Get Inspired</span>
-            <span>Liverr Select</span>
-            <span>ClearVoice</span>
-            <span>Liverr Workspace</span>
-            <span>Learn</span>
-            <span>Working Not Working</span>
-          </div>
-        </div>
-        <hr />
-      </div>
-      <footer>
-        <div className="bottom">
-          <div className="left">
-            <h2>fiverr</h2>
-            <span>© Fiverr International Ltd. 2023</span>
-          </div>
-          <div className="right">
-            <div className="social">
-              <img src="/img/twitter.png" alt="" />
-              <img src="/img/facebook.png" alt="" />
-              <img src="/img/linkedin.png" alt="" />
-              <img src="/img/pinterest.png" alt="" />
-              <img src="/img/instagram.png" alt="" />
-            </div>
-            <div className="link">
-              <img src="/img/language.png" alt="" />
-              <span>English</span>
-            </div>
-            <div className="link">
-              <img src="/img/coin.png" alt="" />
-              <span>USD</span>
-            </div>
-            <img src="/img/accessibility.png" alt="" />
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-};
-
-export default Footer;
+export const Footer = () => (
+  <Container as="footer" role="contentinfo">
+    <Stack
+      spacing="8"
+      direction={{ base: "column", md: "row" }}
+      justify="space-between"
+      py={{ base: "12", md: "16" }}
+    >
+      <Stack spacing="4">
+        <Text fontSize="lg" fontWeight="semibold" color="subtle">
+          Fiverr
+        </Text>
+        <Text fontSize="sm" color="subtle">
+          The world's largest freelance services marketplace for lean
+          entrepreneurs to focus on growth & create a successful business at
+          affordable costs.
+        </Text>
+      </Stack>
+      <Stack
+        direction={{ base: "column-reverse", md: "column", lg: "row" }}
+        spacing={{ base: "12", md: "8" }}
+      >
+        <Stack direction="row" spacing="8">
+          <Stack spacing="4" minW="36" flex="1">
+            <Text fontSize="sm" fontWeight="semibold" color="subtle">
+              Product
+            </Text>
+            <Stack spacing="3" shouldWrapChildren>
+              <Button variant="link">How it works</Button>
+              <Button variant="link">Pricing</Button>
+              <Button variant="link">Use Cases</Button>
+            </Stack>
+          </Stack>
+          <Stack spacing="4" minW="36" flex="1">
+            <Text fontSize="sm" fontWeight="semibold" color="subtle">
+              Legal
+            </Text>
+            <Stack spacing="3" shouldWrapChildren>
+              <Button variant="link">Privacy</Button>
+              <Button variant="link">Terms</Button>
+              <Button variant="link">License</Button>
+            </Stack>
+          </Stack>
+        </Stack>
+      </Stack>
+    </Stack>
+    <Divider />
+    <Stack
+      pt="8"
+      pb="12"
+      justify="space-between"
+      direction={{ base: "column-reverse", md: "row" }}
+      align="center"
+    >
+      <Text fontSize="sm" color="subtle">
+        &copy; {new Date().getFullYear()} Fiverr, Inc. All rights reserved.
+      </Text>
+      <ButtonGroup variant="ghost">
+        <IconButton
+          as="a"
+          href="#"
+          aria-label="LinkedIn"
+          icon={<FaLinkedin fontSize="1.25rem" />}
+        />
+        <IconButton
+          as="a"
+          href="#"
+          aria-label="GitHub"
+          icon={<FaGithub fontSize="1.25rem" />}
+        />
+        <IconButton
+          as="a"
+          href="#"
+          aria-label="Twitter"
+          icon={<FaTwitter fontSize="1.25rem" />}
+        />
+      </ButtonGroup>
+    </Stack>
+  </Container>
+);

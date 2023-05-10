@@ -1,5 +1,12 @@
 import { gql, useMutation } from "@apollo/client";
-import { Checkbox, FormControlLabel } from "@mui/material";
+import {
+  Card,
+  Checkbox,
+  FormControl,
+  FormLabel,
+  Input,
+  Text,
+} from "@chakra-ui/react";
 import { GoogleLogin } from "@react-oauth/google";
 import { ChangeEvent, useRef } from "react";
 import { useCookies } from "react-cookie";
@@ -7,8 +14,8 @@ import { useHref } from "react-router-dom";
 import "../../assets/styles/client.css";
 
 const CREATEUSER_MUTATION = gql`
-  mutation CreateUser($input: UserInput) {
-    createUser(input: $input) {
+  mutation CreateUser($Input: UserInputInput) {
+    createUser(Input: $Input) {
       id
       firstName
       lastName
@@ -63,7 +70,7 @@ export const Client = () => {
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const usernameRef = useRef<HTMLInputElement>(null);
 
-  const signupHandler = (e: ChangeEvent<HTMLFormElement>) => {
+  const signupHandler = (e: any) => {
     e.preventDefault();
     const enteredUsername = usernameRef.current?.value || "";
     const enteredEmail = emailRef.current?.value || "";
@@ -100,14 +107,14 @@ export const Client = () => {
       type: enteredType,
     };
 
-    createUser({ variables: { input: user } });
+    createUser({ variables: { Input: user } });
 
     useHref("/");
   };
 
   const [createUser, { error, data }] = useMutation(CREATEUSER_MUTATION, {
     variables: {
-      input: {
+      Input: {
         username: usernameRef.current?.value || "",
         email: emailRef.current?.value || "",
         password: passwordRef.current?.value || "",
@@ -137,103 +144,58 @@ export const Client = () => {
       "data.createUser.userJwtToken.token"
     );
   return (
-    <>
-      <div className="client_register">
-        <p className="title">Sign up to hire a talent</p>
-        <div className="container">
-          <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
-        </div>
-        <div className="container">
-          <p>
-            -------------------------------------------------------------------------------------------or-------------------------------------------------------------------------------------------
-          </p>
-        </div>
-        <form className="form-container" onSubmit={signupHandler}>
-          <div className="col-md-6">
-            <div className="form-group">
-              <input
-                ref={firstNameRef}
-                type="text"
-                className="form-control"
-                id="first-name"
-                placeholder="Enter first name"
-              />
-            </div>
-            <div className="form-group">
-              <input
-                ref={lastNameRef}
-                type="text"
-                className="form-control"
-                id="last-name"
-                placeholder="Enter last name"
-              />
-            </div>
-            <div className="form-group">
-              <input
-                ref={usernameRef}
-                type="text"
-                className="form-control"
-                id="username"
-                placeholder="Enter username"
-              />
-            </div>
-            <div className="form-group">
-              <input
-                ref={emailRef}
-                type="email"
-                className="form-control"
-                id="email"
-                placeholder="Enter email"
-              />
-            </div>
-            <div className="form-group">
-              <input
-                ref={passwordRef}
-                type="password"
-                className="form-control"
-                id="password"
-                placeholder="Password"
-              />
-            </div>
-            <div className="form-group">
-              <input
-                ref={confirmPasswordRef}
-                type="password"
-                className="form-control"
-                id="confirm_password"
-                placeholder="Confirm Password"
-              />
-            </div>
-            <div className="form-group">
-              <input
-                ref={phoneNumberRef}
-                type="text"
-                className="form-control"
-                id="phone"
-                placeholder="Enter phone number"
-              />
-            </div>
-            <div className="privacy">
-              <FormControlLabel
-                required
-                control={<Checkbox />}
-                label="Yes, I understand and agree to the Upwork Terms of Service , including the User Agreement and Privacy Policy ."
-              />
-            </div>
-            <div className="form-group bouton">
-              <button type="submit" className="btn btn-primary">
-                Create my account
-              </button>
-            </div>
-            <div className="form-group bouton">
-              <p>Already have an account? </p>
-              <a href="/login" className="link">
-                Sign in
-              </a>
-            </div>
-          </div>
-        </form>
-      </div>
-    </>
+    <Card
+      p="10"
+      style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, 10%)",
+        width: "50%",
+      }}
+    >
+      <h1>Sign up as a client</h1>
+      <FormControl>
+        <FormLabel>First Name</FormLabel>
+        <Input type="text" ref={firstNameRef} />
+        <FormLabel>Last Name</FormLabel>
+        <Input type="text" ref={lastNameRef} />
+        <FormLabel>Username</FormLabel>
+        <Input type="text" ref={usernameRef} />
+        <FormLabel>Email</FormLabel>
+        <Input type="email" ref={emailRef} />
+        <FormLabel>Password</FormLabel>
+        <Input type="password" ref={passwordRef} />
+        <FormLabel>Confirm Password</FormLabel>
+        <Input type="password" ref={confirmPasswordRef} />
+        <FormLabel>Phone Number</FormLabel>
+        <Input type="text" ref={phoneNumberRef} />
+        <FormLabel>Terms and conditions:</FormLabel>
+        <Checkbox>
+          Yes, I understand and agree to the Upwork Terms of Service , including
+          the User Agreement and Privacy Policy .
+        </Checkbox>
+        <FormControl
+          style={{
+            alignContent: "center",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
+          <button onClick={signupHandler}>Sign up</button>
+          <FormControl>
+            <Text>
+              ---------------------------------or-------------------------------
+            </Text>
+            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+          </FormControl>
+          <Text>Already have an account?</Text>
+          <a href="/login">
+            <button>Log in</button>
+          </a>
+        </FormControl>
+      </FormControl>
+    </Card>
   );
 };
