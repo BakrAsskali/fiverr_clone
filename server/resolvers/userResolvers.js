@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { userHelper } from '../helpers/user.helper.js';
 import UserModel from '../models/user.js';
@@ -29,9 +30,14 @@ export const userResolvers = {
             if (isEmailAlreadyExist) {
                 throw new Error("Email already exists");
             }
+            const isUsernameAlreadyExist = await userHelper.isUsernameAlreadyExist(args.input.username);
+            if (isUsernameAlreadyExist) {
+                throw new Error("Username already exists");
+            }
+            const cryptedPassword = bcrypt.hashSync(args.input.password, 10);
             const user = new UserModel({
                 username: args.input.username,
-                password: args.input.password,
+                password: cryptedPassword,
                 email: args.input.email,
                 firstName: args.input.firstName,
                 lastName: args.input.lastName,
@@ -79,7 +85,8 @@ export const userResolvers = {
         },
 
         login: async (_parent, args, _context, _info) => {
-            const user = await UserModel.findOne({ $and: [{ email: args.email }, { password: args.password }] });
+            const cryptedPassword = bcrypt.hashSync(args.password, 10);
+            const user = await UserModel.findOne({ $and: [{ email: args.email }, { password: cryptedPassword }] });
             if (user) {
                 const token = jwt.sign({ userId: user._id, email: user.email },
                     process.env.JWT_SECRET,

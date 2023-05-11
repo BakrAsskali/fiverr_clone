@@ -11,7 +11,7 @@ import {
 import { GoogleLogin } from "@react-oauth/google";
 import { ChangeEvent, useRef } from "react";
 import { useCookies } from "react-cookie";
-import { useHref } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../assets/styles/client.css";
 
 const CREATEUSER_MUTATION = gql`
@@ -48,6 +48,8 @@ const CREATEUSER_MUTATION = gql`
  * To create custom component templates, see https://help.codux.com/kb/en/article/configuration-for-clients-and-templates
  */
 export const Client = () => {
+
+  const navigate = useNavigate();
   const responseMessage = (response: any) => {
     console.log(response);
   };
@@ -59,7 +61,7 @@ export const Client = () => {
 
   function onSignupSuccess(response: any) {
     console.log(response);
-    setCookie("userJwtToken", response.accessToken, { path: "/" });
+    setCookie("userJwtToken", response.token, { path: "/" });
     console.log(cookies);
   }
 
@@ -110,7 +112,7 @@ export const Client = () => {
 
     createUser({ variables: { Input: user } });
 
-    useHref("/");
+    navigate("/");
   };
 
   const [createUser, { error, data }] = useMutation(CREATEUSER_MUTATION, {
@@ -157,47 +159,49 @@ export const Client = () => {
       }}
     >
       <h1>Sign up as a client</h1>
-      <FormControl>
-        <FormLabel>First Name</FormLabel>
-        <Input type="text" ref={firstNameRef} />
-        <FormLabel>Last Name</FormLabel>
-        <Input type="text" ref={lastNameRef} />
-        <FormLabel>Username</FormLabel>
-        <Input type="text" ref={usernameRef} />
-        <FormLabel>Email</FormLabel>
-        <Input type="email" ref={emailRef} />
-        <FormLabel>Password</FormLabel>
-        <Input type="password" ref={passwordRef} />
-        <FormLabel>Confirm Password</FormLabel>
-        <Input type="password" ref={confirmPasswordRef} />
-        <FormLabel>Phone Number</FormLabel>
-        <Input type="text" ref={phoneNumberRef} />
-        <FormLabel>Terms and conditions:</FormLabel>
-        <Checkbox>
-          Yes, I understand and agree to the Upwork Terms of Service , including
-          the User Agreement and Privacy Policy .
-        </Checkbox>
-        <FormControl
-          style={{
-            alignContent: "center",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-          }}
-        >
-          <Button onClick={signupHandler}>Sign up</Button>
-          <FormControl>
-            <Text>
-              ---------------------------------or-------------------------------
-            </Text>
-            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+      <form onSubmit={signupHandler}>
+        <FormControl >
+          <FormLabel>First Name</FormLabel>
+          <Input type="text" ref={firstNameRef} />
+          <FormLabel>Last Name</FormLabel>
+          <Input type="text" ref={lastNameRef} />
+          <FormLabel>Username</FormLabel>
+          <Input type="text" ref={usernameRef} />
+          <FormLabel>Email</FormLabel>
+          <Input type="email" ref={emailRef} />
+          <FormLabel>Password</FormLabel>
+          <Input type="password" ref={passwordRef} />
+          <FormLabel>Confirm Password</FormLabel>
+          <Input type="password" ref={confirmPasswordRef} />
+          <FormLabel>Phone Number</FormLabel>
+          <Input type="text" ref={phoneNumberRef} />
+          <FormLabel>Terms and conditions:</FormLabel>
+          <Checkbox>
+            Yes, I understand and agree to the Upwork Terms of Service , including
+            the User Agreement and Privacy Policy .
+          </Checkbox>
+          <FormControl
+            style={{
+              alignContent: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <Button type="submit">Sign up</Button>
+            <FormControl>
+              <Text>
+                ---------------------------------or-------------------------------
+              </Text>
+              <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+            </FormControl>
+            <Text>Already have an account?</Text>
+            <a href="/login">
+              <Button type="submit">Log in</Button>
+            </a>
           </FormControl>
-          <Text>Already have an account?</Text>
-          <a href="/login">
-            <Button>Log in</Button>
-          </a>
         </FormControl>
-      </FormControl>
+      </form>
     </Card>
   );
 };

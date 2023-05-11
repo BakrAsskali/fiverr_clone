@@ -12,7 +12,7 @@ import {
 import { GoogleLogin } from "@react-oauth/google";
 import { ChangeEvent, useRef } from "react";
 import { useCookies } from "react-cookie";
-import { useHref } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../assets/styles/freelancer.css";
 
 const CREATEUSER_MUTATION = gql`
@@ -49,6 +49,8 @@ const CREATEUSER_MUTATION = gql`
  * To create custom component templates, see https://help.codux.com/kb/en/article/configuration-for-clients-and-templates
  */
 export const Freelancer = () => {
+
+  const navigate = useNavigate();
   const responseMessage = (response: any) => {
     console.log(response);
   };
@@ -60,7 +62,7 @@ export const Freelancer = () => {
 
   function onSignupSuccess(response: any) {
     console.log(response);
-    setCookie("userJwtToken", response.accessToken, { path: "/" });
+    setCookie("userJwtToken", response.token, { path: "/" });
     console.log(cookies);
   }
 
@@ -111,7 +113,7 @@ export const Freelancer = () => {
 
     createUser({ variables: { input: user } });
 
-    useHref("/");
+    navigate("/");
   };
 
   const [createUser, { error, data }] = useMutation(CREATEUSER_MUTATION, {
@@ -127,7 +129,6 @@ export const Freelancer = () => {
       },
     },
     onCompleted: (data) => {
-      console.log(data);
       onSignupSuccess(data.createUser.userJwtToken);
     },
 
@@ -157,48 +158,54 @@ export const Freelancer = () => {
         boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
       }}
     >
-      <h1>Sign up as a client</h1>
-      <FormControl>
-        <FormLabel>First Name</FormLabel>
-        <Input type="text" ref={firstNameRef} />
-        <FormLabel>Last Name</FormLabel>
-        <Input type="text" ref={lastNameRef} />
-        <FormLabel>Username</FormLabel>
-        <Input type="text" ref={usernameRef} />
-        <FormLabel>Email</FormLabel>
-        <Input type="email" ref={emailRef} />
-        <FormLabel>Password</FormLabel>
-        <Input type="password" ref={passwordRef} />
-        <FormLabel>Confirm Password</FormLabel>
-        <Input type="password" ref={confirmPasswordRef} />
-        <FormLabel>Phone Number</FormLabel>
-        <Input type="text" ref={phoneNumberRef} />
-        <FormLabel>Terms and conditions:</FormLabel>
-        <Checkbox>
-          Yes, I understand and agree to the Upwork Terms of Service , including
-          the User Agreement and Privacy Policy .
-        </Checkbox>
-        <FormControl
-          style={{
-            alignContent: "center",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-          }}
-        >
-          <Button onClick={signupHandler}>Sign up</Button>
-          <FormControl>
-            <Text>
-              ---------------------------------or-------------------------------
-            </Text>
-            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+      <h1>Sign up as a freelancer</h1>
+      <form onSubmit={signupHandler}>
+        <FormControl>
+          <FormLabel>First Name</FormLabel>
+          <Input type="text" ref={firstNameRef} />
+          <FormLabel>Last Name</FormLabel>
+          <Input type="text" ref={lastNameRef} />
+          <FormLabel>Username</FormLabel>
+          <Input type="text" ref={usernameRef} />
+          <FormLabel>Email</FormLabel>
+          <Input type="email" ref={emailRef} />
+          <FormLabel>Password</FormLabel>
+          <Input type="password" ref={passwordRef} />
+          <FormLabel>Confirm Password</FormLabel>
+          <Input type="password" ref={confirmPasswordRef} />
+          <FormLabel>Phone Number</FormLabel>
+          <Input type="text" ref={phoneNumberRef} />
+          <FormLabel>Terms and conditions:</FormLabel>
+          <Checkbox>
+            Yes, I understand and agree to the Upwork Terms of Service , including
+            the User Agreement and Privacy Policy .
+          </Checkbox>
+          <FormControl
+            style={{
+              alignContent: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <Button type="submit">
+              Sign up
+            </Button>
+            <FormControl>
+              <Text>
+                ---------------------------------or-------------------------------
+              </Text>
+              <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+            </FormControl>
+            <Text>Already have an account?</Text>
+            <a href="/login">
+              <Button>
+                Login
+              </Button>
+            </a>
           </FormControl>
-          <Text>Already have an account?</Text>
-          <a href="/login">
-            <Button>Log in</Button>
-          </a>
         </FormControl>
-      </FormControl>
+      </form>
     </Card>
   );
 };

@@ -118,36 +118,44 @@ export const Login = () => {
         top: "50%",
         left: "50%",
         transform: "translate(-50%,50%)",
+        boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
       }}
     >
       <h1>Login</h1>
-      <FormControl>
-        <FormLabel>Username</FormLabel>
-        <Input placeholder="Username" ref={usernameRef} />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Password</FormLabel>
-        <Input placeholder="Password" type="password" ref={passwordRef} />
-      </FormControl>
-      <button onClick={handleSubmit}>Login</button>
-      <Text textAlign="center">----------------Or---------------</Text>
-      <FormControl
-        style={{
-          alignContent: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-        }}
-      >
-        <GoogleLogin
-          onSuccess={responseMessage}
-          onError={errorMessage}
-        ></GoogleLogin>
-        <Text>Don't have and account?</Text>
-        <a href="/signup">
-          <Button>Signup</Button>
-        </a>
-      </FormControl>
+      <form onSubmit={handleSubmit}>
+        <FormControl>
+          <FormLabel>Username</FormLabel>
+          <Input placeholder="Username" ref={usernameRef} />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Password</FormLabel>
+          <Input placeholder="Password" type="password" ref={passwordRef} />
+        </FormControl>
+        <Button type="submit" style={{
+          left: "35%",
+          marginTop: "10px",
+        }}>
+          Login
+        </Button>
+        <Text textAlign="center">----------------Or---------------</Text>
+        <FormControl
+          style={{
+            alignContent: "center",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
+          <GoogleLogin
+            onSuccess={responseMessage}
+            onError={errorMessage}
+          ></GoogleLogin>
+          <Text>Don't have and account?</Text>
+          <a href="/signup">
+            <Button>Signup</Button>
+          </a>
+        </FormControl>
+      </form>
     </Card>
   );
 };

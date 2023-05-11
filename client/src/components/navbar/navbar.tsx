@@ -112,7 +112,11 @@ function PopupComponent(props: PopupProps) {
       <a>
         <Button className="second_button" style={{
           color: "green"
-        }}>Sign in</Button>
+        }}
+          type="submit"
+        >
+          Sign in
+        </Button>
       </a>
       <br />
       <p>--------------or---------------</p>
