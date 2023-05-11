@@ -1,3 +1,4 @@
+import { Button, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import "../../assets/styles/App.css";
 import { Footer } from "../../components/footer/Footer";
@@ -15,7 +16,7 @@ type Image = {
   url: string;
 };
 
-export const Homepage = ({}: HomepageProps) => {
+export const Homepage = ({ }: HomepageProps) => {
   const [backendData, setBackendData] = useState([{}]);
 
   const [images] = useState<Image[]>([
@@ -47,13 +48,17 @@ export const Homepage = ({}: HomepageProps) => {
 
   return (
     <>
-      <div className="video">
+      <div className="video" style={{
+        width: "100%",
+      }}>
         <img className="img" src={currentImage.url} alt="" />
         <div className="overlay">
           <p>Find someone who will solve </p>
           <p>your problems with the least cost</p>
           <div className="search">
-            <input type="text" placeholder="Search.." />
+            <input type="text" placeholder="Search for any service" style={{
+              color: "black",
+            }} />
           </div>
           <ul className="cats">
             <li id="popular">popular</li>
@@ -69,78 +74,114 @@ export const Homepage = ({}: HomepageProps) => {
           </ul>
         </div>
       </div>
-      <div className="description">
-        <table>
-          <th>
-            <h1>A whole world of freelance talent at your fingertips</h1>
-          </th>
-          <td>
-            <h2>The best for every budget</h2>
+      <div className="description" style={{
+        width: "80%",
+        padding: "50px",
+        margin: "auto",
+        borderSpacing: "50px",
+      }}>
+        <div>
+          <Text noOfLines={2} fontSize='5xl'>A whole world of freelance talent at your fingertips</Text>
+          <br />
+          <td style={{
+            boxShadow: "0 0 10px 0 rgba(0,0,0,0.2)",
+          }}>
+            <h2><b>The best for every budget</b></h2>
+            <br />
             <p>
               Find high-quality services at every price point. No hourly rates,
               just project-based pricing.
             </p>
           </td>
-          <td>
-            <h2>Quality work done quickly</h2>
+          <td style={{
+            boxShadow: "0 0 10px 0 rgba(0,0,0,0.2)",
+          }}>
+            <h2><b>Quality work done quickly</b></h2>
+            <br />
             <p>
               Find the right freelancer to begin working on your project within
               minutes.
             </p>
           </td>
-          <td>
-            <h2>Protected payments, every time</h2>
+          <td style={{
+            boxShadow: "0 0 10px 0 rgba(0,0,0,0.2)",
+          }}>
+            <h2><b>Protected payments, every time</b></h2>
+            <br />
             <p>
               Always know what you'll pay upfront. Your payment isn't released
               until you approve the work.
             </p>
           </td>
-          <td>
-            <h2>24/7 support</h2>
+          <td style={{
+            boxShadow: "0 0 10px 0 rgba(0,0,0,0.2)",
+          }}>
+            <h2><b>24/7 support</b></h2>
+            <br />
             <p>
               Questions? Our round-the-clock support team is available to help
               anytime, anywhere.
             </p>
           </td>
-        </table>
-      </div>
+        </div>
+      </div >
       <div>
-        <h2>Discover more categories</h2>
+        <Text fontSize="4xl" style={{
+          textAlign: "center",
+        }}>Discover more categories</Text>
         <ul className="categories">
           <div className="category">
-            <a href="">Web design</a>
+            <a href="">
+              <Button>Web Development</Button>
+            </a>
           </div>
           <div className="category">
-            <a href="">Video editing</a>
+            <a href="">
+              <Button>Video editing</Button>
+            </a>
           </div>
           <div className="category">
-            <a href="">Voice acting</a>
+            <a href="">
+              <Button>Voice acting</Button>
+            </a>
           </div>
           <div className="category">
-            <a href="">Logo design</a>
+            <a href="">
+              <Button>Mobile app development</Button>
+            </a>
           </div>
           <div className="category">
-            <a href="">Mobile app development</a>
+            <a href="">
+              <Button>3D modeling</Button>
+            </a>
           </div>
           <div className="category">
-            <a href="">3D modeling</a>
+            <a href="">
+              <Button>Graphic design</Button>
+            </a>
           </div>
           <div className="category">
-            <a href="">Animation</a>
+            <a href="">
+              <Button>Writing</Button>
+            </a>
           </div>
           <div className="category">
-            <a href="">Music & audio</a>
+            <a href="">
+              <Button>Photography</Button>
+            </a>
           </div>
           <div className="category">
-            <a href="">Writing</a>
-          </div>
-          <div className="category">
-            <a href="">Photography</a>
+            <a href="">
+              <Button>Writing</Button>
+            </a>
           </div>
         </ul>
       </div>
+      <br />
       <div className="Ad">
-        <h2>Find the talent needed to get your business growing.</h2>
+        <Text fontSize="3xl" style={{
+          textAlign: "center",
+        }}>Find the talent needed to get your business growing.</Text>
       </div>
       <Footer />
     </>

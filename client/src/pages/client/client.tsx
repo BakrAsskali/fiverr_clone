@@ -1,5 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import {
+  Button,
   Card,
   Checkbox,
   FormControl,
@@ -152,6 +153,7 @@ export const Client = () => {
         left: "50%",
         transform: "translate(-50%, 10%)",
         width: "50%",
+        boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
       }}
     >
       <h1>Sign up as a client</h1>
@@ -183,7 +185,7 @@ export const Client = () => {
             textAlign: "center",
           }}
         >
-          <button onClick={signupHandler}>Sign up</button>
+          <Button onClick={signupHandler}>Sign up</Button>
           <FormControl>
             <Text>
               ---------------------------------or-------------------------------
@@ -192,7 +194,7 @@ export const Client = () => {
           </FormControl>
           <Text>Already have an account?</Text>
           <a href="/login">
-            <button>Log in</button>
+            <Button>Log in</Button>
           </a>
         </FormControl>
       </FormControl>

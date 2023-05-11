@@ -4,7 +4,6 @@ import {
   Container,
   Divider,
   IconButton,
-  Input,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -48,9 +47,9 @@ export const Footer = () => (
               Legal
             </Text>
             <Stack spacing="3" shouldWrapChildren>
-              <Button variant="link">Privacy</Button>
-              <Button variant="link">Terms</Button>
-              <Button variant="link">License</Button>
+              <a href="/privacy">
+                <Button variant="link">Privacy</Button>
+              </a>
             </Stack>
           </Stack>
         </Stack>

@@ -1,4 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
+import { Button } from "@chakra-ui/react";
 import { GoogleLogin } from "@react-oauth/google";
 import { ChangeEvent, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -84,9 +85,14 @@ function PopupComponent(props: PopupProps) {
   if (data) console.log(data);
 
   return (
-    <form onSubmit={loginHandler} className="login_popup">
+    <form onSubmit={loginHandler} className="login_popup" style={{
+      width: "20%",
+    }}>
       <div className="close_btn" onClick={onClose}></div>
-      <h1>Sign in</h1>
+      <h1 style={{
+        textAlign: "center",
+        color: "black",
+      }}>Sign in</h1>
       <div className="input_field">
         <input
           ref={emailRef}
@@ -103,7 +109,11 @@ function PopupComponent(props: PopupProps) {
           placeholder="Password"
         />
       </div>
-      <button className="second_button">Sign in</button>
+      <a>
+        <Button className="second_button" style={{
+          color: "green"
+        }}>Sign in</Button>
+      </a>
       <br />
       <p>--------------or---------------</p>
       <div className="google_signin">
@@ -112,7 +122,14 @@ function PopupComponent(props: PopupProps) {
         </div>
       </div>
       <div className="signup_link">
-        <p>Don't have an account?</p> <a href="/signup">Sign up</a>
+        <p>Don't have an account?</p>
+        <a href="/signup">
+          <Button style={{
+            alignItems: "center",
+          }}>
+            Sign up
+          </Button>
+        </a>
       </div>
     </form>
   );
@@ -138,7 +155,7 @@ export const Navbar = () => {
           <span className="dot">.</span>
         </a>
       </div>
-      
+
       <br />
       <div className="nav-menu">
         <ul>
@@ -155,17 +172,17 @@ export const Navbar = () => {
           </li>
           <div className="nav-btn">
             <li>
-              <a className="nav-btn-link" href="/signup"style={{ fontWeight: "bold" }}>
+              <a className="nav-btn-link" href="/signup" style={{ fontWeight: "bold" }}>
                 Join
               </a>
             </li>
           </div>
-          
+
         </ul>
-        
-        
+
+
       </div>
-      
+
       {isActive && <PopupComponent onClose={togglePopup} />}
     </nav>
   );

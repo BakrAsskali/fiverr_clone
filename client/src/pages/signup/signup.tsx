@@ -29,6 +29,7 @@ export const Signup = ({ className }: SignupProps) => {
         top: "50%",
         left: "50%",
         transform: "translate(-50%,50%)",
+        boxShadow: "0 0 10px rgba(0,0,0,0.5)",
       }}
     >
       <h1>Signup</h1>

@@ -35,284 +35,72 @@ export const Gigs = () => {
   if (data) console.log(data);
 
   return (
-    <>
-      <div className="gigs">
-        <div className="menu">
-          <div className="menu-left">
-            <span>Budget</span>
-            <Input size="sm" type="text" placeholder="Min" />
-            <Input size="sm" type="text" placeholder="Max" />
-            <Button colorScheme="blue">Apply</Button>
-          </div>
-          <div className="menu-right">
-            <span>Sort by</span>
-            <span>
-              {sort === "sales" ? ("Best Selling") : ("Newest")}
-            </span>
-            <img src="./img/down.png" alt="" onClick={() => setOpen(!open)} />
-            {open && (
-              <div className="rightMenu">
-                {sort === "sales" ? (
-                  <span onClick={() => resort("createdAt")}>Newest</span>
-                ) : (
-                  <span onClick={() => resort("sales")}>Best Selling</span>
-                )}
-              </div>
-            )}
-          </div>
+    <div style={{
+      width: "100%",
+      height: "100%",
+      backgroundColor: "#f5f5f5",
+      top: "50%",
+      left: "50%",
+      transform: "translate(75%, 200%)",
+    }}>
+      <Text fontSize="3xl" style={{
+        textAlign: "center",
+      }}>Search for a Gig</Text>
+      <div className="menu" style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "100%",
+        padding: "0 20px",
+      }}>
+        <div className="menu-left">
+          <span>Budget</span>
+          <Input size="sm" type="text" placeholder="Min" />
+          <Input size="sm" type="text" placeholder="Max" />
+          <Button colorScheme="blue">Apply</Button>
+        </div>
+        <div className="menu-right">
+          <span>Sort by</span>
+          <span>
+            {sort === "sales" ? ("Best Selling") : ("Newest")}
+          </span>
+          <img src="./img/down.png" alt="" onClick={() => setOpen(!open)} />
+          {open && (
+            <div className="rightMenu">
+              {sort === "sales" ? (
+                <span onClick={() => resort("createdAt")}>Newest</span>
+              ) : (
+                <span onClick={() => resort("sales")}>Best Selling</span>
+              )}
+            </div>
+          )}
         </div>
       </div>
-      {/* <Grid>
-        <GridItem colSpan={2}>
-          <Box className="gigs-container">
-            <SimpleGrid columns={3} spacing={30}>
-              <Box className="gig-card">
-                <Card maxW='sm'>
-                  <CardBody>
-                    <Image
-                      src={data.getGigs[0].cover}
-                      borderRadius='lg'
-                    />
-                    <Stack mt='6' spacing='3'>
-                      <Heading size='md'>{data.getGigs[0].title}</Heading>
-                      <Text>
-                        {data.getGigs[0].description}
-                      </Text>
-                      <Text color='blue.600' fontSize='2xl'>
-                        ${data.getGigs[0].price}
-                      </Text>
-                    </Stack>
-                  </CardBody>
-                  <Divider />
-                  <CardFooter>
-                    <ButtonGroup spacing='2'>
-                      <Button variant='solid' colorScheme='blue'>
-                        Buy now
-                      </Button>
-                    </ButtonGroup>
-                  </CardFooter>
-                </Card>
-              </Box>
-              <Box className="gig-card">
-                <Card maxW='sm'>
-                  <CardBody>
-                    <Image
-                      src={data.getGigs[1].cover}
-                      borderRadius='lg'
-                    />
-                    <Stack mt='6' spacing='3'>
-                      <Heading size='md'>{data.getGigs[2].title}</Heading>
-                      <Text>
-                        {data.getGigs[1].description}
-                      </Text>
-                      <Text color='blue.600' fontSize='2xl'>
-                        ${data.getGigs[1].price}
-                      </Text>
-                    </Stack>
-                  </CardBody>
-                  <Divider />
-                  <CardFooter>
-                    <ButtonGroup spacing='2'>
-                      <Button variant='solid' colorScheme='blue'>
-                        Buy now
-                      </Button>
-                    </ButtonGroup>
-                  </CardFooter>
-                </Card>
-              </Box>
-              <Box className="gig-card">
-                <Card maxW='sm'>
-                  <CardBody>
-                    <Image
-                      src={data.getGigs[2].cover}
-                      borderRadius='lg'
-                    />
-                    <Stack mt='6' spacing='3'>
-                      <Heading size='md'>{data.getGigs[2].title}</Heading>
-                      <Text>
-                        {data.getGigs[2].description}
-                      </Text>
-                      <Text color='blue.600' fontSize='2xl'>
-                        ${data.getGigs[2].price}
-                      </Text>
-                    </Stack>
-                  </CardBody>
-                  <Divider />
-                  <CardFooter>
-                    <ButtonGroup spacing='2'>
-                      <Button variant='solid' colorScheme='blue'>
-                        Buy now
-                      </Button>
-                    </ButtonGroup>
-                  </CardFooter>
-                </Card>
-              </Box>
-              <Box className="gig-card">
-                <Card maxW='sm'>
-                  <CardBody>
-                    <Image
-                      src={data.getGigs[3].cover}
-                      borderRadius='lg'
-                    />
-                    <Stack mt='6' spacing='3'>
-                      <Heading size='md'>{data.getGigs[2].title}</Heading>
-                      <Text>
-                        {data.getGigs[3].description}
-                      </Text>
-                      <Text color='blue.600' fontSize='2xl'>
-                        ${data.getGigs[3].price}
-                      </Text>
-                    </Stack>
-                  </CardBody>
-                  <Divider />
-                  <CardFooter>
-                    <ButtonGroup spacing='2'>
-                      <Button variant='solid' colorScheme='blue'>
-                        Buy now
-                      </Button>
-                    </ButtonGroup>
-                  </CardFooter>
-                </Card>
-              </Box>
-              <Box className="gig-card">
-                <Card maxW='sm'>
-                  <CardBody>
-                    <Image
-                      src={data.getGigs[4].cover}
-                      borderRadius='lg'
-                    />
-                    <Stack mt='6' spacing='3'>
-                      <Heading size='md'>{data.getGigs[2].title}</Heading>
-                      <Text>
-                        {data.getGigs[4].description}
-                      </Text>
-                      <Text color='blue.600' fontSize='2xl'>
-                        ${data.getGigs[4].price}
-                      </Text>
-                    </Stack>
-                  </CardBody>
-                  <Divider />
-                  <CardFooter>
-                    <ButtonGroup spacing='2'>
-                      <Button variant='solid' colorScheme='blue'>
-                        Buy now
-                      </Button>
-                    </ButtonGroup>
-                  </CardFooter>
-                </Card>
-              </Box>
-              <Box className="gig-card">
-                <Card maxW='sm'>
-                  <CardBody>
-                    <Image
-                      src={data.getGigs[5].cover}
-                      borderRadius='lg'
-                    />
-                    <Stack mt='6' spacing='3'>
-                      <Heading size='md'>{data.getGigs[2].title}</Heading>
-                      <Text>
-                        {data.getGigs[5].description}
-                      </Text>
-                      <Text color='blue.600' fontSize='2xl'>
-                        ${data.getGigs[5].price}
-                      </Text>
-                    </Stack>
-                  </CardBody>
-                  <Divider />
-                  <CardFooter>
-                    <ButtonGroup spacing='2'>
-                      <Button variant='solid' colorScheme='blue'>
-                        Buy now
-                      </Button>
-                    </ButtonGroup>
-                  </CardFooter>
-                </Card>
-              </Box>
-              <Box className="gig-card">
-                <Card maxW='sm'>
-                  <CardBody>
-                    <Image
-                      src={data.getGigs[6].cover}
-                      borderRadius='lg'
-                    />
-                    <Stack mt='6' spacing='3'>
-                      <Heading size='md'>{data.getGigs[2].title}</Heading>
-                      <Text>
-                        {data.getGigs[6].description}
-                      </Text>
-                      <Text color='blue.600' fontSize='2xl'>
-                        ${data.getGigs[6].price}
-                      </Text>
-                    </Stack>
-                  </CardBody>
-                  <Divider />
-                  <CardFooter>
-                    <ButtonGroup spacing='2'>
-                      <Button variant='solid' colorScheme='blue'>
-                        Buy now
-                      </Button>
-                    </ButtonGroup>
-                  </CardFooter>
-                </Card>
-              </Box>
-              <Box className="gig-card">
-                <Card maxW='sm'>
-                  <CardBody>
-                    <Image
-                      src={data.getGigs[7].cover}
-                      borderRadius='lg'
-                    />
-                    <Stack mt='6' spacing='3'>
-                      <Heading size='md'>{data.getGigs[2].title}</Heading>
-                      <Text>
-                        {data.getGigs[7].description}
-                      </Text>
-                      <Text color='blue.600' fontSize='2xl'>
-                        ${data.getGigs[7].price}
-                      </Text>
-                    </Stack>
-                  </CardBody>
-                  <Divider />
-                  <CardFooter>
-                    <ButtonGroup spacing='2'>
-                      <Button variant='solid' colorScheme='blue'>
-                        Buy now
-                      </Button>
-                    </ButtonGroup>
-                  </CardFooter>
-                </Card>
-              </Box>
-              <Box className="gig-card">
-                <Card maxW='sm'>
-                  <CardBody>
-                    <Image
-                      src={data.getGigs[8].cover}
-                      borderRadius='lg'
-                    />
-                    <Stack mt='6' spacing='3'>
-                      <Heading size='md'>{data.getGigs[2].title}</Heading>
-                      <Text>
-                        {data.getGigs[8].description}
-                      </Text>
-                      <Text color='blue.600' fontSize='2xl'>
-                        ${data.getGigs[8].price}
-                      </Text>
-                    </Stack>
-                  </CardBody>
-                  <Divider />
-                  <CardFooter>
-                    <ButtonGroup spacing='2'>
-                      <Button variant='solid' colorScheme='blue'>
-                        Buy now
-                      </Button>
-                    </ButtonGroup>
-                  </CardFooter>
-                </Card>
-              </Box>
-            </SimpleGrid>
-          </Box>
-        </GridItem>
-      </Grid> */}
-    </>
+      <Grid templateColumns="repeat(4, 1fr)" gap={6}>
+        {data?.getGigs.map((gig: any) => (
+          <a href={`/gig/${gig.id}`}>
+            <GridItem key={gig.id}>
+              <Card>
+                <CardBody>
+                  <Image src={gig.cover} alt="" />
+                  <Stack spacing={4} mt={4}>
+                    <Heading fontSize="xl">{gig.title}</Heading>
+                    <Text>{gig.description}</Text>
+                    <Text>{gig.price}</Text>
+                    <Text>{gig.category}</Text>
+                  </Stack>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <ButtonGroup>
+                    <Button colorScheme="blue">Buy now</Button>
+                  </ButtonGroup>
+                </CardFooter>
+              </Card>
+            </GridItem>
+          </a>
+        ))}
+      </Grid>
+    </div>
   );
 };

@@ -1,3 +1,5 @@
+import { userSchema } from "./userSchema.js"
+
 export const gigSchema = `#graphql
     type Gig {
         id: ID
@@ -15,7 +17,7 @@ export const gigSchema = `#graphql
         sales: Int
         rating: Float
         reviews: [String]
-        freelancerId: String!
+        freelancer: User!
         createdAt: String
         updatedAt: String
     }
@@ -35,7 +37,7 @@ export const gigSchema = `#graphql
         sales: Int
         rating: Float
         reviews: [String]
-        freelancerId: String!
+        freelancer: String!
         createdAt: String
         updatedAt: String
     }
