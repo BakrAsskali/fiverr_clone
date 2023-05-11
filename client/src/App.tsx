@@ -18,6 +18,7 @@ import { Homepage } from "./pages/homepage/homepage";
 import { Login } from "./pages/login/login";
 import { Message } from "./pages/message/Message";
 import { Signup } from "./pages/signup/signup";
+import { Add } from "./pages/add/Add"
 
 const httpLink = createHttpLink({
   uri: "http://localhost:8800",
@@ -55,6 +56,7 @@ export const App = () => {
               <Route path="/gigs/:id" element={<Gig />}></Route>
               <Route path="/messages" element={<Message />}></Route>
               <Route path="/message" element={<Message />}></Route>
+              <Route path="/add" element={<Add />}></Route>
             </Routes>
           </BrowserRouter>
         </CookiesProvider>

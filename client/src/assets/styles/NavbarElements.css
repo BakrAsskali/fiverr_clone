@@ -15,12 +15,12 @@ nav {
   margin-left: 0px;
 }
 
-.logo{
+.logo {
   font-size: 34px;
   font-weight: bold
 }
 
-.logo .dot{
+.logo .dot {
   font-weight: bold;
   color: #1dbf73;
 }
@@ -43,17 +43,20 @@ nav .br {
   display: none;
   color: #fff;
 }
-ul{
+
+ul {
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
+
   font-size: 10px;
   justify-items: flex-end;
   grid-auto-flow: column;
   flex-direction: row;
 }
+
 nav .nav-menu {
   display: flex;
   align-items: center;
