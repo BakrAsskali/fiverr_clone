@@ -1,49 +1,275 @@
-import React from "react";
+import { gql, useMutation } from "@apollo/client";
+import { Button, Card, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import "../../assets/styles/Add.css";
 
-export const Add: React.FC = () => {
+const CREATEGIG = gql`
+  mutation CreateGig($input: GigInput) {
+  createGig(input: $input) {
+    id
+    title
+    shortTitle
+    description
+    shortDesc
+    price
+    cover
+    images
+    category
+    deliveryTime
+    revisionNumber
+    features
+    sales
+    rating
+    reviews
+    createdAt
+    updatedAt
+    freelancer {
+      id
+      firstName
+      lastName
+      username
+      email
+      phoneNumber
+      type
+      profilePicture
+      bio
+      skills
+      education
+      experience
+      languages
+      hourlyRate
+      rating
+      reviews
+      gigs
+      createdAt
+      updatedAt
+      userJwtToken {
+        token
+      }
+    }
+  }
+}
+`;
+
+export const Add = () => {
+
+  const navigate = useNavigate();
+
+  const [cookies, setCookie] = useCookies(["userJwtToken"]);
+
+  const titleRef = React.useRef<HTMLInputElement>(null);
+  const shortTitleRef = React.useRef<HTMLInputElement>(null);
+  const descriptionRef = React.useRef<HTMLTextAreaElement>(null);
+  const shortDescRef = React.useRef<HTMLTextAreaElement>(null);
+  const priceRef = React.useRef<HTMLInputElement>(null);
+  const coverRef = React.useRef<HTMLInputElement>(null);
+  const imagesRef = React.useRef<HTMLInputElement>(null);
+  const categoryRef = React.useRef<HTMLSelectElement>(null);
+  const deliveryTimeRef = React.useRef<HTMLInputElement>(null);
+  const revisionNumberRef = React.useRef<HTMLInputElement>(null);
+  const featuresRef = React.useRef<HTMLInputElement>(null);
+
+  const createGigHandler = (e: any) => {
+    e.preventDefault();
+    const title = titleRef.current?.value;
+    const shortTitle = shortTitleRef.current?.value;
+    const description = descriptionRef.current?.value;
+    const shortDesc = shortDescRef.current?.value;
+    const price = priceRef.current?.value;
+    const cover = coverRef.current?.value;
+    const images = imagesRef.current?.value;
+    const category = categoryRef.current?.value;
+    const deliveryTime = deliveryTimeRef.current?.value;
+    const revisionNumber = revisionNumberRef.current?.value;
+    const features = featuresRef.current?.value;
+    const freelancertoken = cookies.userJwtToken.token;
+
+    if (title === "" || shortTitle === "" || description === "" || shortDesc === "" || price === "" || cover === "" || images === "" || category === "" || deliveryTime === "" || revisionNumber === "" || features === "") {
+      console.log("Please fill all fields");
+      return;
+    }
+
+    const gigInput = {
+      title,
+      shortTitle,
+      description,
+      shortDesc,
+      price,
+      cover,
+      images,
+      category,
+      deliveryTime,
+      revisionNumber,
+      features,
+      freelancertoken
+    };
+
+    createGig({ variables: { Input: gigInput } });
+    navigate("/");
+  }
+
+  const [createGig, { data, error }] = useMutation(CREATEGIG, {
+    variables: {
+      Input: {
+        title: titleRef.current?.value,
+        shortTitle: shortTitleRef.current?.value,
+        description: descriptionRef.current?.value,
+        shortDesc: shortDescRef.current?.value,
+        price: priceRef.current?.value,
+        cover: coverRef.current?.value,
+        images: imagesRef.current?.value,
+        category: categoryRef.current?.value,
+        deliveryTime: deliveryTimeRef.current?.value,
+        revisionNumber: revisionNumberRef.current?.value,
+        features: featuresRef.current?.value,
+        freelancertoken: cookies.userJwtToken?.token
+      }
+    },
+
+    onError: (error) => {
+      console.log(error);
+    }
+  });
+
+  if (error) {
+    console.log(error);
+  }
+
+  if (data) {
+    console.log(data);
+  }
+
+  useEffect(() => {
+    if (cookies.userJwtToken === undefined) {
+      navigate("/login");
+    }
+  }, [data, error]);
+
   return (
-    <div className="add">
-      <div className="container">
-        <h1>Add New Gig</h1>
-        <div className="sections">
-          <div className="left">
-            <label htmlFor="">Title</label>
-            <input type="text" placeholder="e.g. I will do something I'm really good at" />
-            <label htmlFor="">Category</label>
-            <select name="cats" id="cats">
-              <option value="design">Design</option>
-              <option value="web">Web Development</option>
-              <option value="animation">Animation</option>
-              <option value="music">Music</option>
+    <div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <Card style={{
+        minWidth: "800px",
+        width: "80%",
+        margin: "auto",
+        padding: "20px",
+        borderRadius: "10px",
+        boxShadow: "0 0 10px 0 rgba(0,0,0,0.2)",
+        top: "50%",
+        left: "50%",
+        transform: "translate(20%, 0%)"
+      }}>
+        <h1>Create a new Gig</h1>
+        <br />
+        <br />
+        <br />
+        <form onSubmit={createGigHandler}>
+          <FormControl>
+            <FormLabel htmlFor="title" style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center"
+            }}>Title</FormLabel>
+            <Input type="text" id="title" ref={titleRef} required />
+            <FormLabel htmlFor="shortTitle" style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center"
+            }}>Short Title</FormLabel>
+            <Input type="text" id="shortTitle" ref={shortTitleRef} required />
+            <FormLabel htmlFor="description" style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center"
+            }}>Description</FormLabel>
+            <textarea id="description" ref={descriptionRef} style={{
+              height: "100px",
+              width: "100%",
+            }} required />
+            <FormLabel htmlFor="shortDesc" style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center"
+            }}>Short Description</FormLabel>
+            <textarea id="shortDesc" ref={shortDescRef} style={{
+              height: "100px",
+              width: "100%",
+            }} required />
+            <FormLabel htmlFor="price" style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center"
+            }}>Price</FormLabel>
+            <Input type="text" id="price" ref={priceRef} required />
+            <FormLabel htmlFor="cover" style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center"
+            }}>Cover</FormLabel>
+            <Input type="file" id="cover" ref={coverRef} required />
+            <FormLabel htmlFor="images" style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center"
+            }}>Images</FormLabel>
+            <Input type="file" id="images" ref={imagesRef} required />
+            <FormLabel htmlFor="category" style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center"
+            }}>Category</FormLabel>
+            <select id="category" ref={categoryRef} style={{
+              width: "100%",
+              height: "40px",
+              fontSize: "20px",
+              textAlign: "center"
+            }} required>
+              <option value="Graphics & Design">Graphics & Design</option>
+              <option value="Digital Marketing">Digital Marketing</option>
+              <option value="Writing & Translation">Writing & Translation</option>
+              <option value="Video & Animation">Video & Animation</option>
+              <option value="Music & Audio">Music & Audio</option>
+              <option value="Programming & Tech">Programming & Tech</option>
+              <option value="Data">Data</option>
             </select>
-            <label htmlFor="">Cover Image</label>
-            <input type="file" />
-            <label htmlFor="">Upload Images</label>
-            <input type="file" multiple />
-            <label htmlFor="">Description</label>
-            <textarea name="" id="" cols={30} rows={16} placeholder="Brief description to introduce your service to customers"></textarea>
-            <button>Create</button>
-          </div>
-          <div className="right">
-            <label htmlFor="">Service Title</label>
-            <input type="text" placeholder="e.g. One-page web design" />
-            <label htmlFor="">Short Description</label>
-            <textarea name="" id="" cols={30} rows={10} placeholder="short description of your service"></textarea>
-            <label htmlFor="">Delivery Time</label>
-            <input type="number" min={1} />
-            <label htmlFor="">Revision Number</label>
-            <input type="number" min={1} />
-            <label htmlFor="">Add Features</label>
-            <input type="text" placeholder="e.g. page design" />
-            <input type="text" placeholder="e.g. file uploading" />
-            <input type="text" placeholder="e.g. setting up a domain" />
-            <input type="text" placeholder="e.g. hosting" />
-            <label htmlFor="">Price</label>
-            <input type="number" min={1} />
-          </div>
-        </div>
-      </div>
+            <FormLabel htmlFor="deliveryTime" style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center"
+            }}>Delivery Time</FormLabel>
+            <Input type="text" id="deliveryTime" ref={deliveryTimeRef} required />
+            <FormLabel htmlFor="revisionNumber" style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center"
+            }}>Revision Number</FormLabel>
+            <Input type="text" id="revisionNumber" ref={revisionNumberRef} required />
+            <FormLabel htmlFor="features" style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center"
+            }}>Features</FormLabel>
+            <Input type="text" id="features" ref={featuresRef} required />
+            <br />
+            <br />
+            <Button style={{
+              backgroundColor: "#1dbf73",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "20px",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+            }} type="submit">Create Gig</Button>
+          </FormControl>
+        </form>
+      </Card>
     </div>
   );
 };

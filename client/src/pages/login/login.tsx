@@ -84,7 +84,7 @@ export const Login = () => {
 
   function onLoginSuccess(response: any) {
     console.log(response);
-    setCookie("userJwtToken", response.accessToken, { path: "/" });
+    setCookie("userJwtToken", response.token, { path: "/" });
     console.log(cookies);
   }
 

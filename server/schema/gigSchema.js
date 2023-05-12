@@ -17,7 +17,7 @@ export const gigSchema = `#graphql
         sales: Int
         rating: Float
         reviews: [String]
-        freelancer: User!
+        freelancerToken: UserJwtToken
         createdAt: String
         updatedAt: String
     }
@@ -37,7 +37,6 @@ export const gigSchema = `#graphql
         sales: Int
         rating: Float
         reviews: [String]
-        freelancer: String!
         createdAt: String
         updatedAt: String
     }

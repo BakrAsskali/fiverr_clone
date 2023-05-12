@@ -1,8 +1,9 @@
 import gigModel from '../models/gigModel.js';
+import userModel from '../models/user.js';
 
 export const gigResolvers = {
     Query: {
-        getGigs: async (parent, args, context, info) => {
+        getGigs: async (_parent, _args, _context, _info) => {
             try {
                 const gigs = gigModel.find({}).exec();
                 return await gigs;
@@ -11,7 +12,7 @@ export const gigResolvers = {
             }
         },
 
-        getGig: async (parent, args, context, info) => {
+        getGig: async (_parent, args, _context, _info) => {
             try {
                 const gig = gigModel.findById(args.id).exec();
                 return await gig;
@@ -21,36 +22,41 @@ export const gigResolvers = {
         }
     },
     Mutation: {
-        createGig: async (parent, args, context, info) => {
+        createGig: async (_parent, args, _context, _info) => {
             const gig = new gigModel({
                 title: args.input.title,
+                shortTitle: args.input.shortTitle,
                 description: args.input.description,
+                shortDescription: args.input.shortDescription,
                 price: args.input.price,
                 category: args.input.category,
-                subcategory: args.input.subcategory,
-                seller: args.input.seller,
-                buyer: args.input.buyer,
-                reviews: args.input.reviews,
-                orders: args.input.orders
+                images: args.input.images,
+                coverImage: args.input.coverImage,
+                deliveryTime: args.input.deliveryTime,
+                revisionNumber: args.input.revisionNumber,
+                features: args.input.features,
+                freelancerToken: args.input.freelancerToken,
             });
             return await gig.save();
         },
 
-        updateGig: async (parent, args, context, info) => {
+        updateGig: async (_parent, args, _context, _info) => {
             return await gigModel.findByIdAndUpdate(args.id, {
                 title: args.input.title,
+                shortTitle: args.input.shortTitle,
                 description: args.input.description,
+                shortDescription: args.input.shortDescription,
                 price: args.input.price,
                 category: args.input.category,
-                subcategory: args.input.subcategory,
-                seller: args.input.seller,
-                buyer: args.input.buyer,
-                reviews: args.input.reviews,
-                orders: args.input.orders
+                images: args.input.images,
+                coverImage: args.input.coverImage,
+                deliveryTime: args.input.deliveryTime,
+                revisionNumber: args.input.revisionNumber,
+                features: args.input.features,
             }, { new: true });
         },
 
-        deleteGig: async (parent, args, context, info) => {
+        deleteGig: async (_parent, args, _context, _info) => {
             return await gigModel.findByIdAndDelete(args.id).exec();
         }
     }

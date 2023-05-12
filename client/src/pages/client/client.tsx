@@ -15,32 +15,32 @@ import { useNavigate } from "react-router-dom";
 import "../../assets/styles/client.css";
 
 const CREATEUSER_MUTATION = gql`
-  mutation CreateUser($Input: UserInputInput) {
-    createUser(Input: $Input) {
-      id
-      firstName
-      lastName
-      username
-      email
-      type
-      phoneNumber
-      profilePicture
-      bio
-      skills
-      education
-      experience
-      languages
-      hourlyRate
-      rating
-      reviews
-      gigs
-      createdAt
-      updatedAt
-      userJwtToken {
-        token
-      }
+  mutation CreateUser($input: UserInput) {
+  createUser(input: $input) {
+    id
+    firstName
+    lastName
+    username
+    email
+    phoneNumber
+    type
+    profilePicture
+    bio
+    skills
+    education
+    experience
+    languages
+    hourlyRate
+    rating
+    reviews
+    gigs
+    createdAt
+    updatedAt
+    userJwtToken {
+      token
     }
   }
+}
 `;
 
 /**
@@ -101,18 +101,17 @@ export const Client = () => {
     }
 
     const user = {
+      firstName: enteredFirstName,
+      lastName: enteredLastName,
       username: enteredUsername,
       email: enteredEmail,
       password: enteredPassword,
-      firstName: enteredFirstName,
-      lastName: enteredLastName,
       phoneNumber: enteredPhoneNumber,
       type: enteredType,
     };
 
     createUser({ variables: { Input: user } });
 
-    navigate("/");
   };
 
   const [createUser, { error, data }] = useMutation(CREATEUSER_MUTATION, {
@@ -130,6 +129,7 @@ export const Client = () => {
     onCompleted: (data) => {
       console.log(data);
       onSignupSuccess(data.createUser.userJwtToken);
+      navigate("/");
     },
 
     onError: (error) => {
@@ -162,21 +162,21 @@ export const Client = () => {
       <form onSubmit={signupHandler}>
         <FormControl >
           <FormLabel>First Name</FormLabel>
-          <Input type="text" ref={firstNameRef} />
+          <Input type="text" ref={firstNameRef} isRequired />
           <FormLabel>Last Name</FormLabel>
-          <Input type="text" ref={lastNameRef} />
+          <Input type="text" ref={lastNameRef} isRequired />
           <FormLabel>Username</FormLabel>
-          <Input type="text" ref={usernameRef} />
+          <Input type="text" ref={usernameRef} isRequired />
           <FormLabel>Email</FormLabel>
-          <Input type="email" ref={emailRef} />
+          <Input type="email" ref={emailRef} isRequired />
           <FormLabel>Password</FormLabel>
-          <Input type="password" ref={passwordRef} />
+          <Input type="password" ref={passwordRef} isRequired />
           <FormLabel>Confirm Password</FormLabel>
-          <Input type="password" ref={confirmPasswordRef} />
+          <Input type="password" ref={confirmPasswordRef} isRequired />
           <FormLabel>Phone Number</FormLabel>
-          <Input type="text" ref={phoneNumberRef} />
+          <Input type="text" ref={phoneNumberRef} isRequired />
           <FormLabel>Terms and conditions:</FormLabel>
-          <Checkbox>
+          <Checkbox isRequired>
             Yes, I understand and agree to the Upwork Terms of Service , including
             the User Agreement and Privacy Policy .
           </Checkbox>

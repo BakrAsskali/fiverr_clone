@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 export const gigSchema = new Schema(
   {
-    userId: {
+    userToken: {
       type: String,
       required: true,
     },
@@ -62,9 +62,9 @@ export const gigSchema = new Schema(
       type: Number,
       default: 0,
     },
-    status: {
-      type: String,
-      default: "pending",
+    reviews: {
+      type: [String],
+      required: false,
     },
     createdAt: {
       type: Date,
