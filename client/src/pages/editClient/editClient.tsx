@@ -9,26 +9,25 @@ import {
     Button,
     Text,
   } from '@chakra-ui/react';
-  import { GoogleLogin } from "@react-oauth/google";
-import { useState } from "react";
-  import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import { gql, useMutation, useQuery } from "@apollo/client";
+
+
 
 
 
 export const EditClient = () => {
     return(
         <Card
-      p="10"
-      style={{
-        position: "absolute",
-        display: "flex",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, 10%)",
-        width: "35%",
-        boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-      }}
+            p="10"
+            style={{
+                position: "absolute",
+                display: "flex",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, 10%)",
+                width: "35%",
+                boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+            }}
         >
             <h1>Manage your account</h1>
             <br />
@@ -62,7 +61,7 @@ export const EditClient = () => {
             </div>
             <br />
             <div className="changeProfilePicture">
-            <FormControl>
+                <FormControl>
                     <FormLabel>Profile Picture</FormLabel>
                     <Input type='file' />
                 </FormControl>
@@ -77,13 +76,9 @@ export const EditClient = () => {
             <br />
             <div className="submit">
                 <a href="/">
-                <Button type="submit">Confirm</Button>
+                    <Button type="submit">Confirm</Button>
                 </a>
             </div>
-            
-
-
-        
         </Card>
     );
 };
