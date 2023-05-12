@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { GoogleLogin } from "@react-oauth/google";
-import { ChangeEvent, useRef } from "react";
+import { useRef } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import "../../assets/styles/client.css";
@@ -67,14 +67,6 @@ export const Client = () => {
 
   const [cookies, setCookie, removeCookie] = useCookies(["userJwtToken"]);
 
-  function onSignupSuccess(response: any) {
-    console.log(response);
-    setCookie("userJwtToken", response.token, { path: "/" });
-    console.log(cookies);
-  }
-
-
-
   const signupHandler = async (e: any) => {
     e.preventDefault();
     const enteredUsername = usernameRef.current?.value || "";
@@ -102,6 +94,8 @@ export const Client = () => {
       return;
     }
 
+    setCookie("userJwtToken", cookies.userJwtToken, { path: "/" });
+
     const user = {
       firstName: enteredFirstName,
       lastName: enteredLastName,
@@ -110,6 +104,9 @@ export const Client = () => {
       password: enteredPassword,
       phoneNumber: enteredPhoneNumber,
       type: enteredType,
+      userJwtToken: {
+        token: cookies.userJwtToken
+      },
     };
 
     await createUser({
@@ -122,7 +119,6 @@ export const Client = () => {
   const [createUser, { error, data }] = useMutation(CREATEUSER_MUTATION, {
     onCompleted: (data) => {
       console.log(data);
-      onSignupSuccess(data.createUser.userJwtToken);
       navigate("/");
     },
 

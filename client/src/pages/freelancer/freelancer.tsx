@@ -60,12 +60,6 @@ export const Freelancer = () => {
 
   const [cookies, setCookie, removeCookie] = useCookies(["userJwtToken"]);
 
-  function onSignupSuccess(response: any) {
-    console.log(response);
-    setCookie("userJwtToken", response.token, { path: "/" });
-    console.log(cookies);
-  }
-
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const firstNameRef = useRef<HTMLInputElement>(null);
@@ -101,6 +95,8 @@ export const Freelancer = () => {
       return;
     }
 
+    setCookie("userJwtToken", cookies.userJwtToken, { path: "/" });
+
     const user = {
       firstName: enteredFirstName,
       lastName: enteredLastName,
@@ -120,7 +116,6 @@ export const Freelancer = () => {
 
   const [createUser, { error, data }] = useMutation(CREATEUSER_MUTATION, {
     onCompleted: (data) => {
-      onSignupSuccess(data.createUser.userJwtToken);
       navigate("/");
     },
 
