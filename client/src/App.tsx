@@ -20,6 +20,7 @@ import { Login } from "./pages/login/login";
 import { Message } from "./pages/message/Message";
 import { Privacy } from "./pages/privacy/privacy";
 import { Signup } from "./pages/signup/signup";
+import { EditClient } from "./pages/editClient/editClient";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:8800",
@@ -58,6 +59,7 @@ export const App = () => (
             <Route path="/message" element={<Message />}></Route>
             <Route path="/add" element={<Add />}></Route>
             <Route path="/privacy" element={<Privacy />}></Route>
+            <Route path="/editClient" element={<EditClient />}></Route>
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
