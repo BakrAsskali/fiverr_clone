@@ -34,6 +34,7 @@ export const userResolvers = {
             if (isUsernameAlreadyExist) {
                 throw new Error("Username already exists");
             }
+            const token = jwt.sign({ email: args.input.email }, process.env.JWT_SECRET, { expiresIn: '7d' });
             const cryptedPassword = bcrypt.hashSync(args.input.password, 10);
             const user = new UserModel({
                 username: args.input.username,
@@ -49,16 +50,14 @@ export const userResolvers = {
                 reviews: args.input.reviews,
                 orders: args.input.orders,
                 messages: args.input.messages,
-                conversations: args.input.conversations
+                conversations: args.input.conversations,
+                token: token,
             });
             await user.save();
-            const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '7d' });
             return {
                 ...user._doc,
                 id: user._id,
-                userJwtToken: {
-                    token: token,
-                },
+                token
             };
         },
 
@@ -81,7 +80,14 @@ export const userResolvers = {
         },
 
         deleteUser: async (_parent, args, _context, _info) => {
-            return await UserModel.findByIdAndDelete(args.id);
+
+            const user = await UserModel.find({ token: args.userJwtToken })
+            if (!user) {
+                throw new Error('User not found!');
+            }
+
+            await UserModel.deleteOne({ token: args.userJwtToken });
+            return true;
         },
 
         login: async (_parent, args, _context, _info) => {

@@ -40,11 +40,16 @@ export const userSchema = `#graphql
         rating: Float
         reviews: [String]
         gigs: [String]
+        userJwtToken: UserJwtTokenInput
         createdAt: String
         updatedAt: String
     }
 
     type UserJwtToken {
+        token: String!
+    }
+
+    input UserJwtTokenInput {
         token: String!
     }
 
@@ -56,7 +61,7 @@ export const userSchema = `#graphql
     type Mutation {
         createUser(input: UserInput): User
         updateUser(id: ID!, input: UserInput): User
-        deleteUser(id: ID!): User
+        deleteUser(userJwtToken: String!): Boolean
         login(email: String!, password: String!): User
         logout: Boolean
     }

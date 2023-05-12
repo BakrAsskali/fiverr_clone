@@ -82,5 +82,4 @@ export const userSchema = new Schema({
     default: new Date(),
   },
 }, { timestamps: true });
-
 export default mongoose.model('User', userSchema);

@@ -13,23 +13,23 @@ const getUser = async (token) => {
 };
 
 const context = async ({ req, res }) => {
-    if (req.body.operationName === "IntrospectionQuery") {
-        return {};
-    }
+    // if (req.body.operationName === "IntrospectionQuery") {
+    //     return {};
+    // }
 
-    if (req.body.operationName === "CreateUser" || req.body.operationName === "Login") {
-        return {};
-    }
+    // if (req.body.operationName === "CreateUser" || req.body.operationName === "Login") {
+    //     return {};
+    // }
 
-    const token = req.headers.authorization || "";
+    // const token = req.headers.authorization || "";
 
-    const user = await getUser(token);
+    // const user = await getUser(token);
 
-    if (!user) {
-        throw new Error("You must be logged in to view this resource.");
-    }
+    // if (!user) {
+    //     throw new Error("You must be logged in to view this resource.");
+    // }
 
-    return { user };
+    // return { user };
 };
 
 export default context;
