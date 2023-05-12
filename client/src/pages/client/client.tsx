@@ -49,6 +49,14 @@ const CREATEUSER_MUTATION = gql`
  */
 export const Client = () => {
 
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const phoneNumberRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  const usernameRef = useRef<HTMLInputElement>(null);
+
   const navigate = useNavigate();
   const responseMessage = (response: any) => {
     console.log(response);
@@ -65,15 +73,9 @@ export const Client = () => {
     console.log(cookies);
   }
 
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const firstNameRef = useRef<HTMLInputElement>(null);
-  const lastNameRef = useRef<HTMLInputElement>(null);
-  const phoneNumberRef = useRef<HTMLInputElement>(null);
-  const confirmPasswordRef = useRef<HTMLInputElement>(null);
-  const usernameRef = useRef<HTMLInputElement>(null);
 
-  const signupHandler = (e: any) => {
+
+  const signupHandler = async (e: any) => {
     e.preventDefault();
     const enteredUsername = usernameRef.current?.value || "";
     const enteredEmail = emailRef.current?.value || "";
@@ -110,22 +112,14 @@ export const Client = () => {
       type: enteredType,
     };
 
-    createUser({ variables: { Input: user } });
-
+    await createUser({
+      variables: {
+        input: user,
+      },
+    });
   };
 
   const [createUser, { error, data }] = useMutation(CREATEUSER_MUTATION, {
-    variables: {
-      Input: {
-        username: usernameRef.current?.value || "",
-        email: emailRef.current?.value || "",
-        password: passwordRef.current?.value || "",
-        firstName: firstNameRef.current?.value || "",
-        lastName: lastNameRef.current?.value || "",
-        phoneNumber: phoneNumberRef.current?.value || "",
-        type: "client",
-      },
-    },
     onCompleted: (data) => {
       console.log(data);
       onSignupSuccess(data.createUser.userJwtToken);

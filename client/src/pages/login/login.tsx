@@ -10,7 +10,7 @@ import {
 import { GoogleLogin } from "@react-oauth/google";
 import { useRef } from "react";
 import { useCookies } from "react-cookie";
-import { useHref } from "react-router-dom";
+import { useHref, useNavigate } from "react-router-dom";
 import "../../assets/styles/Login.css";
 
 const LOGIN_MUTATION = gql`
@@ -51,6 +51,8 @@ export interface LoginProps {
  * To create custom component templates, see https://help.codux.com/kb/en/article/configuration-for-logins-and-templates
  */
 export const Login = () => {
+
+  const navigate = useNavigate();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const enteredUsername = usernameRef.current!.value;
@@ -69,7 +71,7 @@ export const Login = () => {
         password: enteredPassword,
       },
     }).then((response) => {
-      useHref("/");
+      navigate("/");
     });
   };
 

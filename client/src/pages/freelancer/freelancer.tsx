@@ -17,31 +17,31 @@ import "../../assets/styles/freelancer.css";
 
 const CREATEUSER_MUTATION = gql`
   mutation CreateUser($input: UserInput) {
-    createUser(input: $input) {
-      id
-      firstName
-      lastName
-      username
-      email
-      type
-      phoneNumber
-      profilePicture
-      bio
-      skills
-      education
-      experience
-      languages
-      hourlyRate
-      rating
-      reviews
-      gigs
-      createdAt
-      updatedAt
-      userJwtToken {
-        token
-      }
+  createUser(input: $input) {
+    id
+    firstName
+    lastName
+    username
+    email
+    phoneNumber
+    type
+    profilePicture
+    bio
+    skills
+    education
+    experience
+    languages
+    hourlyRate
+    rating
+    reviews
+    gigs
+    createdAt
+    updatedAt
+    userJwtToken {
+      token
     }
   }
+}
 `;
 
 /**
@@ -102,32 +102,23 @@ export const Freelancer = () => {
     }
 
     const user = {
+      firstName: enteredFirstName,
+      lastName: enteredLastName,
       username: enteredUsername,
       email: enteredEmail,
       password: enteredPassword,
-      firstName: enteredFirstName,
-      lastName: enteredLastName,
       phoneNumber: enteredPhoneNumber,
       type: enteredType,
     };
 
-    createUser({ variables: { input: user } });
-
-
+    createUser({
+      variables: {
+        input: user,
+      },
+    });
   };
 
   const [createUser, { error, data }] = useMutation(CREATEUSER_MUTATION, {
-    variables: {
-      input: {
-        username: usernameRef.current?.value || "",
-        email: emailRef.current?.value || "",
-        password: passwordRef.current?.value || "",
-        firstName: firstNameRef.current?.value || "",
-        lastName: lastNameRef.current?.value || "",
-        phoneNumber: phoneNumberRef.current?.value || "",
-        type: "freelancer",
-      },
-    },
     onCompleted: (data) => {
       onSignupSuccess(data.createUser.userJwtToken);
       navigate("/");

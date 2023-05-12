@@ -6,6 +6,7 @@ import {
     FormLabel,
     Input,
 } from '@chakra-ui/react';
+import { on } from 'events';
 import { useRef } from 'react';
 import { Cookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -54,7 +55,7 @@ export const EditClient = () => {
     const [updateUser, { data, error }] = useMutation(UPDATEUSER, {
         onCompleted: (data) => {
             console.log(data);
-            navigate('/');
+            onUpdateSuccess(data);
         },
 
         onError: (error) => {
@@ -69,7 +70,7 @@ export const EditClient = () => {
     }
 
     function onUpdateSuccess(data: any) {
-        console.log(data);
+        navigate('/');
     }
 
     const handleUpdateUser = (e: any) => {
