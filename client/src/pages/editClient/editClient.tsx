@@ -1,33 +1,63 @@
-import React from "react";
-import "../../assets/styles/editClient.css";
+import { gql, useMutation } from '@apollo/client';
 import {
+    Button,
+    Card,
     FormControl,
     FormLabel,
-    FormErrorMessage,
     Input,
     Card,
     Button,
     Text,
   } from '@chakra-ui/react';
-import { gql, useMutation, useQuery } from "@apollo/client";
+  import { GoogleLogin } from "@react-oauth/google";
+import { useState } from "react";
+  import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
-
+const UPDATEUSER = gql`
+    mutation UpdateUser($updateUserId: ID!, $input: UserInput) {
+  updateUser(id: $updateUserId, input: $input) {
+    id
+    firstName
+    lastName
+    username
+    email
+    phoneNumber
+    type
+    profilePicture
+    bio
+    skills
+    education
+    experience
+    languages
+    hourlyRate
+    rating
+    reviews
+    gigs
+    createdAt
+    updatedAt
+    userJwtToken {
+      token
+    }
+  }
+}
+`;
 
 
 
 export const EditClient = () => {
     return(
         <Card
-            p="10"
-            style={{
-                position: "absolute",
-                display: "flex",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, 10%)",
-                width: "35%",
-                boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-            }}
+      p="10"
+      style={{
+        position: "absolute",
+        display: "flex",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, 10%)",
+        width: "35%",
+        boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+      }}
         >
             <h1>Manage your account</h1>
             <br />
@@ -61,7 +91,7 @@ export const EditClient = () => {
             </div>
             <br />
             <div className="changeProfilePicture">
-                <FormControl>
+            <FormControl>
                     <FormLabel>Profile Picture</FormLabel>
                     <Input type='file' />
                 </FormControl>
@@ -76,9 +106,13 @@ export const EditClient = () => {
             <br />
             <div className="submit">
                 <a href="/">
-                    <Button type="submit">Confirm</Button>
+                <Button type="submit">Confirm</Button>
                 </a>
             </div>
+            
+
+
+        
         </Card>
     );
 };

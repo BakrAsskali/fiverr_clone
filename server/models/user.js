@@ -69,6 +69,10 @@ export const userSchema = new Schema({
     type: [String],
     required: false,
   },
+  token: {
+    type: String,
+    required: false,
+  },
   createdAt: {
     type: String,
     default: new Date(),
