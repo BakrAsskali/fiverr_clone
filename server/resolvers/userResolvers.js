@@ -6,12 +6,11 @@ import UserModel from '../models/user.js';
 export const userResolvers = {
     Query: {
         getUser: async (_parent, args, _context, _info) => {
-            try {
-                const user = UserModel.findById(args.id).exec();
-                return await user;
-            } catch (err) {
-                console.log(err);
+            const user = await UserModel.find({ token: args.userJwtToken })
+            if (!user) {
+                throw new Error('User not found!');
             }
+            return user;
         },
 
         getUsers: async (_parent, _args, _context, _info) => {

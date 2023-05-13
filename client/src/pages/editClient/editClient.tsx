@@ -7,10 +7,38 @@ import {
     Input,
     Text,
 } from '@chakra-ui/react';
-import { GoogleLogin } from "@react-oauth/google";
-import { useRef, useState } from "react";
-import { Cookies, useCookies } from "react-cookie";
+import { useRef } from "react";
+import { Cookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+
+const GETUSER = gql`
+    query GetUser($userJwtToken: String!) {
+        getUser(userJwtToken: $userJwtToken) {
+            id
+            firstName
+            lastName
+            username
+            email
+            phoneNumber
+            type
+            profilePicture
+            bio
+            skills
+            education
+            experience
+            languages
+            hourlyRate
+            rating
+            reviews
+            gigs
+            createdAt
+            updatedAt
+            userJwtToken {
+            token
+            }
+        }
+    }
+`;
 
 const UPDATEUSER = gql`
     mutation UpdateUser($updateUserId: ID!, $input: UserInput) {
@@ -63,7 +91,18 @@ export const EditClient = () => {
         },
     });
 
-    const [updateUser, { data, error }] = useMutation(UPDATEUSER, {
+    const [getUser, { data }] = useMutation(GETUSER, {
+        onCompleted: (data) => {
+            console.log(data);
+            // onGetUserSuccess(data);
+        },
+
+        onError: (error) => {
+            console.log(error);
+        }
+    });
+
+    const [updateUser, { error }] = useMutation(UPDATEUSER, {
         onCompleted: (data) => {
             console.log(data);
             onUpdateSuccess(data);
@@ -81,8 +120,20 @@ export const EditClient = () => {
         navigate('/');
     }
 
-    const handleDeleteUser = (e: any) => {
+    const handleDeleteUser = async (e: any) => {
         e.preventDefault();
+
+        const user = getUser({
+            variables: {
+                userJwtToken: userToken,
+            },
+        });
+
+        if ((await user).data.getUser.password !== confirmationRef.current?.value) {
+            console.log('Passwords do not match');
+            return;
+        }
+
         deleteUser({
             variables: {
                 userJwtToken: userToken,
@@ -130,7 +181,6 @@ export const EditClient = () => {
 
         updateUser({
             variables: {
-                updateUserId: userToken,
                 input: user,
             },
         });
@@ -148,6 +198,7 @@ export const EditClient = () => {
     const experienceRef = useRef<HTMLInputElement>(null);
     const languagesRef = useRef<HTMLInputElement>(null);
     const hourlyRateRef = useRef<HTMLInputElement>(null);
+    const confirmationRef = useRef<HTMLInputElement>(null);
 
     return (
         <Card maxWidth="80%" style={{
@@ -246,7 +297,7 @@ export const EditClient = () => {
                     </b>
                 </Text>
                 <br />
-                <Input placeholder="Enter Password" type='password' />
+                <Input placeholder="Enter Password" type='password' ref={confirmationRef} />
                 <br />
                 <br />
                 <Input placeholder="Confirm Password" type='password' />
