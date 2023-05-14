@@ -54,7 +54,7 @@ export const App = () => (
             <Route path="/client" element={<Client />}></Route>
             <Route path="/freelancer" element={<Freelancer />}></Route>
             <Route path="/gigs" element={<Gigs />}></Route>
-            <Route path="/gigs/:id" element={<Gig />}></Route>
+            <Route path="/gig/:id" element={<Gig />}></Route>
             <Route path="/messages" element={<Message />}></Route>
             <Route path="/message" element={<Message />}></Route>
             <Route path="/add" element={<Add />}></Route>

@@ -36,7 +36,7 @@ export const gigResolvers = {
                 features: args.input.features,
                 token: args.input.freelancerToken,
             });
-            return await gig.save();
+            await gig.save();
         },
 
         updateGig: async (_parent, args, _context, _info) => {
@@ -44,7 +44,7 @@ export const gigResolvers = {
                 title: args.input.title,
                 shortTitle: args.input.shortTitle,
                 description: args.input.description,
-                shortDescription: args.input.shortDescription,
+                shortDesc: args.input.shortDesc,
                 price: args.input.price,
                 category: args.input.category,
                 images: args.input.images,

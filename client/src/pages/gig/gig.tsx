@@ -1,6 +1,6 @@
 // Single product page design
 import { gql, useQuery } from "@apollo/client";
-import { Avatar, Box, Button, Card, CardBody, CardFooter, CardHeader, Flex, Heading, IconButton, Image, Slider, Text } from "@chakra-ui/react";
+import { Avatar, Box, Card, CardBody, CardFooter, CardHeader, Flex, Heading, IconButton, Image, Slider, Text } from "@chakra-ui/react";
 import "../../assets/styles/Gig.css";
 
 const GETGIG = gql`
@@ -12,7 +12,7 @@ const GETGIG = gql`
     description
     shortDesc
     price
-    cover
+    coverImage
     images
     category
     deliveryTime
@@ -21,10 +21,18 @@ const GETGIG = gql`
     sales
     rating
     reviews
-    freelancerId
+    freelancerToken {
+      token
+    }
     createdAt
     updatedAt
-    freelancer {
+  }
+}
+`;
+
+const GETUSER = gql`
+  query GetUser($userJwtToken: String!) {
+    getUser(userJwtToken: $userJwtToken) {
       id
       firstName
       lastName
@@ -45,79 +53,72 @@ const GETGIG = gql`
       createdAt
       updatedAt
       userJwtToken {
-       token 
+        token
       }
     }
   }
-}
 `;
 
-export const Gig = (gigId: {}) => {
-  const { error, data } = useQuery(GETGIG, {
-    variables: { getGigId: gigId },
+export const Gig = () => {
+  const gigId = window.location.pathname.split("/")[2];
+  const { data, error } = useQuery(GETGIG, {
+    variables: {
+      getGigId: gigId
+    }
+  });
+
+  const { data: userData, error: userError } = useQuery(GETUSER, {
+    variables: {
+      userJwtToken: data?.getGig.freelancerToken
+    }
   });
   if (error) console.log(error);
 
   return (
     <div style={{
+      backgroundColor: "#f5f5f5",
       top: "50%",
       left: "50%",
-      transform: "translate(550%, 100%)"
+      transform: "translate(-50%, -50%)",
     }}>
-      <br />
-      <br />
-      <br />
-      <Card maxW='md'>
-        <CardHeader>
-          <Flex>
-            <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-              <Text>
-                {data?.getGig.title}
-              </Text>
-              <Avatar name={data?.getGig.freelancer.username} src={data?.getGig.freelancer.profilePicture} size='sm' />
-              <Box>
-                <Heading size='sm'>{data?.getGig.freelancer.username}</Heading>
+      <Box className="gig" style={{
+        backgroundImage: `url(${data?.getGig.coverImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat"
+      }}>
+        <Card className="gig-card" style={{
+          backgroundColor: "rgba(255, 255, 255, 0.8)"
+        }}>
+          <CardHeader className="gig-card-header">
+            <Flex className="gig-card-header-flex">
+              <Avatar className="gig-card-header-avatar" src={userData?.getUser.profilePicture} />
+              <Box className="gig-card-header-box">
+                <Heading className="gig-card-header-box-heading" size="md">{userData?.getUser.firstName} {userData?.getUser.lastName}</Heading>
+                <Text className="gig-card-header-box-text">{userData?.getUser.rating} ({userData?.getUser.reviews})</Text>
               </Box>
             </Flex>
-            <IconButton
-              variant='ghost'
-              colorScheme='gray'
-              aria-label='See menu'
-            />
-          </Flex>
-        </CardHeader>
-        <CardBody>
-          <Text>
-            {data?.getGig.description}
-          </Text>
-        </CardBody>
-        <Image
-          objectFit='cover'
-          src={data?.getGig.cover}
-          alt='Cover'
-        />
-        <Slider
-          aria-label='slider-ex-1'
-          defaultValue={data?.getGig.images[0]}
-          maxW='40%'
-        >
-          {data?.getGig.images.map((image: string) => (
-            <Image
-              key={image}
-            />
-          ))}
-        </Slider>
-        <CardFooter
-          justify='space-between'
-          flexWrap='wrap'
-          sx={{
-            '& > button': {
-              minW: '136px',
-            },
-          }}
-        >
-        </CardFooter>
-      </Card>
+          </CardHeader>
+          <CardBody className="gig-card-body">
+            <Image className="gig-card-body-image" src={data?.getGig.coverImage} />
+            <Heading className="gig-card-body-heading" size="md">{data?.getGig.title}</Heading>
+            <Text className="gig-card-body-text">{data?.getGig.shortDesc}</Text>
+            <Text className="gig-card-body-text">{data?.getGig.description}</Text>
+            <Text className="gig-card-body-text">{data?.getGig.price}</Text>
+            <Text className="gig-card-body-text">{data?.getGig.deliveryTime}</Text>
+            <Text className="gig-card-body-text">{data?.getGig.revisionNumber}</Text>
+            <Text className="gig-card-body-text">{data?.getGig.features}</Text>
+            <Text className="gig-card-body-text">{data?.getGig.sales}</Text>
+            <Text className="gig-card-body-text">{data?.getGig.rating}</Text>
+            <Text className="gig-card-body-text">{data?.getGig.reviews}</Text>
+          </CardBody>
+          <CardFooter className="gig-card-footer">
+            <IconButton className="gig-card-footer-icon-button" aria-label="Add to favorites" icon={<i className="fas fa-heart"></i>} />
+            <IconButton className="gig-card-footer-icon-button" aria-label="Share" icon={<i className="fas fa-share"></i>} />
+            <IconButton className="gig-card-footer-icon-button" aria-label="Place Order" icon={<i className="fas fa-ellipsis-h"></i>} />
+          </CardFooter>
+        </Card>
+      </Box>
     </div>
   )
 };
