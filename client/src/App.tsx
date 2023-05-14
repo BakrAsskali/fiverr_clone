@@ -21,6 +21,7 @@ import { Message } from "./pages/message/Message";
 import { Privacy } from "./pages/privacy/privacy";
 import { Signup } from "./pages/signup/signup";
 import { EditClient } from "./pages/editClient/editClient";
+import { Navbar2 } from "./components/navbar2/navbar2";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:8800",
@@ -45,7 +46,8 @@ export const App = () => (
   <ChakraProvider>
     <ApolloProvider client={client}>
       <CookiesProvider>
-        <Navbar />
+        {/* <Navbar /> */}
+        <Navbar2 />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Homepage />}></Route>
