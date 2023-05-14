@@ -36,6 +36,7 @@ export const gigSchema = `#graphql
         features: [String]!
         sales: Int
         rating: Float
+        freelancerToken: UserJwtTokenInput!
         reviews: [String]
         createdAt: String
         updatedAt: String

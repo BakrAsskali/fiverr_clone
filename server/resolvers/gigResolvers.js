@@ -1,5 +1,4 @@
 import gigModel from '../models/gigModel.js';
-import userModel from '../models/user.js';
 
 export const gigResolvers = {
     Query: {
@@ -27,15 +26,15 @@ export const gigResolvers = {
                 title: args.input.title,
                 shortTitle: args.input.shortTitle,
                 description: args.input.description,
-                shortDescription: args.input.shortDescription,
+                shortDesc: args.input.shortDesc,
                 price: args.input.price,
                 category: args.input.category,
                 images: args.input.images,
-                coverImage: args.input.coverImage,
+                coverImage: args.input.cover,
                 deliveryTime: args.input.deliveryTime,
                 revisionNumber: args.input.revisionNumber,
                 features: args.input.features,
-                freelancerToken: args.input.freelancerToken,
+                token: args.input.freelancerToken,
             });
             return await gig.save();
         },
@@ -53,6 +52,7 @@ export const gigResolvers = {
                 deliveryTime: args.input.deliveryTime,
                 revisionNumber: args.input.revisionNumber,
                 features: args.input.features,
+                freelancerToken: args.input.freelancerToken,
             }, { new: true });
         },
 

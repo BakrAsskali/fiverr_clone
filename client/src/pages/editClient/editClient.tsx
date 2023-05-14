@@ -220,7 +220,6 @@ export const EditClient = () => {
             <form onSubmit={handleUpdateUser}>
                 <Card
                     p="10"
-
                 >
                     <h1>Manage your account</h1>
                     <br />
