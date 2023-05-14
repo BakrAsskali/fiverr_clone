@@ -29,7 +29,8 @@
     "mongodb": "^5.3.0",
     "mongoose": "^7.1.0",
     "nodemon": "^2.0.22",
-    "react-cookie": "^4.1.1"
+    "react-cookie": "^4.1.1",
+    "socket.io": "^4.6.1"
   },
   "devDependencies": {
     "@types/node": "^18.16.2",
