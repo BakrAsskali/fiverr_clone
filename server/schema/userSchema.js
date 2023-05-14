@@ -55,7 +55,7 @@ export const userSchema = `#graphql
 
     type Query {
         getUsers: [User]
-        getUser(id: ID!): User
+        getUser(userJwtToken:String!): User
     }
 
     type Mutation {

@@ -1,28 +1,21 @@
 import mongoose, { Schema } from "mongoose";
+import user from "./user.js";
 
 export const gigSchema = new Schema(
   {
-    userToken: {
-      type: String,
-      required: true,
-    },
     title: {
       type: String,
       required: true,
     },
-    desc: {
+    shortTitle: {
       type: String,
       required: true,
     },
-    totalStars: {
-      type: Number,
-      default: 0,
+    description: {
+      type: String,
+      required: true,
     },
-    starNumber: {
-      type: Number,
-      default: 0,
-    },
-    cat: {
+    shortDesc: {
       type: String,
       required: true,
     },
@@ -30,19 +23,15 @@ export const gigSchema = new Schema(
       type: Number,
       required: true,
     },
-    cover: {
+    coverImage: {
       type: String,
       required: true,
     },
     images: {
       type: [String],
-      required: false,
-    },
-    shortTitle: {
-      type: String,
       required: true,
     },
-    shortDesc: {
+    category: {
       type: String,
       required: true,
     },
@@ -56,28 +45,15 @@ export const gigSchema = new Schema(
     },
     features: {
       type: [String],
-      required: false,
+      required: true,
     },
-    sales: {
-      type: Number,
-      default: 0,
+    token: {
+      type: Object,
+      required: true,
     },
-    reviews: {
-      type: [String],
-      required: false,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: String,
-      default: Date.now,
-    },
-  },
-  {
-    timestamps: true,
-  }
+  }, {
+  timestamps: true,
+}
 );
 
 export default mongoose.model("Gig", gigSchema);

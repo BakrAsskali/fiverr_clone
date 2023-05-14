@@ -1,5 +1,4 @@
 import gigModel from '../models/gigModel.js';
-import userModel from '../models/user.js';
 
 export const gigResolvers = {
     Query: {
@@ -27,7 +26,25 @@ export const gigResolvers = {
                 title: args.input.title,
                 shortTitle: args.input.shortTitle,
                 description: args.input.description,
-                shortDescription: args.input.shortDescription,
+                shortDesc: args.input.shortDesc,
+                price: args.input.price,
+                category: args.input.category,
+                images: args.input.images,
+                coverImage: args.input.cover,
+                deliveryTime: args.input.deliveryTime,
+                revisionNumber: args.input.revisionNumber,
+                features: args.input.features,
+                token: args.input.freelancerToken,
+            });
+            await gig.save();
+        },
+
+        updateGig: async (_parent, args, _context, _info) => {
+            return await gigModel.findByIdAndUpdate(args.id, {
+                title: args.input.title,
+                shortTitle: args.input.shortTitle,
+                description: args.input.description,
+                shortDesc: args.input.shortDesc,
                 price: args.input.price,
                 category: args.input.category,
                 images: args.input.images,
@@ -36,23 +53,6 @@ export const gigResolvers = {
                 revisionNumber: args.input.revisionNumber,
                 features: args.input.features,
                 freelancerToken: args.input.freelancerToken,
-            });
-            return await gig.save();
-        },
-
-        updateGig: async (_parent, args, _context, _info) => {
-            return await gigModel.findByIdAndUpdate(args.id, {
-                title: args.input.title,
-                shortTitle: args.input.shortTitle,
-                description: args.input.description,
-                shortDescription: args.input.shortDescription,
-                price: args.input.price,
-                category: args.input.category,
-                images: args.input.images,
-                coverImage: args.input.coverImage,
-                deliveryTime: args.input.deliveryTime,
-                revisionNumber: args.input.revisionNumber,
-                features: args.input.features,
             }, { new: true });
         },
 

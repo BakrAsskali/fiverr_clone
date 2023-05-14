@@ -8,7 +8,7 @@ export const gigSchema = `#graphql
         description: String!
         shortDesc: String!
         price: Float!
-        cover: String!
+        coverImage: String!
         images: [String]!
         category: String!
         deliveryTime: Int!
@@ -28,7 +28,7 @@ export const gigSchema = `#graphql
         description: String!
         shortDesc: String!
         price: Float!
-        cover: String!
+        coverImage: String!
         images: [String]!
         category: String!
         deliveryTime: Int
@@ -36,6 +36,7 @@ export const gigSchema = `#graphql
         features: [String]!
         sales: Int
         rating: Float
+        freelancerToken: UserJwtTokenInput!
         reviews: [String]
         createdAt: String
         updatedAt: String

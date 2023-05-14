@@ -7,50 +7,29 @@ import "../../assets/styles/Add.css";
 
 const CREATEGIG = gql`
   mutation CreateGig($input: GigInput) {
-  createGig(input: $input) {
-    id
-    title
-    shortTitle
-    description
-    shortDesc
-    price
-    cover
-    images
-    category
-    deliveryTime
-    revisionNumber
-    features
-    sales
-    rating
-    reviews
-    createdAt
-    updatedAt
-    freelancer {
+    createGig(input: $input) {
       id
-      firstName
-      lastName
-      username
-      email
-      phoneNumber
-      type
-      profilePicture
-      bio
-      skills
-      education
-      experience
-      languages
-      hourlyRate
+      title
+      shortTitle
+      description
+      shortDesc
+      price
+      cover
+      images
+      category
+      deliveryTime
+      revisionNumber
+      features
+      sales
       rating
       reviews
-      gigs
-      createdAt
-      updatedAt
-      userJwtToken {
+      freelancerToken{
         token
       }
+      createdAt
+      updatedAt
     }
   }
-}
 `;
 
 export const Add = () => {
@@ -71,65 +50,55 @@ export const Add = () => {
   const revisionNumberRef = React.useRef<HTMLInputElement>(null);
   const featuresRef = React.useRef<HTMLInputElement>(null);
 
-  const createGigHandler = (e: any) => {
+  const createGigHandler = async (e: any) => {
     e.preventDefault();
-    const title = titleRef.current?.value;
-    const shortTitle = shortTitleRef.current?.value;
-    const description = descriptionRef.current?.value;
-    const shortDesc = shortDescRef.current?.value;
-    const price = priceRef.current?.value;
-    const cover = coverRef.current?.value;
-    const images = imagesRef.current?.value;
-    const category = categoryRef.current?.value;
-    const deliveryTime = deliveryTimeRef.current?.value;
-    const revisionNumber = revisionNumberRef.current?.value;
-    const features = featuresRef.current?.value;
-    const freelancertoken = cookies.userJwtToken.token;
+    const title = titleRef.current?.value || "";
+    const shortTitle = shortTitleRef.current?.value || "";
+    const description = descriptionRef.current?.value || "";
+    const shortDesc = shortDescRef.current?.value || "";
+    const price = parseFloat(priceRef.current?.value || "");
+    const cover = coverRef.current?.value || "";
+    const images = imagesRef.current?.value || "";
+    const category = categoryRef.current?.value || "";
+    const deliveryTime = parseFloat(deliveryTimeRef.current?.value || "");
+    const revisionNumber = parseFloat(revisionNumberRef.current?.value || "");
+    const features = featuresRef.current?.value || "";
+    const freelancertoken = cookies.userJwtToken;
 
-    if (title === "" || shortTitle === "" || description === "" || shortDesc === "" || price === "" || cover === "" || images === "" || category === "" || deliveryTime === "" || revisionNumber === "" || features === "") {
-      console.log("Please fill all fields");
-      return;
-    }
 
-    const gigInput = {
-      title,
-      shortTitle,
-      description,
-      shortDesc,
-      price,
-      cover,
-      images,
-      category,
-      deliveryTime,
-      revisionNumber,
-      features,
-      freelancertoken
+    const gig = {
+      title: title,
+      shortTitle: shortTitle,
+      description: description,
+      shortDesc: shortDesc,
+      price: price,
+      cover: cover,
+      images: images,
+      category: category,
+      deliveryTime: deliveryTime,
+      revisionNumber: revisionNumber,
+      features: features,
+      freelancerToken: {
+        token: freelancertoken,
+      },
     };
 
-    createGig({ variables: { Input: gigInput } });
-    navigate("/");
+    await createGig({
+      variables: {
+        input: gig,
+      },
+    });
   }
 
   const [createGig, { data, error }] = useMutation(CREATEGIG, {
-    variables: {
-      Input: {
-        title: titleRef.current?.value,
-        shortTitle: shortTitleRef.current?.value,
-        description: descriptionRef.current?.value,
-        shortDesc: shortDescRef.current?.value,
-        price: priceRef.current?.value,
-        cover: coverRef.current?.value,
-        images: imagesRef.current?.value,
-        category: categoryRef.current?.value,
-        deliveryTime: deliveryTimeRef.current?.value,
-        revisionNumber: revisionNumberRef.current?.value,
-        features: featuresRef.current?.value,
-        freelancertoken: cookies.userJwtToken?.token
-      }
-    },
 
     onError: (error) => {
       console.log(error);
+    },
+
+    onCompleted: (data) => {
+      console.log(data);
+      navigate("/");
     }
   });
 
