@@ -14,12 +14,11 @@ import { useHref, useNavigate } from "react-router-dom";
 import "../../assets/styles/Login.css";
 
 const LOGIN_MUTATION = gql`
-  mutation Login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
       id
       firstName
       lastName
-      username
       username
       phoneNumber
       type
@@ -55,11 +54,11 @@ export const Login = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const enteredUsername = usernameRef.current!.value;
+    const enteredEmail = emailRef.current!.value;
     const enteredPassword = passwordRef.current!.value;
 
     if (
-      enteredUsername.trim().length === 0 ||
+      enteredEmail.trim().length === 0 ||
       enteredPassword.trim().length === 0
     ) {
       return;
@@ -67,7 +66,7 @@ export const Login = () => {
 
     await login({
       variables: {
-        username: enteredUsername,
+        email: enteredEmail,
         password: enteredPassword,
       },
     }).then((response) => {
@@ -90,14 +89,9 @@ export const Login = () => {
     console.log(cookies);
   }
 
-  const usernameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [login, { data, error }] = useMutation(LOGIN_MUTATION, {
-    variables: {
-      username: usernameRef.current?.value,
-      password: passwordRef.current?.value,
-    },
-
     onCompleted: (data, error) => {
       console.log(data);
       onLoginSuccess(data.login.userJwtToken);
@@ -126,8 +120,8 @@ export const Login = () => {
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <FormControl>
-          <FormLabel>Username</FormLabel>
-          <Input placeholder="Username" ref={usernameRef} />
+          <FormLabel>Email</FormLabel>
+          <Input placeholder="Email" ref={emailRef} />
         </FormControl>
         <FormControl>
           <FormLabel>Password</FormLabel>

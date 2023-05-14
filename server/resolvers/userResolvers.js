@@ -92,18 +92,15 @@ export const userResolvers = {
         login: async (_parent, args, _context, _info) => {
             const cryptedPassword = bcrypt.hashSync(args.password, 10);
             const user = await UserModel.findOne({ $and: [{ email: args.email }, { password: cryptedPassword }] });
-            if (user) {
-                const token = jwt.sign({ userId: user._id, email: user.email },
-                    process.env.JWT_SECRET,
-                    { expiresIn: '1d' }
-                );
-                return {
-                    ...user._doc, userJwtToken: {
-                        token: token,
-                    }
-                };
+            if (!user) {
+                throw new Error('User not found!');
             }
-            throw new Error('Invalid credentials!');
+            const token = await UserModel.findOne(user).select('token');
+            return {
+                ...user._doc,
+                id: user._id,
+                token
+            };
         },
 
         logout: async (_parent, _args, _context, _info) => {

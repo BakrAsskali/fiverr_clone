@@ -7,11 +7,13 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { ChakraProvider } from "@chakra-ui/react";
-import { CookiesProvider } from "react-cookie";
+import { CookiesProvider, useCookies } from "react-cookie";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Navbar } from "./components/navbar/navbar";
+import { Navbar2 } from "./components/navbar2/navbar2";
 import { Add } from "./pages/add/Add";
 import { Client } from "./pages/client/client";
+import { EditClient } from "./pages/editClient/editClient";
 import { Freelancer } from "./pages/freelancer/freelancer";
 import { Gig } from "./pages/gig/gig";
 import { Gigs } from "./pages/gigs/gigs";
@@ -20,8 +22,6 @@ import { Login } from "./pages/login/login";
 import { Message } from "./pages/message/Message";
 import { Privacy } from "./pages/privacy/privacy";
 import { Signup } from "./pages/signup/signup";
-import { EditClient } from "./pages/editClient/editClient";
-import { Navbar2 } from "./components/navbar2/navbar2";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:8800",
@@ -42,12 +42,20 @@ const client: any = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const state = () => {
+  const [cookies, setCookie] = useCookies(["userJwtToken"]);
+  if (cookies.userJwtToken) {
+    return <Navbar2 />;
+  } else {
+    return <Navbar />;
+  }
+};
+
 export const App = () => (
   <ChakraProvider>
     <ApolloProvider client={client}>
       <CookiesProvider>
-        {/* <Navbar /> */}
-        <Navbar2 />
+        <div className="App">{state()}</div>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Homepage />}></Route>
