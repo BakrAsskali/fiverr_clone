@@ -104,9 +104,6 @@ export const Client = () => {
       password: enteredPassword,
       phoneNumber: enteredPhoneNumber,
       type: enteredType,
-      userJwtToken: {
-        token: cookies.userJwtToken
-      },
     };
 
     await createUser({
@@ -119,6 +116,9 @@ export const Client = () => {
   const [createUser, { error, data }] = useMutation(CREATEUSER_MUTATION, {
     onCompleted: (data) => {
       console.log(data);
+      setCookie("userJwtToken", data.createUser.userJwtToken.token, {
+        path: "/",
+      });
       navigate("/");
     },
 

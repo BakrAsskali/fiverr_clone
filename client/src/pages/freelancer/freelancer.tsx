@@ -116,6 +116,10 @@ export const Freelancer = () => {
 
   const [createUser, { error, data }] = useMutation(CREATEUSER_MUTATION, {
     onCompleted: (data) => {
+      console.log(data);
+      setCookie("userJwtToken", data.createUser.userJwtToken.token, {
+        path: "/",
+      });
       navigate("/");
     },
 

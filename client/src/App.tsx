@@ -55,8 +55,8 @@ export const App = () => (
   <ChakraProvider>
     <ApolloProvider client={client}>
       <CookiesProvider>
-        <div className="App">{state()}</div>
         <BrowserRouter>
+          {state()}
           <Routes>
             <Route path="/" element={<Homepage />}></Route>
             <Route path="/signup" element={<Signup />}></Route>

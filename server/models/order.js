@@ -19,6 +19,7 @@ export const orderSchema = new Schema({
   status: {
     type: String,
     required: true,
+    default: 'pending',
   },
 
   createdAt: {

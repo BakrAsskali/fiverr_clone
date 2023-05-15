@@ -56,7 +56,9 @@ export const userResolvers = {
             return {
                 ...user._doc,
                 id: user._id,
-                token
+                userJwtToken: {
+                    token: token
+                }
             };
         },
 

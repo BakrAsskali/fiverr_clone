@@ -55,7 +55,7 @@ function PopupComponent(props: PopupProps) {
     console.log(cookies);
   }
 
-  const loginHandler = (e: ChangeEvent<HTMLFormElement>) => {
+  const loginHandler = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     const enteredEmail = emailRef.current?.value || "";
     const enteredPassword = passwordRef.current?.value || "";
@@ -65,17 +65,17 @@ function PopupComponent(props: PopupProps) {
     if (enteredPassword.trim().length === 0) {
       return;
     }
-    login();
+    await login({
+      variables: {
+        email: enteredEmail,
+        password: enteredPassword
+      }
+    });
     onClose();
   };
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [login, { data, error }] = useMutation(LOGIN_MUTATION, {
-    variables: {
-      email: emailRef.current?.value,
-      password: passwordRef.current?.value,
-    },
-
     onCompleted: (data) => {
       console.log(data);
       onLoginSuccess(data.login.userJwtToken);
