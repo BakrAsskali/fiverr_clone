@@ -104,40 +104,40 @@ export const Gigs = () => {
                 )}
               </ButtonGroup>
               <Divider />
-              <Text>Category</Text>
-              <ButtonGroup>
-                <Button>All</Button>
-                <Button>Graphics & Design</Button>
-                <Button>Digital Marketing</Button>
-                <Button>Writing & Translation</Button>
-                <Button>Video & Animation</Button>
-                <Button>Music & Audio</Button>
-                <Button>Programming & Tech</Button>
-                <Button>Business</Button>
+              <Text fontSize='xl'>Category</Text>
+              <ButtonGroup size='' spacing='15'>
+                <Button padding='2'>All</Button>
+                <Button padding='2'>Graphics & Design</Button>
+                <Button padding='2'>Digital Marketing</Button>
+                <Button padding='2'>Writing & Translation</Button>
+                <Button padding='2'>Video & Animation</Button>
+                <Button padding='2'>Music & Audio</Button>
+                <Button padding='2'>Programming & Tech</Button>
+                <Button padding='2'>Business</Button>
               </ButtonGroup>
               <Divider />
-              <Text>Delivery Time</Text>
-              <ButtonGroup>
-                <Button>All</Button>
-                <Button>24 Hours</Button>
-                <Button>3 Days</Button>
-                <Button>7 Days</Button>
+              <Text fontSize='xl'>Delivery Time</Text>
+              <ButtonGroup size='' spacing='6'>
+                <Button padding='2'>All</Button>
+                <Button padding='2'>24 Hours</Button>
+                <Button padding='2'>3 Days</Button>
+                <Button padding='2'>7 Days</Button>
               </ButtonGroup>
               <Divider />
-              <Text>Price</Text>
-              <ButtonGroup>
-                <Button>All</Button>
-                <Button>Under $25</Button>
-                <Button>$25 - $50</Button>
-                <Button>$50 - $100</Button>
-                <Button>$100 - $200</Button>
-                <Button>$200 & Above</Button>
+              <Text fontSize='xl'>Price</Text>
+              <ButtonGroup size=''  spacing='6'>
+                <Button padding='2'>All</Button>
+                <Button padding='2'>Under $25</Button>
+                <Button padding='2'>$25 - $50</Button>
+                <Button padding='2'>$50 - $100</Button>
+                <Button padding='2'>$100 - $200</Button>
+                <Button padding='2'>$200 & Above</Button>
               </ButtonGroup>
               <Divider />
-              <Text>Online Sellers</Text>
-              <ButtonGroup>
-                <Button>All</Button>
-                <Button>Online</Button>
+              <Text fontSize='xl'>Online Sellers</Text>
+              <ButtonGroup  size='' spacing='6'>
+                <Button padding='2' >All</Button>
+                <Button padding='2'>Online</Button>
               </ButtonGroup>
             </Stack>
           </GridItem>
