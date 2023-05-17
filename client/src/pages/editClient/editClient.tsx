@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import {
     Button,
     Card,
@@ -91,18 +91,13 @@ export const EditClient = () => {
         },
     });
 
-    const [getUser, { data }] = useMutation(GETUSER, {
-        onCompleted: (data) => {
-            console.log(data);
-            // onGetUserSuccess(data);
+    const { data, error } = useQuery(GETUSER, {
+        variables: {
+            userJwtToken: userToken,
         },
-
-        onError: (error) => {
-            console.log(error);
-        }
     });
 
-    const [updateUser, { error }] = useMutation(UPDATEUSER, {
+    const [UpdateUser] = useMutation(UPDATEUSER, {
         onCompleted: (data) => {
             console.log(data);
             onUpdateSuccess(data);
@@ -122,23 +117,15 @@ export const EditClient = () => {
 
     const handleDeleteUser = async (e: any) => {
         e.preventDefault();
+        const confirmation = confirmationRef.current?.value;
 
-        const user = getUser({
-            variables: {
-                userJwtToken: userToken,
-            },
-        });
-
-        if ((await user).data.getUser.password !== confirmationRef.current?.value) {
-            console.log('Passwords do not match');
-            return;
+        if (confirmation === 'DELETE') {
+            deleteUser({
+                variables: {
+                    userJwtToken: userToken,
+                },
+            });
         }
-
-        deleteUser({
-            variables: {
-                userJwtToken: userToken,
-            },
-        });
     };
 
     if (error) {
@@ -179,7 +166,7 @@ export const EditClient = () => {
             hourlyRate,
         };
 
-        updateUser({
+        UpdateUser({
             variables: {
                 input: user,
             },
@@ -201,117 +188,118 @@ export const EditClient = () => {
     const confirmationRef = useRef<HTMLInputElement>(null);
 
     return (
-        <Card maxWidth="80%" style={{
-            width: "80%",
-            margin: "auto",
-            marginTop: "5%",
-            marginBottom: "5%",
-            padding: "10px",
-            backgroundColor: "#F5F5F5",
-            borderRadius: "10px",
-            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-10%, 0%)",
+        <div style={{
+            width: '100vw',
+            height: '100%',
+            boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)',
         }}>
-            <br />
-            <br />
-            <br />
-            <form onSubmit={handleUpdateUser}>
-                <Card
-                    p="10"
-                >
-                    <h1>Manage your account</h1>
-                    <br />
-                    <div className="changeUsername">
-                        <FormControl>
-                            <FormLabel>Username</FormLabel>
-                            <Input placeholder="Enter New Username" type='text' />
-                        </FormControl>
-                    </div>
-                    <br />
-                    <div className="changeEmail">
-                        <FormControl>
-                            <FormLabel>Email Address</FormLabel>
-                            <Input placeholder="Enter Email" type='email' />
-                            <br />
-                            <br />
-                            <Input placeholder="Confirm Email" type='email' />
-                        </FormControl>
-                    </div>
-                    <br />
-                    <div className="changePassword">
-                        <FormControl>
-                            <FormLabel>Password</FormLabel>
-                            <Input placeholder="Enter Old Password" type='password' />
-                            <br />
-                            <br />
-                            <Input placeholder="Enter New Password" type='password' />
-                            <br />
-                            <br />
-                            <Input placeholder="Confirm New Password" type='password' />
-                        </FormControl>
-                    </div>
-                    <br />
-                    <div className="changeProfilePicture">
-                        <FormControl>
-                            <FormLabel>Profile Picture</FormLabel>
-                            <Input type='file' />
-                        </FormControl>
-                    </div>
-                    <br />
-                    <div className="changePhoneNumber">
-                        <FormControl>
-                            <FormLabel>Phone Number</FormLabel>
-                            <Input placeholder="Enter Phone Number" type='text' />
-                        </FormControl>
-                    </div>
-                    <br />
-                    <div className="submit">
-                        <a href="/">
-                            <Button type="submit">Confirm</Button>
-                        </a>
-                    </div>
-                </Card>
-            </form>
-            <br />
-            <br />
-            <br />
-            <FormControl >
-                <FormLabel style={{
-                    color: "#FF0000",
-                    width: "100%",
-                }}
-                    fontSize="2xl"
-                ><b>Delete Account</b>
-
-                </FormLabel>
-                <Text style={{
-                    color: "#FF0000",
-                    width: "100%",
-                }}>
-                    <b>Attention
+            <Card maxWidth="80%" style={{
+                margin: 'auto',
+                marginTop: '5%',
+                marginBottom: '5%',
+                padding: '5%',
+                textAlign: 'center',
+                backgroundColor: '#F5F5F5',
+            }}>
+                <form onSubmit={handleUpdateUser}>
+                    <Card
+                        p="10"
+                    >
+                        <h1>Manage your account</h1>
                         <br />
-                        This action cannot be undone. This will permanently delete your account and all of your data. Please type in your password to confirm.
-                    </b>
-                </Text>
+                        <div className="changeUsername">
+                            <FormControl>
+                                <FormLabel>Username</FormLabel>
+                                <Input placeholder="Enter New Username" type='text' />
+                            </FormControl>
+                        </div>
+                        <br />
+                        <div className="changeEmail">
+                            <FormControl>
+                                <FormLabel>Email Address</FormLabel>
+                                <Input placeholder="Enter Email" type='email' />
+                                <br />
+                                <br />
+                                <Input placeholder="Confirm Email" type='email' />
+                            </FormControl>
+                        </div>
+                        <br />
+                        <div className="changePassword">
+                            <FormControl>
+                                <FormLabel>Password</FormLabel>
+                                <Input placeholder="Enter Old Password" type='password' />
+                                <br />
+                                <br />
+                                <Input placeholder="Enter New Password" type='password' />
+                                <br />
+                                <br />
+                                <Input placeholder="Confirm New Password" type='password' />
+                            </FormControl>
+                        </div>
+                        <br />
+                        <div className="changeProfilePicture">
+                            <FormControl>
+                                <FormLabel>Profile Picture</FormLabel>
+                                <Input type='file' />
+                            </FormControl>
+                        </div>
+                        <br />
+                        <div className="changePhoneNumber">
+                            <FormControl>
+                                <FormLabel>Phone Number</FormLabel>
+                                <Input placeholder="Enter Phone Number" type='text' />
+                            </FormControl>
+                        </div>
+                        <br />
+                        <div className="submit">
+                            <a href="/">
+                                <Button type="submit">Confirm</Button>
+                            </a>
+                        </div>
+                    </Card>
+                </form>
                 <br />
-                <Input placeholder="Enter Password" type='password' ref={confirmationRef} />
                 <br />
                 <br />
-                <Input placeholder="Confirm Password" type='password' />
-                <br />
-                <br />
-                <Button onClick={handleDeleteUser} style={{
-                    backgroundColor: "#FF0000",
-                    color: "#FFFFFF",
-                    borderRadius: "10px",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                    width: "100%",
-                }}>
-                    Delete Account
-                </Button>
-            </FormControl>
-        </Card >
+                <FormControl >
+                    <FormLabel style={{
+                        color: "#FF0000",
+                        width: "100%",
+                        marginLeft: "30vw",
+                    }}
+                        fontSize="2xl"
+                    ><b>Delete Account</b>
+
+                    </FormLabel>
+                    <Text style={{
+                        color: "#FF0000",
+                        width: "100%",
+                    }}>
+                        <b style={{
+                            fontSize: "1.2vw",
+                        }}>Attention
+                            <br />
+                            This action cannot be undone. This will permanently delete your account and all of your data. Please type in your password to confirm.
+                        </b>
+                    </Text>
+                    <br />
+                    <Input placeholder="Enter Password" type='password' ref={confirmationRef} />
+                    <br />
+                    <br />
+                    <Input placeholder="Confirm Password" type='password' />
+                    <br />
+                    <br />
+                    <Button onClick={handleDeleteUser} style={{
+                        backgroundColor: "#FF0000",
+                        color: "#FFFFFF",
+                        borderRadius: "10px",
+                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                        width: "100%",
+                    }}>
+                        Delete Account
+                    </Button>
+                </FormControl>
+            </Card >
+        </div>
     );
 };
