@@ -1,5 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
+import cors from "cors";
 import dotenv from "dotenv/config";
 import mongoose from "mongoose";
 import context from "./context/index.js";
@@ -24,6 +25,10 @@ const server = new ApolloServer({
 
 const { url } = await startStandaloneServer(server, {
   context,
+  cors: {
+    origin: "http://localhost:5173",
+    credentials: true
+  },
   listen: { port: PORT }
 });
 

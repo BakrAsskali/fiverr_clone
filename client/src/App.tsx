@@ -20,6 +20,7 @@ import { Gigs } from "./pages/gigs/gigs";
 import { Homepage } from "./pages/homepage/homepage";
 import { Login } from "./pages/login/login";
 import { Message } from "./pages/message/Message";
+import { OrderDashboard } from "./pages/orderDashboard/orderDashboard";
 import { Privacy } from "./pages/privacy/privacy";
 import { Signup } from "./pages/signup/signup";
 
@@ -70,6 +71,7 @@ export const App = () => (
             <Route path="/add" element={<Add />}></Route>
             <Route path="/privacy" element={<Privacy />}></Route>
             <Route path="/editClient" element={<EditClient />}></Route>
+            <Route path="/orderDashboard" element={<OrderDashboard />}></Route>
           </Routes>
         </BrowserRouter>
       </CookiesProvider>

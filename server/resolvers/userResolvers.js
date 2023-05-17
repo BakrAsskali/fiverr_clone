@@ -33,7 +33,7 @@ export const userResolvers = {
             if (isUsernameAlreadyExist) {
                 throw new Error("Username already exists");
             }
-            const token = jwt.sign({ email: args.input.email }, process.env.JWT_SECRET, { expiresIn: '7d' });
+            const token = jwt.sign({ email: args.input.email }, process.env.JWT_SECRET);
             const cryptedPassword = bcrypt.hashSync(args.input.password, 10);
             const user = new UserModel({
                 username: args.input.username,

@@ -11,6 +11,15 @@ export const orderResolvers = {
             }
         },
 
+        getFreelancerOrders: async (parent, args, context, info) => {
+            try {
+                const orders = orderModel.find({ token: args.input.token }).exec();
+                return await orders;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
         getOrder: async (parent, args, context, info) => {
             try {
                 const order = orderModel.findById(args.id).exec();

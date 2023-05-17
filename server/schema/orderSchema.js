@@ -1,3 +1,5 @@
+import { userSchema } from "./userSchema.js"
+
 export const orderSchema = `#graphql
     type Order{
         id: ID
@@ -20,7 +22,8 @@ export const orderSchema = `#graphql
 
     type Query {
         getOrders: [Order]
-       getOrder(id: ID!): Order    
+        getFreelancerOrders(input: UserJwtTokenInput): [Order]
+        getOrder(id: ID!): Order    
     }
 
     type Mutation {
