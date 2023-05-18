@@ -39,6 +39,7 @@
     "sass": "^1.62.0",
     "typescript": "^5.0.4",
     "vite": "^4.2.1",
-    "vite-plugin-pwa": "^0.14.7"
+    "vite-plugin-pwa": "^0.14.7",
+    "workbox-window": "^6.5.4"
   }
 }
