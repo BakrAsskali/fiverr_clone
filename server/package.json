@@ -32,6 +32,7 @@
     "socket.io": "^4.6.1"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^18.16.2",
     "nodemon": "^2.0.22",
     "typescript": "^5.0.4"

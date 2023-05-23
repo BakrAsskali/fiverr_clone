@@ -34,6 +34,10 @@ export const Navbar2 = () => {
     navigate("/");
   };
 
+  function logout() {
+    clearCookie();
+  }
+
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -113,7 +117,7 @@ export const Navbar2 = () => {
                   <br />
                   <MenuDivider />
                   <MenuItem><a href="/editClient">Manage Your Account</a></MenuItem>
-                  <MenuItem><a href="/" onClick={clearCookie}>Logout</a></MenuItem>
+                  <MenuItem><a href="/" onClick={logout()}>Logout</a></MenuItem>
                 </MenuList>
               </Menu>
             </Stack>
