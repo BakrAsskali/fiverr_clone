@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "app": "nodemon app.js",
+    "start": "nodemon app.js",
+    "app": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
@@ -26,14 +26,14 @@
     "graphql-tag": "^2.12.6",
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
-    "mongodb": "^5.3.0",
+    "mongodb": "^5.5.0",
     "mongoose": "^7.1.0",
-    "nodemon": "^2.0.22",
     "react-cookie": "^4.1.1",
     "socket.io": "^4.6.1"
   },
   "devDependencies": {
     "@types/node": "^18.16.2",
+    "nodemon": "^2.0.22",
     "typescript": "^5.0.4"
   }
 }
