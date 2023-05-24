@@ -58,7 +58,7 @@ export const App = () => (
     <ApolloProvider client={client}>
       <CookiesProvider>
         <BrowserRouter>
-          {/* {state()} */}
+          {state()}
           <Routes>
             <Route path="/" element={<Homepage />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
@@ -73,7 +73,7 @@ export const App = () => (
             <Route path="/privacy" element={<Privacy />}></Route>
             <Route path="/editClient" element={<EditClient />}></Route>
             <Route path="/orderDashboard" element={<OrderDashboard />}></Route>
-            <Route path="/editGig" element={<EditGig/>}></Route>
+            <Route path="/editGig" element={<EditGig />}></Route>
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
