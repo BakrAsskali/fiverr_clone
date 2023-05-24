@@ -52,6 +52,7 @@ function PopupComponent(props: PopupProps) {
   function onLoginSuccess(response: any) {
     console.log(response);
     setCookie("userJwtToken", response.token, { path: "/" });
+    window.location.href = "/";
     console.log(cookies);
   }
 

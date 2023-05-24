@@ -189,22 +189,14 @@ export const EditClient = () => {
 
     return (
         <div style={{
-            width: '100vw',
-            height: '100%',
-            boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)',
+            backgroundColor: '#F5F5F5',
+            minWidth: '100vw',
         }}>
             <Card maxWidth="80%" style={{
                 margin: 'auto',
-                marginTop: '5%',
-                marginBottom: '5%',
-                padding: '5%',
-                textAlign: 'center',
-                backgroundColor: '#F5F5F5',
             }}>
                 <form onSubmit={handleUpdateUser}>
-                    <Card
-                        p="10"
-                    >
+                    <Card p="10">
                         <h1>Manage your account</h1>
                         <br />
                         <div className="changeUsername">

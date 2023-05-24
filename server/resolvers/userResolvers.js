@@ -92,16 +92,20 @@ export const userResolvers = {
         },
 
         login: async (_parent, args, _context, _info) => {
-            const cryptedPassword = bcrypt.hashSync(args.password, 10);
-            const user = await UserModel.findOne({ $and: [{ email: args.email }, { password: cryptedPassword }] });
+            const user = await UserModel.findOne({ email: args.email });
             if (!user) {
-                throw new Error('User not found!');
+                throw new Error("User does not exist");
             }
-            const token = await UserModel.findOne(user).select('token');
+            const comparePassword = bcrypt.compareSync(args.password, user.password);
+            if (!comparePassword) {
+                throw new Error("Password is incorrect");
+            }
             return {
                 ...user._doc,
                 id: user._id,
-                token
+                userJwtToken: {
+                    token: user.token,
+                }
             };
         },
 

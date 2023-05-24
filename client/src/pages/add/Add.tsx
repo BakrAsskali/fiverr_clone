@@ -117,22 +117,16 @@ export const Add = () => {
   }, [data, error]);
 
   return (
-    <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+    <div style={{
+      minWidth: "100vw",
+    }}>
       <Card style={{
-        minWidth: "800px",
-        width: "80%",
+        width: "50%",
         margin: "auto",
+        marginTop: "50px",
         padding: "20px",
-        borderRadius: "10px",
-        boxShadow: "0 0 10px 0 rgba(0,0,0,0.2)",
-        top: "50%",
-        left: "50%",
-        transform: "translate(20%, 0%)"
+        boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+        borderRadius: "10px"
       }}>
         <h1>Create a new Gig</h1>
         <br />
