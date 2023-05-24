@@ -23,6 +23,7 @@ import { Message } from "./pages/message/Message";
 import { OrderDashboard } from "./pages/orderDashboard/orderDashboard";
 import { Privacy } from "./pages/privacy/privacy";
 import { Signup } from "./pages/signup/signup";
+import { EditGig } from "./pages/editGig/editGig";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:8800",
@@ -57,7 +58,7 @@ export const App = () => (
     <ApolloProvider client={client}>
       <CookiesProvider>
         <BrowserRouter>
-          {state()}
+          {/* {state()} */}
           <Routes>
             <Route path="/" element={<Homepage />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
@@ -72,6 +73,7 @@ export const App = () => (
             <Route path="/privacy" element={<Privacy />}></Route>
             <Route path="/editClient" element={<EditClient />}></Route>
             <Route path="/orderDashboard" element={<OrderDashboard />}></Route>
+            <Route path="/editGig" element={<EditGig/>}></Route>
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
