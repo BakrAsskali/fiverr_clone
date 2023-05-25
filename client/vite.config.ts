@@ -10,6 +10,7 @@ export default defineConfig({
     react(),
     svgr(),
     VitePWA({
+      registerType: "autoUpdate",
       manifest: manifest,
     }),
   ],
