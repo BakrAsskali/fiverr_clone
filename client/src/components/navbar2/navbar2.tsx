@@ -29,13 +29,9 @@ export const Navbar2 = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [cookies, setCookie, removeCookie,] = useCookies(["userJwtToken"]);
 
-  const clearCookie = () => {
-    removeCookie("userJwtToken", { path: "/" });
-    navigate("/");
-  };
-
   function logout() {
-    clearCookie();
+    removeCookie("userJwtToken", { path: "/" });
+    window.location.href = "/";
   }
 
   return (
@@ -91,9 +87,9 @@ export const Navbar2 = () => {
 
 
               <Menu>
+                  rounded={'full'}
                 <MenuButton
                   as={Button}
-                  rounded={'full'}
                   variant={'link'}
                   cursor={'pointer'}
                   minW={0}>
@@ -116,8 +112,10 @@ export const Navbar2 = () => {
                   </Center>
                   <br />
                   <MenuDivider />
+                  <MenuItem><a href="/add">Create a Gig</a></MenuItem>
+                  <MenuItem><a href="/OrderDashboard">My orders</a></MenuItem>
                   <MenuItem><a href="/editClient">Manage Your Account</a></MenuItem>
-                  <MenuItem><a href="/" onClick={logout()}>Logout</a></MenuItem>
+                  <MenuItem><a href="/" onClick={logout}>Sign Out</a></MenuItem>
                 </MenuList>
               </Menu>
             </Stack>
