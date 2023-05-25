@@ -24,6 +24,7 @@ import { OrderDashboard } from "./pages/orderDashboard/orderDashboard";
 import { Privacy } from "./pages/privacy/privacy";
 import { Signup } from "./pages/signup/signup";
 import { EditGig } from "./pages/editGig/editGig";
+import { AddGig } from "./pages/addGig/addGig";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:8800",
@@ -74,6 +75,7 @@ export const App = () => (
             <Route path="/editClient" element={<EditClient />}></Route>
             <Route path="/orderDashboard" element={<OrderDashboard />}></Route>
             <Route path="/editGig" element={<EditGig/>}></Route>
+            <Route path="/addGig" element={<AddGig/>}></Route>
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
