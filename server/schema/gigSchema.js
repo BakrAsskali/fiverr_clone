@@ -43,8 +43,9 @@ export const gigSchema = `#graphql
     }
 
     type Query {
+        getGigsByToken(freelancerTokenInput: UserJwtTokenInput): [Gig]
         getGigs: [Gig]
-        getGig(id: ID!): Gig
+        getGig(id:ID): Gig
     }
 
     type Mutation {

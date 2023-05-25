@@ -33,11 +33,10 @@ export const orderResolvers = {
     Mutation: {
         createOrder: async (parent, args, context, info) => {
             const order = new orderModel({
-                userId: args.input.userId,
-                productId: args.input.productId,
-                quantity: args.input.quantity,
-                price: args.input.price,
-                status: args.input.status
+                clientId: args.input.clientId,
+                gigId: args.input.gigId,
+                freelancerToken: args.input.freelancerToken,
+                status: args.input.status,
             });
             return await order.save();
         },

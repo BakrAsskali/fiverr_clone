@@ -35,13 +35,17 @@ export const Navbar2 = () => {
   }
 
   return (
-    <>
+    <div style={{
+      width: '100vw',
+    }}>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box>
-            <Button>
-              fiverr.
-            </Button>
+            <a href='/'>
+              <Button>
+                fiverr.
+              </Button>
+            </a>
           </Box>
           <InputGroup borderRadius={5} size="sm">
             <Input type="text" placeholder="Search..." border="1px solid #949494"
@@ -59,13 +63,12 @@ export const Navbar2 = () => {
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
 
-              <Tooltip hasArrow label='Notifications' placement='top'>
-                <IconButton
-                  variant='none'
-                  colorScheme='black'
-                  aria-label='Notifications'
-                  boxSize={10}
-                  icon={<BellIcon />} />
+              <Tooltip hasArrow label='Explore' placement='top'>
+                <a href='/Gigs'>
+                  <Button>
+                    Explore
+                  </Button>
+                </a>
               </Tooltip>
               <Tooltip hasArrow label='Messages' placement='top'>
                 <IconButton
@@ -84,10 +87,7 @@ export const Navbar2 = () => {
                 onClick={toggleColorMode} >
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
-
-
               <Menu>
-                  rounded={'full'}
                 <MenuButton
                   as={Button}
                   variant={'link'}
@@ -114,6 +114,7 @@ export const Navbar2 = () => {
                   <MenuDivider />
                   <MenuItem><a href="/add">Create a Gig</a></MenuItem>
                   <MenuItem><a href="/OrderDashboard">My orders</a></MenuItem>
+                  <MenuItem><a href="/myGigs">My Gigs</a></MenuItem>
                   <MenuItem><a href="/editClient">Manage Your Account</a></MenuItem>
                   <MenuItem><a href="/" onClick={logout}>Sign Out</a></MenuItem>
                 </MenuList>
@@ -122,6 +123,6 @@ export const Navbar2 = () => {
           </Flex>
         </Flex>
       </Box>
-    </>
+    </div>
   );
 }

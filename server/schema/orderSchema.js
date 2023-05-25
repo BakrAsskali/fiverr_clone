@@ -5,7 +5,7 @@ export const orderSchema = `#graphql
         id: ID
         gigId: String!
         clientId: String!
-        freelancerId: String!
+        freelancerToken: UserJwtToken!
         status: String!
         createdAt: String
         updatedAt: String
@@ -14,7 +14,7 @@ export const orderSchema = `#graphql
     input OrderInput{
         gigId: String!
         clientId: String!
-        freelancerId: String!
+        freelancerToken: UserJwtTokenInput!
         status: String!
         createdAt: String
         updatedAt: String

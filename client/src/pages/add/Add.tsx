@@ -14,7 +14,7 @@ const CREATEGIG = gql`
       description
       shortDesc
       price
-      cover
+      coverImage
       images
       category
       deliveryTime
@@ -72,7 +72,7 @@ export const Add = () => {
       description: description,
       shortDesc: shortDesc,
       price: price,
-      cover: cover,
+      coverImage: cover,
       images: images,
       category: category,
       deliveryTime: deliveryTime,

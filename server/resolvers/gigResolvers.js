@@ -2,12 +2,21 @@ import gigModel from '../models/gigModel.js';
 
 export const gigResolvers = {
     Query: {
-        getGigs: async (_parent, _args, _context, _info) => {
+        getGigsByToken: async (_parent, args, _context, _info) => {
             try {
-                const gigs = gigModel.find({}).exec();
+                const gigs = gigModel.findOne({ freelancerToken: args.freelancerTokenInput }).exec();
                 return await gigs;
-            } catch (error) {
-                console.log(error);
+            } catch (err) {
+                console.log(err);
+            }
+        },
+
+        getGigs: async (_parent, args, _context, _info) => {
+            try {
+                const gigs = gigModel.find().exec();
+                return await gigs;
+            } catch (err) {
+                console.log(err);
             }
         },
 
@@ -30,7 +39,7 @@ export const gigResolvers = {
                 price: args.input.price,
                 category: args.input.category,
                 images: args.input.images,
-                coverImage: args.input.cover,
+                coverImage: args.input.coverImage,
                 deliveryTime: args.input.deliveryTime,
                 revisionNumber: args.input.revisionNumber,
                 features: args.input.features,

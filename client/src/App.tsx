@@ -14,17 +14,17 @@ import { Navbar2 } from "./components/navbar2/navbar2";
 import { Add } from "./pages/add/Add";
 import { Client } from "./pages/client/client";
 import { EditClient } from "./pages/editClient/editClient";
+import { EditGig } from "./pages/editGig/editGig";
 import { Freelancer } from "./pages/freelancer/freelancer";
 import { Gig } from "./pages/gig/gig";
 import { Gigs } from "./pages/gigs/gigs";
 import { Homepage } from "./pages/homepage/homepage";
 import { Login } from "./pages/login/login";
 import { Message } from "./pages/message/Message";
+import { MyGigs } from "./pages/myGigs/myGigs";
 import { OrderDashboard } from "./pages/orderDashboard/orderDashboard";
 import { Privacy } from "./pages/privacy/privacy";
 import { Signup } from "./pages/signup/signup";
-import { EditGig } from "./pages/editGig/editGig";
-import { AddGig } from "./pages/addGig/addGig";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:8800",
@@ -74,8 +74,8 @@ export const App = () => (
             <Route path="/privacy" element={<Privacy />}></Route>
             <Route path="/editClient" element={<EditClient />}></Route>
             <Route path="/orderDashboard" element={<OrderDashboard />}></Route>
-            <Route path="/editGig" element={<EditGig/>}></Route>
-            <Route path="/addGig" element={<AddGig/>}></Route>
+            <Route path="/editGig/:id" element={<EditGig />}></Route>
+            <Route path="/myGigs" element={<MyGigs />}></Route>
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
