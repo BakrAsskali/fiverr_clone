@@ -75,6 +75,7 @@ export const App = () => (
             <Route path="/editClient" element={<EditClient />}></Route>
             <Route path="/orderDashboard" element={<OrderDashboard />}></Route>
             <Route path="/editGig" element={<EditGig/>}></Route>
+            <Route path="/addGig" element={<AddGig/>}></Route>
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
