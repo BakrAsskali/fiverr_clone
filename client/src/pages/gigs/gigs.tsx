@@ -22,7 +22,7 @@ const GET_GIGS = gql`
       sales
       rating
       reviews
-      freelancerToken {
+      token {
         token
       }
       createdAt
@@ -125,7 +125,7 @@ export const Gigs = () => {
               </ButtonGroup>
               <Divider />
               <Text fontSize='xl'>Price</Text>
-              <ButtonGroup size=''  spacing='6'>
+              <ButtonGroup size='' spacing='6'>
                 <Button padding='2'>All</Button>
                 <Button padding='2'>Under $25</Button>
                 <Button padding='2'>$25 - $50</Button>
@@ -135,7 +135,7 @@ export const Gigs = () => {
               </ButtonGroup>
               <Divider />
               <Text fontSize='xl'>Online Sellers</Text>
-              <ButtonGroup  size='' spacing='6'>
+              <ButtonGroup size='' spacing='6'>
                 <Button padding='2' >All</Button>
                 <Button padding='2'>Online</Button>
               </ButtonGroup>

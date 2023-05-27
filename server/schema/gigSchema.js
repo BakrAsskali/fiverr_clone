@@ -49,7 +49,7 @@ export const gigSchema = `#graphql
     }
 
     type Query {
-        getGigsByToken(freelancerTokenInput: UserJwtTokenInput): [Gig]
+        getGigsByToken(input: UserJwtTokenInput): [Gig]
         getGigs: [Gig]
         getGig(id:ID): Gig
     }

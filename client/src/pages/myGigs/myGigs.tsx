@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const GET_GIGS = gql`
     query GetGigsByToken($freelancerTokenInput: UserJwtTokenInput) {
-        getGigs(freelancerTokenInput: $freelancerTokenInput) {
+        getGigsByToken(input: $freelancerTokenInput) {
             id
             title
             shortTitle
@@ -23,8 +23,8 @@ const GET_GIGS = gql`
             sales
             rating
             reviews
-            freelancerToken {
-                token
+            token {
+            token
             }
             createdAt
             updatedAt
@@ -47,64 +47,32 @@ export const MyGigs = () => {
             freelancerTokenInput: {
                 token: cookies.userJwtToken
             }
-        },
-        onCompleted: (data) => {
-            console.log(data);
-
-        },
-
-        onError: (error) => {
-            console.log(error);
         }
     });
 
-    if (error) {
-        console.log(error);
-    }
 
-    if (data?.getGigs) {
+    if (data) {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <h1 className="text-center">My Gigs</h1>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12">
-                        <Accordion>
-                            {data.getGigs.map((gig: any) => {
-                                return (
-                                    <Accordion.Item eventKey={gig.id}>
-                                        <Accordion.Header>{gig.title}</Accordion.Header>
-                                        <Accordion.Body>
-                                            <div className="row">
-                                                <div className="col-12">
-                                                    <h3>{gig.title}</h3>
-                                                    <p>{gig.description}</p>
-                                                    <p>{gig.price}</p>
-                                                    <p>{gig.category}</p>
-                                                    <p>{gig.deliveryTime}</p>
-                                                    <p>{gig.revisionNumber}</p>
-                                                    <p>{gig.features}</p>
-                                                </div>
-                                            </div>
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                )
-                            }
-                            )}
-                        </Accordion>
-                    </div>
-                </div>
+            <div>
+                <h1>My Gigs</h1>
+                <Accordion>
+                    {data.getGigsByToken.map((gig: any) => (
+                        <Accordion.Item eventKey={gig.id}>
+                            <Accordion.Header>{gig.title}</Accordion.Header>
+                            <Accordion.Body>
+                                <p>{gig.description}</p>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    ))}
+                </Accordion>
             </div>
-        )
+        );
     } else {
         return (
             <div>
                 <h1>My Gigs</h1>
-                <p>You have no gigs</p>
+                <p>Loading...</p>
             </div>
-        )
+        );
     }
-}    
+};
