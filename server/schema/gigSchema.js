@@ -1,5 +1,3 @@
-import { userSchema } from "./userSchema.js"
-
 export const gigSchema = `#graphql
     type Gig {
         id: ID
@@ -17,7 +15,7 @@ export const gigSchema = `#graphql
         sales: Int
         rating: Float
         reviews: [String]
-        freelancerToken: UserJwtToken
+        token: UserJwtToken
         createdAt: String
         updatedAt: String
     }
@@ -36,14 +34,22 @@ export const gigSchema = `#graphql
         features: [String]!
         sales: Int
         rating: Float
-        freelancerToken: UserJwtTokenInput!
+        token: UserJwtTokenInput!
         reviews: [String]
         createdAt: String
         updatedAt: String
     }
 
+    type UserJwtToken {
+        token: String
+    }
+
+    input UserJwtTokenInput {
+        token: String
+    }
+
     type Query {
-        getGigsByToken(freelancerTokenInput: UserJwtTokenInput): [Gig]
+        getGigsByToken(input: UserJwtTokenInput): [Gig]
         getGigs: [Gig]
         getGig(id:ID): Gig
     }

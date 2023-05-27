@@ -5,22 +5,58 @@ import React from "react";
 import { useCookies } from "react-cookie";
 
 const GETORDER = gql`
-    query GetFreelancerOrders {
-        getFreelancerOrders {
+    query GetFreelancerOrders($input: UserJwtTokenInput) {
+        getFreelancerOrders(input: $input) {
             id
             gigId
             clientId
-            freelancerId
+            freelancerToken {
+            token
+            }
             status
             createdAt
             updatedAt
         }
-    }   
+    }  
+`;
+
+const GETGIG = gql`
+    query GetGig($getGigId: ID) {
+        getGig(id: $getGigId) {
+            id
+            title
+            shortTitle
+            description
+            shortDesc
+            price
+            coverImage
+            images
+            category
+            deliveryTime
+            revisionNumber
+            features
+            sales
+            rating
+            reviews
+            token {
+                token
+            }
+            createdAt
+            updatedAt
+        }
+    } 
 `;
 
 export const OrderDashboard = () => {
 
+    const [cookies, setCookie, removeCookie] = useCookies(['userJwtToken']);
+
     const { error, data } = useQuery(GETORDER, {
+        variables: {
+            input: {
+                token: cookies.userJwtToken
+            }
+        },
         onCompleted: (data) => {
             console.log(data);
         },
@@ -30,45 +66,53 @@ export const OrderDashboard = () => {
         }
     });
 
-    if (data?.getFreelancerOrders) {
+    if (data) {
         return (
-            <Accordion allowMultiple>
-                {data.getFreelancerOrders.map((order: any) => {
-                    return (
+            <Box style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "20px"
+            }}>
+                <h1>Orders</h1>
+                <Accordion allowToggle>
+                    {data.getFreelancerOrders.map((order: any) => (
                         <AccordionItem>
-                            <h2>
-                                <AccordionButton>
-                                    <Box as="span" flex='1' textAlign='left'>
-                                        {order.id}
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
+                            <AccordionButton>
+                                <Box flex="1" textAlign="left">
+                                    <p>Order ID:{order.id}</p>
+                                </Box>
+                                <Box flex="1" textAlign="left"
+                                >
+                                    {order.status}
+                                </Box>
+                                <Box flex="1" textAlign="left">
+                                    Order Updated At: {order.updatedAt}
+                                </Box>
+                            </AccordionButton>
                             <AccordionPanel pb={4}>
                                 <Card>
-                                    <p>{order.id}</p>
-                                    <p>{order.gigId}</p>
-                                    <p>{order.clientId}</p>
-                                    <p>{order.freelancerId}</p>
-                                    <p>{order.status}</p>
-                                    <p>{order.createdAt}</p>
-                                    <p>{order.updatedAt}</p>
+                                    <Box>
+                                        <p>Order ID: {order.id}</p>
+                                        <p>Order Status: {order.status}</p>
+                                        <p>Order Created At: {order.createdAt}</p>
+                                        <p>Order Updated At: {order.updatedAt}</p>
+                                    </Box>
                                 </Card>
                             </AccordionPanel>
                         </AccordionItem>
-                    );
-                })}
-            </Accordion>
-        );
+                    ))}
+                </Accordion>
+            </Box>
+        )
     } else {
         return (
-            <div>
-                <br />
-                <br />
-                <br />
-                <h1>Orders</h1>
-                <p>There are no orders</p>
-            </div>
-        );
+            <Box>
+                <p>No Orders</p>
+            </Box>
+        )
     }
 };

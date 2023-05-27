@@ -4,14 +4,18 @@ export const gigResolvers = {
     Query: {
         getGigsByToken: async (_parent, args, _context, _info) => {
             try {
-                const gigs = gigModel.findOne({ freelancerToken: args.freelancerTokenInput }).exec();
+                const gigs = gigModel.find({
+                    token: {
+                        token: args.input.token
+                    }
+                }).exec();
                 return await gigs;
             } catch (err) {
                 console.log(err);
             }
         },
 
-        getGigs: async (_parent, args, _context, _info) => {
+        getGigs: async (_parent, _args, _context, _info) => {
             try {
                 const gigs = gigModel.find().exec();
                 return await gigs;

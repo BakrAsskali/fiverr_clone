@@ -2,7 +2,7 @@ import orderModel from "../models/order.js";
 
 export const orderResolvers = {
     Query: {
-        getOrders: async (parent, args, context, info) => {
+        getOrders: async (_parent, _args, _context, _info) => {
             try {
                 const orders = orderModel.find({}).exec();
                 return await orders;
@@ -11,16 +11,21 @@ export const orderResolvers = {
             }
         },
 
-        getFreelancerOrders: async (parent, args, context, info) => {
+        getFreelancerOrders: async (_parent, args, _context, _info) => {
             try {
-                const orders = orderModel.find({ token: args.input.token }).exec();
+                const orders = orderModel.find({
+                    $or: [
+                        { freelancerId: { token: args.input.token } },
+                        { clientId: args.input.token }
+                    ]
+                }).exec();
                 return await orders;
             } catch (error) {
                 console.log(error);
             }
         },
 
-        getOrder: async (parent, args, context, info) => {
+        getOrder: async (_parent, args, _context, _info) => {
             try {
                 const order = orderModel.findById(args.id).exec();
                 return await order;
@@ -31,17 +36,17 @@ export const orderResolvers = {
     },
 
     Mutation: {
-        createOrder: async (parent, args, context, info) => {
+        createOrder: async (_parent, args, _context, _info) => {
             const order = new orderModel({
-                clientId: args.input.clientId,
                 gigId: args.input.gigId,
-                freelancerToken: args.input.freelancerToken,
+                clientId: args.input.clientId,
+                freelancerId: args.input.freelancerToken,
                 status: args.input.status,
             });
             return await order.save();
         },
 
-        updateOrder: async (parent, args, context, info) => {
+        updateOrder: async (_parent, args, _context, _info) => {
             return await orderModel.findByIdAndUpdate(args.id, {
                 userId: args.input.userId,
                 productId: args.input.productId,
@@ -51,7 +56,7 @@ export const orderResolvers = {
             }, { new: true });
         },
 
-        deleteOrder: async (parent, args, context, info) => {
+        deleteOrder: async (_parent, args, _context, _info) => {
             return await orderModel.findByIdAndDelete(args.id).exec();
         }
     }
