@@ -5,7 +5,7 @@ export const orderSchema = `#graphql
         id: ID
         gigId: String!
         clientId: String!
-        freelancerToken: UserJwtToken!
+        freelancerToken: UserJwtToken
         status: String!
         createdAt: String
         updatedAt: String
@@ -27,7 +27,7 @@ export const orderSchema = `#graphql
     }
 
     type Mutation {
-        createOrder(order: OrderInput): Order
+        createOrder(input: OrderInput): Order
         updateOrder(id: ID!, input: OrderInput): Order
         deleteOrder(id: ID!): Order 
     }

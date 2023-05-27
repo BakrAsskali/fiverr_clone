@@ -3,6 +3,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { Avatar, Box, Button, Card, CardBody, CardFooter, CardHeader, Flex, Heading, IconButton, Image, Slider, Text } from "@chakra-ui/react";
 import { on } from "events";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import "../../assets/styles/Gig.css";
 
 const GETGIG = gql`
@@ -23,7 +24,7 @@ const GETGIG = gql`
       sales
       rating
       reviews
-      freelancerToken {
+      token {
         token
       }
       createdAt
@@ -63,21 +64,22 @@ const GETUSER = gql`
 
 const CREATE_ORDER = gql`
   mutation CreateOrder($order: OrderInput) {
-    createOrder(order: $order) {
+    createOrder(input: $order) {
       id
       gigId
       clientId
-      status
-      createdAt
-      updatedAt
       freelancerToken {
         token
       }
+      status
+      createdAt
+      updatedAt
     }
   }
 `;
 
 export const Gig = () => {
+  const navigate = useNavigate();
   const [cookies, setCookie] = useCookies();
   const gigId = window.location.pathname.split("/")[2];
   const { data, error } = useQuery(GETGIG, {
@@ -99,6 +101,7 @@ export const Gig = () => {
   const [createOrder, { data: orderData, error: orderError }] = useMutation(CREATE_ORDER, {
     onCompleted: (data) => {
       console.log(data);
+      navigate("/orders");
     },
   });
 
@@ -108,7 +111,9 @@ export const Gig = () => {
         order: {
           gigId: gigId,
           clientId: cookies.userJwtToken,
-          freelancerToken: userData?.getUser.userJwtToken.token,
+          freelancerToken: {
+            token: data.getGig.token.token
+          },
           status: "PENDING"
         }
       }

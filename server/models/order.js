@@ -12,7 +12,7 @@ export const orderSchema = new Schema({
   },
 
   freelancerId: {
-    type: String,
+    type: Object,
     required: true,
   },
 
