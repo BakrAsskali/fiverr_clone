@@ -47,7 +47,7 @@ export const gigResolvers = {
                 deliveryTime: args.input.deliveryTime,
                 revisionNumber: args.input.revisionNumber,
                 features: args.input.features,
-                token: args.input.freelancerToken,
+                token: args.input.token,
             });
             await gig.save();
         },

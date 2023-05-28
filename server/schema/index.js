@@ -4,5 +4,6 @@ import { messageSchema } from "./messageSchema.js";
 import { orderSchema } from "./orderSchema.js";
 import { reviewSchema } from "./reviewSchema.js";
 import { userSchema } from "./userSchema.js";
+import { fileSchema } from "./fileSchema.js";
 
-export const typeDefs = [userSchema, gigSchema, conversationSchema, messageSchema, reviewSchema, orderSchema];
+export const typeDefs = [userSchema, gigSchema, conversationSchema, messageSchema, reviewSchema, orderSchema, fileSchema];

@@ -1,4 +1,5 @@
 import { conversationResolvers } from "./conversationResolvers.js";
+import { fileResolvers } from "./fileResolvers.js";
 import { gigResolvers } from "./gigResolvers.js";
 import { messageResolvers } from "./messageResolvers.js";
 import { orderResolvers } from "./orderResolvers.js";
@@ -11,5 +12,6 @@ export const resolvers = [
     conversationResolvers,
     messageResolvers,
     orderResolvers,
-    reviewResolvers
+    reviewResolvers,
+    fileResolvers
 ];

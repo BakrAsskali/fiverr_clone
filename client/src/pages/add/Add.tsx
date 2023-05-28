@@ -23,11 +23,21 @@ const CREATEGIG = gql`
       sales
       rating
       reviews
-      freelancerToken{
+      token{
         token
       }
       createdAt
       updatedAt
+    }
+  }
+`;
+
+const FILE_UPLOAD = gql`
+  mutation SingleUpload($input: FileInput!) {
+    singleUpload(input: $input) {
+      filename
+      mimetype
+      encoding
     }
   }
 `;
@@ -64,6 +74,26 @@ export const Add = () => {
     const revisionNumber = parseFloat(revisionNumberRef.current?.value || "");
     const features = featuresRef.current?.value || "";
     const freelancertoken = cookies.userJwtToken;
+    const filename = cover.replace("C:\\fakepath\\", "");
+    const coverImage = {
+      filename: filename,
+      mimetype: `image/jpeg`,
+      encoding: "7bit",
+    };
+    var imagesArray = images.split(",");
+    var imageTable = [];
+    for (var i = 0; i < imagesArray.length; i++) {
+      const filename = imagesArray[i].replace("C:\\fakepath\\", "");
+      const mimeType = `image/jpeg`;
+      const encoding = "7bit";
+      const image = {
+        filename: filename,
+        mimetype: mimeType,
+        encoding: encoding,
+      };
+      imageTable.push(image);
+    }
+
 
 
     const gig = {
@@ -72,16 +102,28 @@ export const Add = () => {
       description: description,
       shortDesc: shortDesc,
       price: price,
-      coverImage: cover,
-      images: images,
+      coverImage: coverImage,
+      images: imageTable,
       category: category,
       deliveryTime: deliveryTime,
       revisionNumber: revisionNumber,
       features: features,
-      freelancerToken: {
+      token: {
         token: freelancertoken,
       },
     };
+
+    await singleUpload({
+      variables: {
+        input: coverImage,
+      },
+    });
+
+    await singleUpload({
+      variables: {
+        input: imageTable,
+      },
+    });
 
     await createGig({
       variables: {
@@ -89,6 +131,15 @@ export const Add = () => {
       },
     });
   }
+
+  const [singleUpload] = useMutation(FILE_UPLOAD, {
+    onCompleted: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const [createGig, { data, error }] = useMutation(CREATEGIG, {
 
