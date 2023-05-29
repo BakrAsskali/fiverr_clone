@@ -236,13 +236,13 @@ export const Add = () => {
               <option value="Video & Animation">Video & Animation</option>
               <option value="Music & Audio">Music & Audio</option>
               <option value="Programming & Tech">Programming & Tech</option>
-              <option value="Data">Data</option>
+              <option value="Data">Business</option>
             </select>
             <FormLabel htmlFor="deliveryTime" style={{
               fontSize: "20px",
               fontWeight: "bold",
               textAlign: "center"
-            }}>Delivery Time</FormLabel>
+            }}>Delivery Time (In days)</FormLabel>
             <Input type="text" id="deliveryTime" ref={deliveryTimeRef} required />
             <FormLabel htmlFor="revisionNumber" style={{
               fontSize: "20px",

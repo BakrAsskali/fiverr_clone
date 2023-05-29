@@ -26,12 +26,30 @@ export const gigResolvers = {
 
         getGigsBySort: async (_parent, args, _context, _info) => {
             try {
-                if (args.category === 'All') {
+                if (args.category == 'All' && args.deliveryTime == 0 && args.price == 0) {
                     const gigs = gigModel.find().exec();
+                    return await gigs;
+                } else if (args.category = 'All') {
+                    const gigs = gigModel.find({
+                        deliveryTime: args.deliveryTime
+                    }).exec();
+                    return await gigs;
+                } else if (args.deliveryTime = 0) {
+                    const gigs = gigModel.find({
+                        category: args.category
+                    }).exec();
+                    return await gigs;
+                } else if (args.price == 0) {
+                    const gigs = gigModel.find({
+                        category: args.category,
+                        deliveryTime: args.deliveryTime
+                    }).exec();
                     return await gigs;
                 } else {
                     const gigs = gigModel.find({
-                        category: args.category
+                        category: args.category,
+                        deliveryTime: args.deliveryTime,
+                        price: args.price
                     }).exec();
                     return await gigs;
                 }

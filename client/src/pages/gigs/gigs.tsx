@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import "../../assets/styles/Gigs.css";
 
 const GET_GIGS = gql`
-  query GetGigsBySort($category: String) {
-    getGigsBySort(category: $category) {
+  query GetGigsBySort($category: String, $deliveryTime: Int, $price: Float) {
+    getGigsBySort(category: $category, deliveryTime: $deliveryTime, price: $price) {
       id
       title
       shortTitle
@@ -36,11 +36,15 @@ export const Gigs = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
   const [category, setCategory] = useState<string>("All");
+  const [deliveryTime, setDeliveryTime] = useState<number>(0);
+  const [price, setPrice] = useState<number>(0);
 
-  const fetchGigs = (category: string) => {
+  const fetchGigs = (category: string, deliveryTime: number, price: number) => {
     return useQuery(GET_GIGS, {
       variables: {
         category: category,
+        deliveryTime: deliveryTime,
+        price: price,
       },
     });
   };
@@ -48,6 +52,8 @@ export const Gigs = () => {
   const { data, error } = useQuery(GET_GIGS, {
     variables: {
       category: category,
+      deliveryTime: deliveryTime,
+      price: price,
     },
   });
 
@@ -112,41 +118,37 @@ export const Gigs = () => {
                 )}
               </ButtonGroup>
               <Divider />
-              <Text fontSize='xl'>Category</Text>
+              <Text fontSize='xl'>category</Text>
               <ButtonGroup size='' spacing='15'>
-                <Button padding='2' onClick={() => setCategory('All')}>All</Button>
-                <Button padding='2' onClick={() => setCategory('Graphics & Design')}>Graphics & Design</Button>
-                <Button padding='2' onClick={() => setCategory('Digital Marketing')}>Digital Marketing</Button>
-                <Button padding='2' onClick={() => setCategory('Writing & Translation')}>Writing & Translation</Button>
-                <Button padding='2' onClick={() => setCategory('Video & Animation')}>Video & Animation</Button>
-                <Button padding='2' onClick={() => setCategory('Music & Audio')}>Music & Audio</Button>
-                <Button padding='2' onClick={() => setCategory('Programming & Tech')}>Programming & Tech</Button>
-                <Button padding='2' onClick={() => setCategory('Business')}>Business</Button>
+                <Button padding='2' isActive onClick={() => setCategory('All')} >All</Button>
+                <Button padding='2' isActive onClick={() => setCategory('Graphics & Design')}>Graphics & Design</Button>
+                <Button padding='2' isActive onClick={() => setCategory('Digital Marketing')}>Digital Marketing</Button>
+                <Button padding='2' isActive onClick={() => setCategory('Writing & Translation')}>Writing & Translation</Button>
+                <Button padding='2' isActive onClick={() => setCategory('Video & Animation')}>Video & Animation</Button>
+                <Button padding='2' isActive onClick={() => setCategory('Music & Audio')}>Music & Audio</Button>
+                <Button padding='2' isActive onClick={() => setCategory('Programming & Tech')}>Programming & Tech</Button>
+                <Button padding='2' isActive onClick={() => setCategory('Business')}>Business</Button>
               </ButtonGroup>
               <Divider />
               <Text fontSize='xl'>Delivery Time</Text>
               <ButtonGroup size='' spacing='6'>
-                <Button padding='2'>All</Button>
-                <Button padding='2'>24 Hours</Button>
-                <Button padding='2'>3 Days</Button>
-                <Button padding='2'>7 Days</Button>
+                <Button padding='2' isActive onClick={() => setDeliveryTime(0)}>All</Button>
+                <Button padding='2' isActive onClick={() => setDeliveryTime(1)}>24 Hours</Button>
+                <Button padding='2' isActive onClick={() => setDeliveryTime(3)}>3 Days</Button>
+                <Button padding='2' isActive onClick={() => setDeliveryTime(7)}>7 Days</Button>
               </ButtonGroup>
               <Divider />
               <Text fontSize='xl'>Price</Text>
               <ButtonGroup size='' spacing='6'>
-                <Button padding='2'>All</Button>
-                <Button padding='2'>Under $25</Button>
-                <Button padding='2'>$25 - $50</Button>
-                <Button padding='2'>$50 - $100</Button>
-                <Button padding='2'>$100 - $200</Button>
-                <Button padding='2'>$200 & Above</Button>
+                <Button padding='2' isActive onClick={() => setPrice(0)}>All</Button>
+                <Button padding='2' isActive onClick={() => setPrice(25)}>Under $25</Button>
+                <Button padding='2' isActive onClick={() => setPrice(50)}>$25 - $50</Button>
+                <Button padding='2' isActive onClick={() => setPrice(100)}>$50 - $100</Button>
+                <Button padding='2' isActive onClick={() => setPrice(199)}>$100 - $200</Button>
+                <Button padding='2' isActive onClick={() => setPrice(200)}>$200 & Above</Button>
               </ButtonGroup>
               <Divider />
-              <Text fontSize='xl'>Online Sellers</Text>
-              <ButtonGroup size='' spacing='6'>
-                <Button padding='2' >All</Button>
-                <Button padding='2'>Online</Button>
-              </ButtonGroup>
+              <Divider />
             </Stack>
           </GridItem>
         </Grid>
@@ -156,10 +158,16 @@ export const Gigs = () => {
           <SimpleGrid columns={3} spacing={10}>
             {data?.getGigsBySort
               .filter((gig: any) => {
-                if (category === "All") {
+                if (category === 'All' && deliveryTime === 0 && price === 0) {
                   return true;
-                } else {
+                } else if (category === 'All') {
+                  return gig.deliveryTime === deliveryTime;
+                } else if (deliveryTime === 0) {
                   return gig.category === category;
+                } else if (price === 0) {
+                  return gig.category === category && gig.deliveryTime === deliveryTime;
+                } else {
+                  return gig.category === category && gig.deliveryTime === deliveryTime && gig.price <= price;
                 }
               })
               .map((gig: any) => (
