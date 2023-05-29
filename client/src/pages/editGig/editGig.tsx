@@ -136,6 +136,8 @@ export const EditGig = () => {
         });
     };
 
+    if (!cookies.userJwtToken) navigate('/login')
+
     const gigNameRef = useRef<HTMLInputElement>(null);
     const gigDescriptionRef = useRef<HTMLTextAreaElement>(null);
     const gigPriceRef = useRef<HTMLInputElement>(null);

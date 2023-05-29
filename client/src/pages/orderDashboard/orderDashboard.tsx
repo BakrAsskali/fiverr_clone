@@ -66,6 +66,10 @@ export const OrderDashboard = () => {
         }
     });
 
+    if (!cookies.userJwtToken) {
+        window.location.href = "/login";
+    }
+
     if (data) {
         return (
             <Box style={{

@@ -35,16 +35,6 @@ const CREATEGIG = gql`
   }
 `;
 
-const FILE_UPLOAD = gql`
-  mutation SingleUpload($input: FileInput!) {
-    singleUpload(input: $input) {
-      filename
-      mimetype
-      encoding
-    }
-  }
-`;
-
 async function uploadBlob(filename: any, file: any) {
   const blobServiceClient = new BlobServiceClient(
     "https://bakaria.blob.core.windows.net/images?sp=racwdl&st=2023-05-29T10:42:01Z&se=2023-06-10T18:42:01Z&sip=105.155.3.49&sv=2022-11-02&sr=c&sig=DH5YSvS8jNXNryvBnuR63CqReAHeLtYdsTHJhMaFxoY%3D"
@@ -136,16 +126,6 @@ export const Add = () => {
       });
     });
   };
-
-
-  const [singleUpload] = useMutation(FILE_UPLOAD, {
-    onCompleted: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
 
   const [createGig, { data, error }] = useMutation(CREATEGIG, {
 

@@ -101,7 +101,7 @@ export const Gig = () => {
   const [createOrder, { data: orderData, error: orderError }] = useMutation(CREATE_ORDER, {
     onCompleted: (data) => {
       console.log(data);
-      navigate("/orders");
+      navigate("/orderDashboard");
     },
   });
 
@@ -125,7 +125,7 @@ export const Gig = () => {
       backgroundColor: "#f5f5f5",
     }}>
       <Box className="gig" style={{
-        // backgroundImage: `url(${data?.getGig.coverImage})`,
+        backgroundImage: `url(${data?.getGig.coverImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat"
@@ -143,7 +143,7 @@ export const Gig = () => {
             </Flex>
           </CardHeader>
           <CardBody className="gig-card-body">
-            {/* <Image className="gig-card-body-image" src={data?.getGig.coverImage} /> */}
+            <Image className="gig-card-body-image" src={data?.getGig.images} />
             <Heading className="gig-card-body-heading" size="md">{data?.getGig.title}</Heading>
             <Text className="gig-card-body-text">{data?.getGig.shortDesc}</Text>
             <Text className="gig-card-body-text">{data?.getGig.description}</Text>

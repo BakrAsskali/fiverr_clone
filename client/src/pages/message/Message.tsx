@@ -1,8 +1,13 @@
 import React from "react";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import "../../assets/styles/Message.css";
 
 export const Message: React.FC = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(["userJwtToken"]);
+  if (!cookies.userJwtToken) {
+    window.location.href = "/login";
+  }
   return (
     <div className="message">
       <div className="container">

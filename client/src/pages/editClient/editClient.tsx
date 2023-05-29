@@ -153,6 +153,10 @@ export const EditClient = () => {
         navigate('/');
     }
 
+    if (cookies.get('userJwtToken') === undefined) {
+        navigate('/login');
+    }
+
     const handleUpdateUser = (e: any) => {
         e.preventDefault();
         const firstName = firstNameRef.current?.value;
