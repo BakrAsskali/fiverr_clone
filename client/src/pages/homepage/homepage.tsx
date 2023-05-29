@@ -46,6 +46,11 @@ export const Homepage = ({ }: HomepageProps) => {
     return () => clearInterval(interval);
   }, [images]);
 
+  const search = (e: any) => {
+    e.preventDefault();
+    window.location.href = "/Gigs";
+  };
+
   return (
     <>
       <div className="video" style={{
@@ -58,7 +63,7 @@ export const Homepage = ({ }: HomepageProps) => {
           <div className="search">
             <input type="text" placeholder="Search for any service" style={{
               color: "black",
-            }} />
+            }} onSubmit={search} />
           </div>
           <ul className="cats">
             <li id="popular">popular</li>

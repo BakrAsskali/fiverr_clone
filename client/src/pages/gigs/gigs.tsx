@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import "../../assets/styles/Gigs.css";
 
 const GET_GIGS = gql`
-  query GetGigs {
-    getGigs {
+  query GetGigsBySort($category: String) {
+    getGigsBySort(category: $category) {
       id
       title
       shortTitle
@@ -34,15 +34,22 @@ const GET_GIGS = gql`
 
 export const Gigs = () => {
   const navigate = useNavigate();
-  const [sort, setSort] = useState<string>("sales");
   const [open, setOpen] = useState<boolean>(false);
+  const [category, setCategory] = useState<string>("All");
 
-  const resort = (sort: string) => {
-    setSort(sort);
-    setOpen(false);
+  const fetchGigs = (category: string) => {
+    return useQuery(GET_GIGS, {
+      variables: {
+        category: category,
+      },
+    });
   };
 
-  const { data, error } = useQuery(GET_GIGS);
+  const { data, error } = useQuery(GET_GIGS, {
+    variables: {
+      category: category,
+    },
+  });
 
   if (error) {
     console.log(error);
@@ -98,23 +105,23 @@ export const Gigs = () => {
                 }}>Sort</Button>
                 {open && (
                   <Stack spacing={3} p={3} bg="gray.100" rounded="md">
-                    <Button onClick={() => resort("sales")}>Sales</Button>
-                    <Button onClick={() => resort("rating")}>Rating</Button>
-                    <Button onClick={() => resort("price")}>Price</Button>
+                    <Button >Sales</Button>
+                    <Button >Rating</Button>
+                    <Button >Price</Button>
                   </Stack>
                 )}
               </ButtonGroup>
               <Divider />
               <Text fontSize='xl'>Category</Text>
               <ButtonGroup size='' spacing='15'>
-                <Button padding='2'>All</Button>
-                <Button padding='2'>Graphics & Design</Button>
-                <Button padding='2'>Digital Marketing</Button>
-                <Button padding='2'>Writing & Translation</Button>
-                <Button padding='2'>Video & Animation</Button>
-                <Button padding='2'>Music & Audio</Button>
-                <Button padding='2'>Programming & Tech</Button>
-                <Button padding='2'>Business</Button>
+                <Button padding='2' onClick={() => setCategory('All')}>All</Button>
+                <Button padding='2' onClick={() => setCategory('Graphics & Design')}>Graphics & Design</Button>
+                <Button padding='2' onClick={() => setCategory('Digital Marketing')}>Digital Marketing</Button>
+                <Button padding='2' onClick={() => setCategory('Writing & Translation')}>Writing & Translation</Button>
+                <Button padding='2' onClick={() => setCategory('Video & Animation')}>Video & Animation</Button>
+                <Button padding='2' onClick={() => setCategory('Music & Audio')}>Music & Audio</Button>
+                <Button padding='2' onClick={() => setCategory('Programming & Tech')}>Programming & Tech</Button>
+                <Button padding='2' onClick={() => setCategory('Business')}>Business</Button>
               </ButtonGroup>
               <Divider />
               <Text fontSize='xl'>Delivery Time</Text>
@@ -147,7 +154,14 @@ export const Gigs = () => {
       <Grid templateColumns="repeat(12, 1fr)" gap={6}>
         <GridItem colSpan={10}>
           <SimpleGrid columns={3} spacing={10}>
-            {data?.getGigs
+            {data?.getGigsBySort
+              .filter((gig: any) => {
+                if (category === "All") {
+                  return true;
+                } else {
+                  return gig.category === category;
+                }
+              })
               .map((gig: any) => (
                 <Card key={gig.id} maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
                   <LazyLoadImage src={gig.coverImage} alt={gig.title} loading="lazy" />

@@ -24,6 +24,22 @@ export const gigResolvers = {
             }
         },
 
+        getGigsBySort: async (_parent, args, _context, _info) => {
+            try {
+                if (args.category === 'All') {
+                    const gigs = gigModel.find().exec();
+                    return await gigs;
+                } else {
+                    const gigs = gigModel.find({
+                        category: args.category
+                    }).exec();
+                    return await gigs;
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        },
+
         getGig: async (_parent, args, _context, _info) => {
             try {
                 const gig = gigModel.findById(args.id).exec();

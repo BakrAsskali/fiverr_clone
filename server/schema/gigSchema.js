@@ -49,8 +49,9 @@ export const gigSchema = `#graphql
     }
 
     type Query {
-        getGigsByToken(input: UserJwtTokenInput): [Gig]
+        getGigsByToken(input: UserJwtTokenInput!): [Gig]
         getGigs: [Gig]
+        getGigsBySort(category: String): [Gig]
         getGig(id:ID): Gig
     }
 
