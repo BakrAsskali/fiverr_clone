@@ -1,4 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
+import { BlobServiceClient } from '@azure/storage-blob';
 import {
     Button,
     Card,
@@ -71,6 +72,22 @@ const DELETE_GIG = gql`
     }
 `;
 
+async function uploadBlob(filename: any, file: any) {
+    const blobServiceClient = new BlobServiceClient(
+        "https://bakaria.blob.core.windows.net/images?sp=racwdl&st=2023-05-29T10:42:01Z&se=2023-06-10T18:42:01Z&sip=105.155.3.49&sv=2022-11-02&sr=c&sig=DH5YSvS8jNXNryvBnuR63CqReAHeLtYdsTHJhMaFxoY%3D"
+    );
+    const containerClient = blobServiceClient.getContainerClient("images");
+    const BlobClient = containerClient.getBlobClient(filename);
+    const blockBlobClient = BlobClient.getBlockBlobClient();
+    await blockBlobClient.uploadBrowserData(file, {
+        blockSize: 4 * 1024 * 1024, // 4MB block size
+        concurrency: 20, // 20 concurrency
+        onProgress: (ev) => console.log(ev),
+    });
+    console.log("done");
+
+}
+
 export const EditGig = () => {
 
     const gigId = window.location.pathname.split('/')[2];
@@ -98,6 +115,7 @@ export const EditGig = () => {
         const gigPrice = gigPriceRef.current?.value;
         const gigImage = gigImageRef.current?.value;
         const gigDeliveryTime = gigDeliveryTimeRef.current?.value;
+        const filename = gigImage?.replace("C:\\fakepath\\", "");
 
         const gig = {
             gigName,
@@ -107,10 +125,14 @@ export const EditGig = () => {
             gigDeliveryTime,
         };
 
-        updateGig({
-            variables: {
-                input: gig,
-            }
+        uploadBlob(filename, gigImage).then(() => {
+            updateGig({
+                variables: {
+                    input: {
+                        gig,
+                    }
+                }
+            });
         });
     };
 

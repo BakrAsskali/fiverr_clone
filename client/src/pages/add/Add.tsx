@@ -1,9 +1,12 @@
 import { gql, useMutation } from "@apollo/client";
+import { BlobServiceClient } from "@azure/storage-blob";
 import { Button, Card, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import "../../assets/styles/Add.css";
+
+
 
 const CREATEGIG = gql`
   mutation CreateGig($input: GigInput) {
@@ -42,6 +45,22 @@ const FILE_UPLOAD = gql`
   }
 `;
 
+async function uploadBlob(filename: any, file: any) {
+  const blobServiceClient = new BlobServiceClient(
+    "https://bakaria.blob.core.windows.net/images?sp=racwdl&st=2023-05-29T10:42:01Z&se=2023-06-10T18:42:01Z&sip=105.155.3.49&sv=2022-11-02&sr=c&sig=DH5YSvS8jNXNryvBnuR63CqReAHeLtYdsTHJhMaFxoY%3D"
+  );
+  const containerClient = blobServiceClient.getContainerClient("images");
+  const BlobClient = containerClient.getBlobClient(filename);
+  const blockBlobClient = BlobClient.getBlockBlobClient();
+  await blockBlobClient.uploadBrowserData(file, {
+    blockSize: 4 * 1024 * 1024, // 4MB block size
+    concurrency: 20, // 20 concurrency
+    onProgress: (ev) => console.log(ev),
+  });
+  console.log("done");
+
+}
+
 export const Add = () => {
 
   const navigate = useNavigate();
@@ -75,11 +94,6 @@ export const Add = () => {
     const features = featuresRef.current?.value || "";
     const freelancertoken = cookies.userJwtToken;
     const filename = cover.replace("C:\\fakepath\\", "");
-    const coverImage = {
-      filename: filename,
-      mimetype: `image/jpeg`,
-      encoding: "7bit",
-    };
     var imagesArray = images.split(",");
     var imageTable: { filename: string; mimetype: string; encoding: string; }[] = [];
     var imagelinks = []
@@ -116,25 +130,9 @@ export const Add = () => {
       },
     };
 
-    await singleUpload({
-      variables: {
-        input: {
-          filename: filename,
-          mimetype: `image/jpeg`,
-          encoding: "7bit",
-        },
-      },
-    }).then(async (data) => {
-      await singleUpload({
-        variables: {
-          input: imageTable,
-        },
-      }).then(async (data) => {
-        await createGig({
-          variables: {
-            input: gig,
-          },
-        });
+    await uploadBlob(filename, cover).then(() => {
+      uploadBlob(imageTable[0].filename, imagesArray[0]).then(() => {
+        createGig({ variables: { input: gig } });
       });
     });
   };

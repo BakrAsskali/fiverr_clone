@@ -26,6 +26,7 @@ import { OrderDashboard } from "./pages/orderDashboard/orderDashboard";
 import { Privacy } from "./pages/privacy/privacy";
 import { Signup } from "./pages/signup/signup";
 
+
 const httpLink = createHttpLink({
   uri: "http://localhost:8800",
 });
