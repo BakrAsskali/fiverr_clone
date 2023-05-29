@@ -8,7 +8,7 @@ import { resolvers } from "./resolvers/index.js";
 import { typeDefs } from "./schema/index.js";
 import azurestorage from "azure-storage";
 
-// const blobService = azurestorage.createBlobService(process.env.AZURE_STORAGE_CONNECTION_STRING);
+const blobService = azurestorage.createBlobService(process.env.AZURE_STORAGE_CONNECTION_STRING);
 const PORT = process.env.PORT || 8800;
 
 mongoose.connect(process.env.ATLAS_URI, {

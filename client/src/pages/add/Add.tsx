@@ -81,7 +81,8 @@ export const Add = () => {
       encoding: "7bit",
     };
     var imagesArray = images.split(",");
-    var imageTable = [];
+    var imageTable: { filename: string; mimetype: string; encoding: string; }[] = [];
+    var imagelinks = []
     for (var i = 0; i < imagesArray.length; i++) {
       const filename = imagesArray[i].replace("C:\\fakepath\\", "");
       const mimeType = `image/jpeg`;
@@ -92,6 +93,8 @@ export const Add = () => {
         encoding: encoding,
       };
       imageTable.push(image);
+
+      imagelinks.push("https://bakaria.blob.core.windows.net/images/" + filename);
     }
 
 
@@ -102,8 +105,8 @@ export const Add = () => {
       description: description,
       shortDesc: shortDesc,
       price: price,
-      coverImage: coverImage,
-      images: imageTable,
+      coverImage: "https://bakaria.blob.core.windows.net/images/" + filename,
+      images: imagelinks,
       category: category,
       deliveryTime: deliveryTime,
       revisionNumber: revisionNumber,
@@ -115,22 +118,27 @@ export const Add = () => {
 
     await singleUpload({
       variables: {
-        input: coverImage,
+        input: {
+          filename: filename,
+          mimetype: `image/jpeg`,
+          encoding: "7bit",
+        },
       },
+    }).then(async (data) => {
+      await singleUpload({
+        variables: {
+          input: imageTable,
+        },
+      }).then(async (data) => {
+        await createGig({
+          variables: {
+            input: gig,
+          },
+        });
+      });
     });
+  };
 
-    await singleUpload({
-      variables: {
-        input: imageTable,
-      },
-    });
-
-    await createGig({
-      variables: {
-        input: gig,
-      },
-    });
-  }
 
   const [singleUpload] = useMutation(FILE_UPLOAD, {
     onCompleted: (data) => {
