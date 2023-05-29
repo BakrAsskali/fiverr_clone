@@ -154,6 +154,7 @@ export const Gig = () => {
             <Text className="gig-card-body-text">{data?.getGig.sales}</Text>
             <Text className="gig-card-body-text">{data?.getGig.rating}</Text>
             <Text className="gig-card-body-text">{data?.getGig.reviews}</Text>
+            <Text className="gig-card-body-text">Contact me at : {userData?.getUser.email}</Text>
           </CardBody>
           <CardFooter className="gig-card-footer">
             <Button className="gig-card-footer-button" colorScheme="blue" onClick={handleOrder}>Place Order</Button>

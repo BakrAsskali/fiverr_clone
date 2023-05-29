@@ -1,6 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { Box, Button, ButtonGroup, Card, CardBody, CardFooter, Divider, Grid, GridItem, Heading, Image, Input, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useNavigate } from "react-router-dom";
 import "../../assets/styles/Gigs.css";
 
@@ -149,7 +150,7 @@ export const Gigs = () => {
             {data?.getGigs
               .map((gig: any) => (
                 <Card key={gig.id} maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
-                  <Image src={gig.coverImage} alt={gig.title} />
+                  <LazyLoadImage src={gig.coverImage} alt={gig.title} loading="lazy" />
                   <CardBody>
                     <Heading as="h2" size="md">
                       {gig.shortTitle}

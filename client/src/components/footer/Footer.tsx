@@ -69,13 +69,13 @@ export const Footer = () => (
       <ButtonGroup variant="ghost">
         <IconButton
           as="a"
-          href="#"
+          href="/"
           aria-label="LinkedIn"
           icon={<FaLinkedin fontSize="1.25rem" />}
         />
         <IconButton
           as="a"
-          href="#"
+          href="https://github.com/BakrAsskali/fiverr_clone"
           aria-label="GitHub"
           icon={<FaGithub fontSize="1.25rem" />}
         />
