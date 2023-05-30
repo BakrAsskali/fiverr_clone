@@ -37,7 +37,7 @@ const CREATEGIG = gql`
 
 async function uploadBlob(filename: any, file: any) {
   const blobServiceClient = new BlobServiceClient(
-    "https://bakaria.blob.core.windows.net/images?sp=racwdl&st=2023-05-29T10:42:01Z&se=2023-06-10T18:42:01Z&sip=105.155.3.49&sv=2022-11-02&sr=c&sig=DH5YSvS8jNXNryvBnuR63CqReAHeLtYdsTHJhMaFxoY%3D"
+    "https://bakaria.blob.core.windows.net/?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-06-10T03:01:30Z&st=2023-05-30T19:01:30Z&spr=https,http&sig=ENvqgE9rh5rybi%2Fzf5IFE9Rf%2BF3Li6NSpmkTb58usa0%3D"
   );
   const containerClient = blobServiceClient.getContainerClient("images");
   const BlobClient = containerClient.getBlobClient(filename);

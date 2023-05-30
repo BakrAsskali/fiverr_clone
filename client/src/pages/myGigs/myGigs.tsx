@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { Button } from "@chakra-ui/react";
+import { Button, Card } from "@chakra-ui/react";
 import { on } from "events";
 import React from "react";
 import { Accordion } from "react-bootstrap";
@@ -7,8 +7,8 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 const GET_GIGS = gql`
-    query GetGigsByToken($freelancerTokenInput: UserJwtTokenInput) {
-        getGigsByToken(input: $freelancerTokenInput) {
+    query GetGigsByToken($getGigsByTokenInput2: UserJwtTokenInput!) {
+        getGigsByToken(input: $getGigsByTokenInput2) {
             id
             title
             shortTitle
@@ -45,7 +45,7 @@ export const MyGigs = () => {
 
     const { error, data } = useQuery(GET_GIGS, {
         variables: {
-            freelancerTokenInput: {
+            getGigsByTokenInput2: {
                 token: cookies.userJwtToken
             }
         }
@@ -56,16 +56,30 @@ export const MyGigs = () => {
         return (
             <div>
                 <h1>My Gigs</h1>
-                <Accordion>
-                    {data.getGigsByToken.map((gig: any) => (
-                        <Accordion.Item eventKey={gig.id}>
-                            <Accordion.Header>{gig.title}</Accordion.Header>
-                            <Accordion.Body>
-                                <p>{gig.description}</p>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    ))}
-                </Accordion>
+                <Card style={{
+                    margin: "auto",
+                    width: "50%"
+                }}>
+                    <Accordion>
+                        {data.getGigsByToken.map((gig: any) => {
+                            return (
+                                <Card>
+                                    <Accordion.Item eventKey={gig.id}>
+                                        <Accordion.Header>
+                                            <h1>{gig.title}</h1>
+                                        </Accordion.Header>
+                                        <Accordion.Body>
+                                            <p>{gig.description}</p>
+                                            <Button>
+                                                <a href={`/editGig/${gig.id}`}>Edit</a>
+                                            </Button>
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                </Card>
+                            );
+                        })}
+                    </Accordion>
+                </Card>
             </div>
         );
     } else {

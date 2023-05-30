@@ -34,7 +34,7 @@ export const gigSchema = `#graphql
         features: [String]!
         sales: Int
         rating: Float
-        token: UserJwtTokenInput!
+        token: UserJwtTokenInput
         reviews: [String]
         createdAt: String
         updatedAt: String
