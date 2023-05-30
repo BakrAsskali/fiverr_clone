@@ -36,7 +36,7 @@ const UPDATE_GIG = gql`
             sales
             rating
             reviews
-            freelancerToken {
+            token {
             token
             }
             createdAt
@@ -46,7 +46,7 @@ const UPDATE_GIG = gql`
 `;
 
 const DELETE_GIG = gql`
-    mutation UpdateGig($deleteGigId: ID!) {
+    mutation DeleteGig($deleteGigId: ID!) {
         deleteGig(id: $deleteGigId) {
             id
             title
@@ -63,7 +63,7 @@ const DELETE_GIG = gql`
             sales
             rating
             reviews
-            freelancerToken {
+            token {
                 token
             }
             createdAt
@@ -118,19 +118,18 @@ export const EditGig = () => {
         const filename = gigImage?.replace("C:\\fakepath\\", "");
 
         const gig = {
-            gigName,
-            gigDescription,
-            gigPrice,
-            gigImage,
-            gigDeliveryTime,
+            title: gigName,
+            description: gigDescription,
+            price: gigPrice,
+            coverImage: filename,
+            deliveryTime: gigDeliveryTime,
         };
 
         uploadBlob(filename, gigImage).then(() => {
             updateGig({
                 variables: {
-                    input: {
-                        gig,
-                    }
+                    updateGigId: gigId,
+                    input: gig,
                 }
             });
         });
@@ -143,10 +142,17 @@ export const EditGig = () => {
     const gigPriceRef = useRef<HTMLInputElement>(null);
     const gigImageRef = useRef<HTMLInputElement>(null);
     const gigDeliveryTimeRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+    const confirmPasswordRef = useRef<HTMLInputElement>(null);
+
 
     const handleDelete = (e: any) => {
         e.preventDefault();
 
+        if (passwordRef.current?.value !== confirmPasswordRef.current?.value) {
+            alert("Passwords do not match");
+            return;
+        }
         deleteGig({
             variables: {
                 deleteGigId: gigId,
@@ -234,7 +240,7 @@ export const EditGig = () => {
                 <br />
                 <br />
                 <br />
-                <FormControl onSubmit={handleDelete}>
+                <form onSubmit={handleDelete}>
                     <FormLabel style={{
                         color: "#FF0000",
                         width: "100%",
@@ -256,10 +262,10 @@ export const EditGig = () => {
                         </b>
                     </Text>
                     <br />
-                    <Input placeholder="Enter Password" type='password' />
+                    <Input placeholder="Enter Password" type='password' ref={passwordRef} />
                     <br />
                     <br />
-                    <Input placeholder="Confirm Password" type='password' />
+                    <Input placeholder="Confirm Password" type='password' ref={confirmPasswordRef} />
                     <br />
                     <br />
                     <Button style={{
@@ -268,10 +274,10 @@ export const EditGig = () => {
                         borderRadius: "10px",
                         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
 
-                    }}>
+                    }} type='submit'>
                         Delete
                     </Button>
-                </FormControl>
+                </form>
             </Card >
         </div>
     );

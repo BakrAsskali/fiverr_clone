@@ -21,17 +21,17 @@ export const gigSchema = `#graphql
     }
 
     input GigInput {
-        title: String!
-        shortTitle: String!
-        description: String!
-        shortDesc: String!
-        price: Float!
-        coverImage: String!
-        images: [String]!
-        category: String!
+        title: String
+        shortTitle: String
+        description: String
+        shortDesc: String
+        price: Float
+        coverImage: String
+        images: [String]
+        category: String
         deliveryTime: Int
-        revisionNumber: Int!
-        features: [String]!
+        revisionNumber: Int
+        features: [String]
         sales: Int
         rating: Float
         token: UserJwtTokenInput
