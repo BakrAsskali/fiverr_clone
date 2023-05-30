@@ -1,4 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
+import { Button } from "@chakra-ui/react";
 import { on } from "events";
 import React from "react";
 import { Accordion } from "react-bootstrap";
@@ -71,8 +72,20 @@ export const MyGigs = () => {
         return (
             <div>
                 <h1>My Gigs</h1>
-                <p>Loading...</p>
-            </div>
+                <p style={{
+                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    fontWeight: "bold"
+                }}>
+                    You have no gigs yet.
+                </p>
+                <Button style={{
+                    margin: "auto",
+                    display: "block"
+                }}>
+                    <a href="/add">Create one now!</a>
+                </Button>
+            </div >
         );
     }
 };
